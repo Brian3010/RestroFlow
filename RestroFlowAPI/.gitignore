@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+# frontend files
+../frontend
+
 # dotenv files
 .env
 
