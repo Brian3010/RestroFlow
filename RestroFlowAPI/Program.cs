@@ -1,4 +1,6 @@
 
+using RestroFlowAPI.Data;
+
 namespace RestroFlowAPI
 {
   public class Program
@@ -12,6 +14,13 @@ namespace RestroFlowAPI
       // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
       builder.Services.AddEndpointsApiExplorer();
       builder.Services.AddSwaggerGen();
+
+      // DBContext
+      builder.Services.AddDbContext<RestroFlowAuthDbContext>(options => builder.Configuration.GetConnectionString("RestroFlowConnectionString"));
+
+      //Authentication and Authorization
+      //builder.Services.AddAuthorization;
+      //builder.Services.AddAuthentication().AddBearerToken(JwtBearerToken);
 
       var app = builder.Build();
 
