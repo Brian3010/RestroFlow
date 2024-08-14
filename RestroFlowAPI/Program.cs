@@ -1,4 +1,7 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using RestroFlowAPI.Data;
 
 namespace RestroFlowAPI
@@ -15,12 +18,18 @@ namespace RestroFlowAPI
       builder.Services.AddEndpointsApiExplorer();
       builder.Services.AddSwaggerGen();
 
-      // DBContext
-      builder.Services.AddDbContext<RestroFlowAuthDbContext>(options => builder.Configuration.GetConnectionString("RestroFlowConnectionString"));
+      // Inject DbContexts
+      builder.Services.AddDbContext<RestroFlowAuthDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("RestroFlowAuthConnectionString")));
+
+      // Add Identity system to the ASP.NET Core service container
+      builder.Services.AddIdentityCore<IdentityUser>()
+        .AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<RestroFlowAuthDbContext>()
+        .AddDefaultTokenProviders();
+
 
       //Authentication and Authorization
-      //builder.Services.AddAuthorization;
-      //builder.Services.AddAuthentication().AddBearerToken(JwtBearerToken);
+      builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
       var app = builder.Build();
 
