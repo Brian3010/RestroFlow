@@ -12,11 +12,13 @@ namespace RestroFlowAPI.Controllers
     private readonly UserManager<IdentityUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ITokenService _tokenService;
+    private readonly ILogger<AuthController> _logger;
 
-    public AuthController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ITokenService tokenService) {
+    public AuthController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ITokenService tokenService, ILogger<AuthController> logger) {
       _userManager = userManager;
       _roleManager = roleManager;
       _tokenService = tokenService;
+      _logger = logger;
     }
 
     // POST: /api/Auth/register
@@ -47,12 +49,29 @@ namespace RestroFlowAPI.Controllers
         // Add roles to user
         identityResult = await _userManager.AddToRolesAsync(identityUser, registerRequestDto.Roles);
         if (identityResult.Succeeded) {
-          // generate Token
-          var jwtToken = _tokenService.GenerateJwtToken(identityUser, registerRequestDto.Roles.ToList());
+          return Ok("Registered succesffully");
+        }
+      }
 
+      return BadRequest(identityResult.Errors);
+
+    }
+
+
+    // POST: /api/Auth/login
+    [HttpPost]
+    [Route("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequest) {
+      var user = await _userManager.FindByEmailAsync(loginRequest.UserName);
+
+      if (user != null) {
+        if (await _userManager.CheckPasswordAsync(user, loginRequest.Password)) {
+          var userRoles = await _userManager.GetRolesAsync(user);
+
+          var jwtToken = _tokenService.GenerateJwtToken(user, userRoles.ToList());
           var response = new LoginRepponseDto() {
-            JwtToken = jwtToken,
-            Message = "Succesffully Register"
+            Message = "Token Created",
+            Token = jwtToken
           };
 
           return Ok(response);
@@ -60,18 +79,9 @@ namespace RestroFlowAPI.Controllers
       }
 
 
-
-      return BadRequest(identityResult.Errors);
+      return BadRequest("Username or password incorrect!");
 
     }
-
-    //[HttpPost]
-    //[Route("login")]
-    //public Task<IActionResult> Login([FromBody] LoginRequestDto) {
-
-
-
-    //}
 
 
 
