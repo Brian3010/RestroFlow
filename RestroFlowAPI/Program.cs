@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using RestroFlowAPI.Data;
 using RestroFlowAPI.Interfaces;
 using RestroFlowAPI.Middlewares;
+using RestroFlowAPI.OptionsSetup;
 using RestroFlowAPI.Services;
 using Serilog;
-using System.Text;
 
 namespace RestroFlowAPI
 {
@@ -43,15 +42,12 @@ namespace RestroFlowAPI
         .AddDefaultTokenProviders();
       builder.Services.Configure<IdentityOptions>(options => {
         options.User.RequireUniqueEmail = true;
-        //options.Password.RequireDigit = true;
-        //options.Password.RequireNonAlphanumeric = true;
-        //options.Password.RequireUppercase = true;
-        //options.Password.RequiredUniqueChars = 1;
-        //options.Password.RequiredLength = 6;
+        options.Password.RequiredLength = 6;
       });
 
 
       //Authentication and Authorization
+      /*
       builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
         options.TokenValidationParameters = new TokenValidationParameters {
           ValidateIssuer = true,
@@ -63,6 +59,9 @@ namespace RestroFlowAPI
           IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SigningKey"]))
         };
       });
+      */
+
+      builder.Services.ConfigureOptions<JwtBearerTokenOptions>().AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
       var app = builder.Build();
 
