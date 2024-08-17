@@ -44,5 +44,9 @@ namespace RestroFlowAPI.Services
       return new JwtSecurityTokenHandler().WriteToken(token);
 
     }
+
+    public bool GenerateRefreshToken() {
+
+    }
   }
 }

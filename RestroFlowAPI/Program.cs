@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using RestroFlowAPI.Data;
 using RestroFlowAPI.Interfaces;
 using RestroFlowAPI.Middlewares;
@@ -27,7 +28,27 @@ namespace RestroFlowAPI
       builder.Services.AddControllers();
       // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
       builder.Services.AddEndpointsApiExplorer();
-      builder.Services.AddSwaggerGen();
+      builder.Services.AddSwaggerGen(options => {
+        options.SwaggerDoc("v1", new OpenApiInfo { Title = "RestroFlow APIs", Version = "V1" });
+        options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme {
+          Name = "Authorization",
+          Description = "Enter 'Bearer' following by space and JWT.",
+          In = ParameterLocation.Header,
+          Type = SecuritySchemeType.ApiKey,
+          Scheme = "bearer",
+        });
+        options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+          {
+            new OpenApiSecurityScheme {
+              Reference = new OpenApiReference{Type = ReferenceType.SecurityScheme, Id = JwtBearerDefaults.AuthenticationScheme },
+              Scheme ="Oauth2",
+              Name = JwtBearerDefaults.AuthenticationScheme,
+              In = ParameterLocation.Header
+            },
+             new List<string>()
+          }
+        });
+      });
 
       // Inject DbContexts
       builder.Services.AddDbContext<RestroFlowAuthDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("RestroFlowAuthConnectionString")));
