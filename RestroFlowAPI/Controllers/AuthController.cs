@@ -26,6 +26,8 @@ namespace RestroFlowAPI.Controllers
     [Route("register")]
 
     public async Task<IActionResult> Register([FromBody] RegisterRequestDto registerRequestDto) {
+      //Todo: Check match password and confirmPassword
+
 
       var identityUser = new IdentityUser() {
         UserName = registerRequestDto.UserName,
@@ -64,14 +66,21 @@ namespace RestroFlowAPI.Controllers
     public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequest) {
       var user = await _userManager.FindByEmailAsync(loginRequest.UserName);
 
+
+
       if (user != null) {
         if (await _userManager.CheckPasswordAsync(user, loginRequest.Password)) {
           var userRoles = await _userManager.GetRolesAsync(user);
 
+          //TODO: store RefreshToken in Cookie and database (redis or firebase)
+
           var jwtToken = _tokenService.GenerateJwtToken(user, userRoles.ToList());
           var response = new LoginRepponseDto() {
-            Message = "Token Created",
-            Token = jwtToken
+            Message = "Login Successfully",
+            AccessToken = jwtToken,
+            UserId = user.Id,
+            UserName = user.UserName!,
+            UserEmail = user.Email!
           };
 
           return Ok(response);
