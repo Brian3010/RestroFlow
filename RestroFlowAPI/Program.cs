@@ -53,8 +53,14 @@ namespace RestroFlowAPI
       // Inject DbContexts
       builder.Services.AddDbContext<RestroFlowAuthDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("RestroFlowAuthConnectionString")));
 
+      // Add Redis connection
+      builder.Services.AddStackExchangeRedisCache(redisOptions => {
+        redisOptions.Configuration = builder.Configuration.GetConnectionString("RedisConnectionString");
+      });
+
       // register DIs
       builder.Services.AddScoped<ITokenService, TokenService>();
+      builder.Services.AddScoped<ICustomCookieManager, CookiesManager>();
 
       // Add Identity system to the ASP.NET Core service container
       builder.Services.AddIdentityCore<IdentityUser>()

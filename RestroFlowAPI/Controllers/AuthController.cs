@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RestroFlowAPI.DTOs;
 using RestroFlowAPI.Interfaces;
 using RestroFlowAPI.Models.DTOs;
 
@@ -13,12 +14,14 @@ namespace RestroFlowAPI.Controllers
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ITokenService _tokenService;
     private readonly ILogger<AuthController> _logger;
+    private readonly ICustomCookieManager _cookieManager;
 
-    public AuthController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ITokenService tokenService, ILogger<AuthController> logger) {
+    public AuthController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ITokenService tokenService, ILogger<AuthController> logger, ICustomCookieManager cookieManager) {
       _userManager = userManager;
       _roleManager = roleManager;
       _tokenService = tokenService;
       _logger = logger;
+      _cookieManager = cookieManager;
     }
 
     // POST: /api/Auth/register
@@ -72,15 +75,22 @@ namespace RestroFlowAPI.Controllers
         if (await _userManager.CheckPasswordAsync(user, loginRequest.Password)) {
           var userRoles = await _userManager.GetRolesAsync(user);
 
-          //TODO: store RefreshToken in Cookie and database (redis or firebase)
+          // TODO: store RefreshToken in Cookie and database (redis or firebase)
 
-          var jwtToken = _tokenService.GenerateJwtToken(user, userRoles.ToList());
+
+
+          var accessToken = _tokenService.GenerateJwtToken(user, userRoles.ToList());
+          var refreshToken = _tokenService.GenerateRefreshToken();
+          _logger.LogInformation("refreshToken: {RefreshToken}", refreshToken);
+
+          // save refreshToken to the database, if exists -> replace new one
+
+          // set refreshToken to cookie in reponse
+          _cookieManager.SetCookie(HttpContext, "RefreshToken", refreshToken); // default 1 hour expiration
           var response = new LoginRepponseDto() {
             Message = "Login Successfully",
-            AccessToken = jwtToken,
-            UserId = user.Id,
-            UserName = user.UserName!,
-            UserEmail = user.Email!
+            AccessToken = accessToken,
+            User = new UserDto { Id = user.Id, Email = user.Email, UserName = user.UserName }
           };
 
           return Ok(response);

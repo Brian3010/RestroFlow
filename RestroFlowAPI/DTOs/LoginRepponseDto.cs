@@ -1,4 +1,6 @@
-﻿namespace RestroFlowAPI.Models.DTOs
+﻿using RestroFlowAPI.DTOs;
+
+namespace RestroFlowAPI.Models.DTOs
 {
   public class LoginRepponseDto
   {
@@ -6,10 +8,12 @@
 
     public string AccessToken { get; set; }
 
-    public string UserId { get; set; }
+    //public string UserId { get; set; }
 
-    public string UserEmail { get; set; }
-    public string UserName { get; set; }
+    //public string UserEmail { get; set; }
+    //public string UserName { get; set; }
+
+    public UserDto User { get; set; }
 
   }
 }
