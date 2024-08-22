@@ -8,6 +8,7 @@ using RestroFlowAPI.Middlewares;
 using RestroFlowAPI.OptionsSetup;
 using RestroFlowAPI.Services;
 using Serilog;
+using StackExchange.Redis;
 
 namespace RestroFlowAPI
 {
@@ -54,9 +55,13 @@ namespace RestroFlowAPI
       builder.Services.AddDbContext<RestroFlowAuthDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("RestroFlowAuthConnectionString")));
 
       // Add Redis connection
-      builder.Services.AddStackExchangeRedisCache(redisOptions => {
-        redisOptions.Configuration = builder.Configuration.GetConnectionString("RedisConnectionString");
+      builder.Services.AddSingleton<IConnectionMultiplexer>(sp => {
+        var configuration = builder.Configuration.GetConnectionString("RedisConnectionString")!;
+        return ConnectionMultiplexer.Connect(configuration);
       });
+      //builder.Services.AddStackExchangeRedisCache(redisOptions => {
+      //  redisOptions.Configuration = builder.Configuration.GetConnectionString("RedisConnectionString");
+      //});
 
       // register DIs
       builder.Services.AddScoped<ITokenService, TokenService>();

@@ -7,14 +7,11 @@ namespace RestroFlowAPI.Services
   public class RedisTokenService : IRedisTokenService
   {
     //private readonly IDistributedCache _distributedCache; // use this for caching
-    private readonly IConnectionMultiplexer _connectionMultiplexer;
     private readonly IDatabase _redisDb;
 
     public RedisTokenService(IDistributedCache distributedCache, IConnectionMultiplexer connectionMultiplexer) {
       //_distributedCache = distributedCache;
-      _connectionMultiplexer = connectionMultiplexer;
-      _redisDb = _connectionMultiplexer.GetDatabase();
-
+      _redisDb = connectionMultiplexer.GetDatabase();
     }
 
 
