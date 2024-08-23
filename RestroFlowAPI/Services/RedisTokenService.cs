@@ -15,25 +15,19 @@ namespace RestroFlowAPI.Services
     }
 
 
-    public async Task<string> GetRFTokenByUserId(string id) {
+    public async Task<RedisValue[]> GetRFTokenByUserId(string id) {
       string key = $"userId-{id}";
 
-      string? tokenValue = await _redisDb.StringGetAsync(key);
-      if (string.IsNullOrEmpty(tokenValue)) {
-        return "";
-      }
-
-      return tokenValue;
+      return await _redisDb.SetMembersAsync(key);
     }
 
-    public Task RemoveTokenbyUserId(string id) {
-
-
-
+    public async Task<bool> RemoveTokenbyUserId(string id, string refreshToken) {
+      string key = $"userId-{id}";
+      return await _redisDb.SetRemoveAsync(key, refreshToken);
       throw new NotImplementedException();
     }
 
-    public Task SetRFToken(string key, string value, TimeSpan expiryTimeSpan) {
+    public async Task SetRFToken(string key, string value, TimeSpan expiryTimeSpan) {
 
       //Validate the incoming refresh token.
       //If valid, generate a new refresh token.

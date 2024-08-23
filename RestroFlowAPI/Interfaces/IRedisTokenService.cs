@@ -1,11 +1,13 @@
-﻿namespace RestroFlowAPI.Interfaces
+﻿using StackExchange.Redis;
+
+namespace RestroFlowAPI.Interfaces
 {
   public interface IRedisTokenService
   {
     Task SetRFToken(string key, string value, TimeSpan expiryTimeSpan);
 
-    Task RemoveTokenbyUserId(string id);
+    Task<bool> RemoveTokenbyUserId(string id, string refreshToken);
 
-    Task<string> GetRFTokenByUserId(string id);
+    Task<RedisValue[]> GetRFTokenByUserId(string id);
   }
 }
