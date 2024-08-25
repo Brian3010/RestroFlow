@@ -15,13 +15,15 @@ namespace RestroFlowAPI.Controllers
     private readonly ITokenService _tokenService;
     private readonly ILogger<AuthController> _logger;
     private readonly ICustomCookieManager _cookieManager;
+    private readonly IRedisTokenService _redisTokenService;
 
-    public AuthController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ITokenService tokenService, ILogger<AuthController> logger, ICustomCookieManager cookieManager) {
+    public AuthController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, ITokenService tokenService, ILogger<AuthController> logger, ICustomCookieManager cookieManager, IRedisTokenService redisTokenService) {
       _userManager = userManager;
       _roleManager = roleManager;
       _tokenService = tokenService;
       _logger = logger;
       _cookieManager = cookieManager;
+      _redisTokenService = redisTokenService;
     }
 
     // POST: /api/Auth/register
@@ -38,9 +40,9 @@ namespace RestroFlowAPI.Controllers
       };
 
       // Check if role exist
-      if (registerRequestDto.Roles != null || registerRequestDto.Roles.Count() == 0) {
+      if (registerRequestDto.Roles == null || registerRequestDto.Roles.Length == 0) {
 
-        foreach (string role in registerRequestDto.Roles) {
+        foreach (string role in registerRequestDto.Roles!) {
           if (!await _roleManager.RoleExistsAsync(role)) {
             return BadRequest($"Role '{role}' does not exist.");
           }
@@ -71,21 +73,25 @@ namespace RestroFlowAPI.Controllers
 
 
 
+      // Check if user exist
       if (user != null) {
+        // Genereate deviceId
+        string deviceId = Guid.NewGuid().ToString();
+
+        // Check password
         if (await _userManager.CheckPasswordAsync(user, loginRequest.Password)) {
           var userRoles = await _userManager.GetRolesAsync(user);
-
-          // TODO: store RefreshToken in Cookie and database (redis or firebase)
-
-
 
           var accessToken = _tokenService.GenerateJwtToken(user, userRoles.ToList());
           var refreshToken = _tokenService.GenerateRefreshToken();
           _logger.LogInformation("refreshToken: {RefreshToken}", refreshToken);
 
-          // save refreshToken to the database, if exists -> replace new one
+          /* save refreshToken to the database*/
+          //await _redisTokenService.RemoveAllRefeshToken(user.Id); 
+          await _redisTokenService.AddRFToken(user.Id, refreshToken, deviceId);
+          var tokens = await _redisTokenService.GetRFTokensByUserId(user.Id);
+          _logger.LogInformation("tokens by userId-{user.Id}: {Tokens}", user.Id, tokens);
 
-          // set refreshToken to cookie in reponse
           _cookieManager.SetCookie(HttpContext, "RefreshToken", refreshToken); // default 1 hour expiration
           var response = new LoginRepponseDto() {
             Message = "Login Successfully",
@@ -94,6 +100,7 @@ namespace RestroFlowAPI.Controllers
           };
 
           return Ok(response);
+
         }
       }
 
@@ -101,6 +108,13 @@ namespace RestroFlowAPI.Controllers
       return BadRequest("Username or password incorrect!");
 
     }
+
+    //Validate the incoming refresh token.
+    //If valid, generate a new refresh token.
+    //Replace the old refresh token with the new one in Redis.
+    //Return the new token to the client.
+    //The old token is immediately invalidated, and only the new token can be used for future requests.'
+    // Set new value will remove the old one
 
 
 

@@ -66,6 +66,7 @@ namespace RestroFlowAPI
       // register DIs
       builder.Services.AddScoped<ITokenService, TokenService>();
       builder.Services.AddScoped<ICustomCookieManager, CookiesManager>();
+      builder.Services.AddScoped<IRedisTokenService, RedisTokenService>();
 
       // Add Identity system to the ASP.NET Core service container
       builder.Services.AddIdentityCore<IdentityUser>()
