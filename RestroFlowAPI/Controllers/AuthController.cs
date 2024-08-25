@@ -92,7 +92,9 @@ namespace RestroFlowAPI.Controllers
           var tokens = await _redisTokenService.GetRFTokensByUserId(user.Id);
           _logger.LogInformation("tokens by userId-{user.Id}: {Tokens}", user.Id, tokens);
 
-          _cookieManager.SetCookie(HttpContext, "RefreshToken", refreshToken); // default 1 hour expiration
+          // set Cookies for refreshToken and deviceId
+          _cookieManager.SetCookie(HttpContext, "RefreshToken", refreshToken, 10080); // 10080 = 1 week
+          _cookieManager.SetCookie(HttpContext, "deviceId", deviceId, 10080);
           var response = new LoginRepponseDto() {
             Message = "Login Successfully",
             AccessToken = accessToken,
@@ -115,6 +117,16 @@ namespace RestroFlowAPI.Controllers
     //Return the new token to the client.
     //The old token is immediately invalidated, and only the new token can be used for future requests.'
     // Set new value will remove the old one
+
+    //
+    [HttpPost]
+    [Route("refresh-token")]
+    public async Task<IActionResult> RefreshAuthToken([FromBody] RFTokenRequestDto refreshTokenBody) {
+
+
+      return Ok(refreshTokenBody);
+    }
+
 
 
 
