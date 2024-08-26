@@ -11,7 +11,7 @@
 
     /// <param name="key">The key of the cookie.</param>
     /// <returns>The value of the cookie if it exists, otherwise null.</returns>
-    string GetCookie(HttpContext httpContext, string key);
+    string? GetCookie(HttpContext httpContext, string key);
 
     /// <param name="key">The key of the cookie to delete.</param>
     void DeleteCookie(HttpContext httpContext, string key);

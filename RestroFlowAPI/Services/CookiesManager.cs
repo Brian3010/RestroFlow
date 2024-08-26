@@ -13,8 +13,8 @@ namespace RestroFlowAPI.Services
       httpContext.Response.Cookies.Delete(key);
     }
 
-    public string GetCookie(HttpContext httpContext, string key) {
-      httpContext.Request.Cookies.TryGetValue(key, out string value);
+    public string? GetCookie(HttpContext httpContext, string key) {
+      httpContext.Request.Cookies.TryGetValue(key, out string? value);
       return value;
     }
 

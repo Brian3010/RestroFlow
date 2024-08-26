@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RestroFlowAPI.DTOs;
+using RestroFlowAPI.Helpers;
 using RestroFlowAPI.Interfaces;
 using RestroFlowAPI.Models.DTOs;
 
@@ -75,8 +76,9 @@ namespace RestroFlowAPI.Controllers
 
       // Check if user exist
       if (user != null) {
-        // Genereate deviceId
-        string deviceId = Guid.NewGuid().ToString();
+        // if no deviceId exist, create a new one
+        string? deviceId = _cookieManager.GetCookie(HttpContext, "deviceId");
+        deviceId ??= Guid.NewGuid().ToString();
 
         // Check password
         if (await _userManager.CheckPasswordAsync(user, loginRequest.Password)) {
@@ -93,8 +95,9 @@ namespace RestroFlowAPI.Controllers
           _logger.LogInformation("tokens by userId-{user.Id}: {Tokens}", user.Id, tokens);
 
           // set Cookies for refreshToken and deviceId
-          _cookieManager.SetCookie(HttpContext, "RefreshToken", refreshToken, 10080); // 10080 = 1 week
-          _cookieManager.SetCookie(HttpContext, "deviceId", deviceId, 10080);
+          int COOKIE_EXPIRE_TIME = 10080; // 10080 = 1 week
+          _cookieManager.SetCookie(HttpContext, "RefreshToken", refreshToken, COOKIE_EXPIRE_TIME); // 10080 = 1 week
+          _cookieManager.SetCookie(HttpContext, "deviceId", deviceId, COOKIE_EXPIRE_TIME);
           var response = new LoginRepponseDto() {
             Message = "Login Successfully",
             AccessToken = accessToken,
@@ -111,20 +114,22 @@ namespace RestroFlowAPI.Controllers
 
     }
 
-    //Validate the incoming refresh token.
-    //If valid, generate a new refresh token.
-    //Replace the old refresh token with the new one in Redis.
-    //Return the new token to the client.
-    //The old token is immediately invalidated, and only the new token can be used for future requests.'
-    // Set new value will remove the old one
 
-    //
+
     [HttpPost]
     [Route("refresh-token")]
     public async Task<IActionResult> RefreshAuthToken([FromBody] RFTokenRequestDto refreshTokenBody) {
+      var userId = refreshTokenBody.userId;
+      var deviceId = _cookieManager.GetCookie(HttpContext, "deviceId");
+      // redirect if either null
+      if (userId == null || deviceId == null) return CustomResponseCode.CreateResponse("Redirect to /login", 302);
 
+      // check refreshToken exist in redis DB
+      // if exist, create a new accessToken and refreshToken
+      // accessToken sent back as response
+      // refreshToken set in httpOnly Cookie
 
-      return Ok(refreshTokenBody);
+      return Ok(new { userId, deviceId });
     }
 
 

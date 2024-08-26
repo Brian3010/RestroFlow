@@ -21,5 +21,8 @@ namespace RestroFlowAPI.Interfaces
 
     // removes all refresh tokens associated with a specific userId
     Task RemoveAllRefeshToken(string userId);
+
+    // check if user's device already exist in the database
+    Task<bool> IsDeviceIdExist(string userId, string deviceId);
   }
 }

@@ -2,10 +2,8 @@
 using StackExchange.Redis;
 
 
-/* redis table
- * user123(key) {device1:token123, device2:token345}
- * user456(key) {device1:token121, device2:token345}
- * user789(key) {device1:token123, device2:token345}
+/* redis table using hashes
+ * 
  */
 namespace RestroFlowAPI.Services
 {
@@ -17,52 +15,57 @@ namespace RestroFlowAPI.Services
       _redisDb = connectionMultiplexer.GetDatabase();
     }
 
+    private string KEY(string userId, string deviceId) => $"user:{userId}:deviceId:{deviceId}";
+
     public async Task AddRFToken(string userId, string refreshToken, string deviceId) {
-      // Combine deviceId and refreshToken into a single value
-      string tokenData = $"{deviceId}:{refreshToken}";
 
-      // Remove any existing token for the device if any
-      await RemoveRefeshToken(userId, deviceId);
+      int expirationInSeconds = (int)TimeSpan.FromDays(1).TotalSeconds;
+      //int expirationInSeconds = (int)TimeSpan.FromSeconds(10).TotalSeconds;
 
-      // Add the new token to the Redis Set
-      await _redisDb.SetAddAsync(userId, tokenData);
+      await _redisDb.StringSetAsync(KEY(userId, deviceId), refreshToken, TimeSpan.FromSeconds(expirationInSeconds));
     }
 
     public async Task<string?> GetRFTokenByDeviceId(string userId, string deviceId) {
-      var refreshTokens = await _redisDb.SetMembersAsync(userId);
-
-      foreach (var token in refreshTokens) {
-        var parts = token.ToString().Split(':');
-        if (parts[0] == deviceId) {
-          return parts[1];
-        }
-      }
-      return null;
+      return await _redisDb.StringGetAsync(KEY(userId, deviceId));
     }
 
     public async Task<RedisValue[]> GetRFTokensByUserId(string userId) {
-      return await _redisDb.SetMembersAsync(userId);
+      var redisKeys = await GetKeysByUserId(userId);
+      RedisValue[] tokens = new RedisValue[redisKeys.Length];
+
+      for (int i = 0; i < redisKeys.Length; i++) {
+        tokens[i] = await _redisDb.StringGetAsync(redisKeys[i]);
+      }
+
+      return tokens;
+    }
+
+
+    public async Task<bool> IsDeviceIdExist(string userId, string deviceId) {
+      return await _redisDb.KeyExistsAsync(KEY(userId, deviceId));
     }
 
     public async Task<bool> IsRefreshTokenValid(string userId, string deviceId, string refreshToken) {
-      var tokenData = $"{deviceId}:{refreshToken}";
-      return await _redisDb.SetContainsAsync(userId, tokenData);
+      var token = await GetRFTokenByDeviceId(userId, deviceId);
+      return token != null && token == refreshToken;
     }
 
     public async Task RemoveAllRefeshToken(string userId) {
-      await _redisDb.KeyDeleteAsync(userId);
+      var keys = await GetKeysByUserId(userId);
+      foreach (var key in keys) {
+        await _redisDb.KeyDeleteAsync(key);
+      }
     }
 
     public async Task RemoveRefeshToken(string userId, string deviceId) {
-      // get tokens by userId return {device1:token123, device2:token345}
-      var refreshTokens = await _redisDb.SetMembersAsync(userId);
+      string redisKey = KEY(userId, deviceId);
+      await _redisDb.KeyDeleteAsync(redisKey);
+    }
 
-      // 
-      foreach (var token in refreshTokens) {
-        if (token.ToString().StartsWith($"{deviceId}:")) {
-          await _redisDb.SetRemoveAsync(userId, token);
-        }
-      }
+    // Helper method to get all keys by userId
+    private async Task<RedisKey[]> GetKeysByUserId(string userId) {
+      var server = _redisDb.Multiplexer.GetServer(_redisDb.Multiplexer.GetEndPoints()[0]);
+      return server.Keys(pattern: $"user:{userId}:deviceId:*").ToArray();
     }
   }
 }
