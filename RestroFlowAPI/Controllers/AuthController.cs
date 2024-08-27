@@ -124,6 +124,10 @@ namespace RestroFlowAPI.Controllers
       // redirect if either null
       if (userId == null || deviceId == null) return CustomResponseCode.CreateResponse("Redirect to /login", 302);
 
+      if (!await _redisTokenService.IsDeviceIdOrUserIdExist(userId, deviceId))
+        return CustomResponseCode.CreateResponse("userId or deviceId not foud", 404);
+
+      // check if either userId or deviceId exist in database
       // check refreshToken exist in redis DB
       // if exist, create a new accessToken and refreshToken
       // accessToken sent back as response
