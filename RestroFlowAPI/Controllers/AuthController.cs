@@ -92,7 +92,7 @@ namespace RestroFlowAPI.Controllers
           //await _redisTokenService.RemoveAllRefeshToken(user.Id); 
           await _redisTokenService.AddRFToken(user.Id, refreshToken, deviceId);
           var tokens = await _redisTokenService.GetRFTokensByUserId(user.Id);
-          _logger.LogInformation("tokens by userId-{user.Id}: {Tokens}", user.Id, tokens);
+          _logger.LogInformation("tokens by userId-{0}: {1}", user.Id, tokens);
 
           // set Cookies for refreshToken and deviceId
           int COOKIE_EXPIRE_TIME = 10080; // 10080 = 1 week
@@ -125,8 +125,9 @@ namespace RestroFlowAPI.Controllers
       if (userId == null || deviceId == null) return CustomResponseCode.CreateResponse("Redirect to /login", 302);
 
       if (!await _redisTokenService.IsDeviceIdOrUserIdExist(userId, deviceId))
-        return CustomResponseCode.CreateResponse("userId or deviceId not foud", 404);
+        return CustomResponseCode.CreateResponse("userId or deviceId not found", 404);
 
+      //_logger.Info
       // check if either userId or deviceId exist in database
       // check refreshToken exist in redis DB
       // if exist, create a new accessToken and refreshToken

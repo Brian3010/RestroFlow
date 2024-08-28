@@ -37,7 +37,6 @@ namespace RestroFlowAPI.Services
 
       for (int i = 0; i < redisKeys.Length; i++) {
         tokens[i] = await _redisDb.StringGetAsync(redisKeys[i]);
-        _logger.LogInformation($"redisRF Token:{i}: {tokens[i]}");
       }
 
       return tokens;
@@ -49,7 +48,7 @@ namespace RestroFlowAPI.Services
 
       foreach (var key in redisKeys) {
         var parts = key.ToString().Split(":");
-        _logger.LogInformation($"deviceId: {parts[3]}");
+        //_logger.LogInformation($"deviceId: {parts[3]}");
         deviceIds.Add(parts[3]);
 
       }
