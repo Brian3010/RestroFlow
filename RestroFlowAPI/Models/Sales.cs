@@ -12,15 +12,15 @@
 
     // Foreign Keys
     public required Guid RestaurantId { get; set; }
-    public required Guid RestaurantItemId { get; set; }
+    public required Guid RestaurantMenuId { get; set; }
     public required Guid IncomeSourceId { get; set; }
 
 
 
     // Navigation Properites
     public required Restaurant Restaurant { get; set; }
-    public required RestaurantItem RestaurantItem { get; set; }
-    public required IncomeSource IncomeSource { get; set; }
+    public required RestaurantMenus RestaurantMenus { get; set; }
+    public required IncomeSources IncomeSources { get; set; }
 
   }
 }

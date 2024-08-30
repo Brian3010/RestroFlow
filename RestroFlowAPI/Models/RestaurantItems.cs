@@ -1,6 +1,6 @@
 ﻿namespace RestroFlowAPI.Models
 {
-  public class RestaurantItem
+  public class RestaurantItems
   {
     public required Guid Id { get; set; }
 
