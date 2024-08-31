@@ -1,8 +1,8 @@
 ﻿using StackExchange.Redis;
 
-namespace RestroFlowAPI.Interfaces
+namespace RestroFlowAPI.Repositories.Interfaces
 {
-  public interface IRedisTokenService
+  public interface IRedisTokenRepository
   {
     // storing a refresh token associated with a specific userId and deviceId
     Task AddRFToken(string userId, string refreshToken, string deviceId);

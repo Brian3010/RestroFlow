@@ -6,6 +6,8 @@ using RestroFlowAPI.Data;
 using RestroFlowAPI.Interfaces;
 using RestroFlowAPI.Middlewares;
 using RestroFlowAPI.OptionsSetup;
+using RestroFlowAPI.Repositories;
+using RestroFlowAPI.Repositories.Interfaces;
 using RestroFlowAPI.Services;
 using Serilog;
 using StackExchange.Redis;
@@ -66,7 +68,7 @@ namespace RestroFlowAPI
       // register DIs
       builder.Services.AddScoped<ITokenService, TokenService>();
       builder.Services.AddScoped<ICustomCookieManager, CookiesManager>();
-      builder.Services.AddScoped<IRedisTokenService, RedisTokenService>();
+      builder.Services.AddScoped<IRedisTokenRepository, RedisTokenRepository>();
 
       // Add Identity system to the ASP.NET Core service container
       builder.Services.AddIdentityCore<IdentityUser>()

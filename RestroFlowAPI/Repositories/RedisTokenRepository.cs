@@ -1,18 +1,18 @@
-﻿using RestroFlowAPI.Interfaces;
+﻿using RestroFlowAPI.Repositories.Interfaces;
 using StackExchange.Redis;
 
 
 /* redis table using hashes
  * 
  */
-namespace RestroFlowAPI.Services
+namespace RestroFlowAPI.Repositories
 {
-  public class RedisTokenService : IRedisTokenService
+  public class RedisTokenRepository : IRedisTokenRepository
   {
     private readonly IDatabase _redisDb;
-    private readonly ILogger<RedisTokenService> _logger;
+    private readonly ILogger<RedisTokenRepository> _logger;
 
-    public RedisTokenService(IConnectionMultiplexer connectionMultiplexer, ILogger<RedisTokenService> logger) {
+    public RedisTokenRepository(IConnectionMultiplexer connectionMultiplexer, ILogger<RedisTokenRepository> logger) {
       _redisDb = connectionMultiplexer.GetDatabase();
       _logger = logger;
     }
