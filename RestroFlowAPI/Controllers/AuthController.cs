@@ -96,8 +96,10 @@ namespace RestroFlowAPI.Controllers
 
           // set Cookies for refreshToken and deviceId
           int COOKIE_EXPIRE_TIME = 10080; // 10080 = 1 week
-          _cookieManager.SetCookie(HttpContext, "RefreshToken", refreshToken, COOKIE_EXPIRE_TIME); // 10080 = 1 week
+          _cookieManager.SetCookie(HttpContext, "rfToken", refreshToken, COOKIE_EXPIRE_TIME); // 10080 = 1 week
           _cookieManager.SetCookie(HttpContext, "deviceId", deviceId, COOKIE_EXPIRE_TIME);
+          _cookieManager.SetCookie(HttpContext, "userId", user.Id, COOKIE_EXPIRE_TIME, false);
+
           var response = new LoginRepponseDto() {
             Message = "Login Successfully",
             AccessToken = accessToken,
@@ -114,27 +116,34 @@ namespace RestroFlowAPI.Controllers
 
     }
 
-
-
+    /*
+       * Get refreshToken, deviceId, userId from cookies
+       * check if refreshToken exist in RedisDB using deviceId and userId, if not return
+       * if yes, create a new accessToken and refreshToken
+       * save userId, deviceId and refreshToken in RedisDB
+       * send accessToken back to client using LoginRepponseDto 
+       * set refreshToken in httpOnly cookies
+       */
     [HttpPost]
     [Route("refresh-token")]
-    public async Task<IActionResult> RefreshAuthToken([FromBody] RFTokenRequestDto refreshTokenBody) {
-      var userId = refreshTokenBody.userId;
+    public async Task<IActionResult> RefreshAuthToken() {
       var deviceId = _cookieManager.GetCookie(HttpContext, "deviceId");
+      var userId = _cookieManager.GetCookie(HttpContext, "userId");
+      var refreshToken = _cookieManager.GetCookie(HttpContext, "rfToken");
+
+
       // redirect if either null
-      if (userId == null || deviceId == null) return CustomResponseCode.CreateResponse("Redirect to /login", 302);
+      if (userId == null || deviceId == null || refreshToken == null) return CustomResponseCode.CreateResponse("Redirect to /login", 302);
 
       if (!await _redisTokenService.IsDeviceIdOrUserIdExist(userId, deviceId))
         return CustomResponseCode.CreateResponse("userId or deviceId not found", 404);
 
-      //_logger.Info
-      // check if either userId or deviceId exist in database
-      // check refreshToken exist in redis DB
-      // if exist, create a new accessToken and refreshToken
-      // accessToken sent back as response
-      // refreshToken set in httpOnly Cookie
+      //TODO: check if refreshToken exist in RedisDB using deviceId and userId, if not return
 
-      return Ok(new { userId, deviceId });
+
+
+
+      return Ok(new { userId, deviceId, refreshToken });
     }
 
 
