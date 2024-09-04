@@ -11,15 +11,15 @@
     public required DateTime UpdatedAt { get; set; }
 
     // Foreign Keys
-    public required Guid SupplierId { get; set; }
-    public required Guid RestaurantId { get; set; }
-    public required Guid RestaurantItemId { get; set; }
+    public Guid? SupplierId { get; set; }
+    public Guid? RestaurantId { get; set; }
+    public Guid? RestaurantItemId { get; set; }
 
 
     // Navigation Properties
-    public required Supplier Supplier { get; set; }
-    public required RestaurantItem RestaurantItem { get; set; }
-    public required Restaurant Restaurant { get; set; }
+    public Supplier? Supplier { get; set; }
+    public RestaurantItem? RestaurantItem { get; set; }
+    public Restaurant? Restaurant { get; set; }
 
   }
 }

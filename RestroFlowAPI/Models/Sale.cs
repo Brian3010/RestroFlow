@@ -14,16 +14,16 @@ namespace RestroFlowAPI.Models
     public required DateTime SaleDate { get; set; }
 
     // Foreign Keys
-    public required Guid RestaurantId { get; set; }
-    public required Guid RestaurantMenuId { get; set; }
-    public required Guid IncomeSourceId { get; set; }
+    public Guid? RestaurantId { get; set; }
+    public Guid? RestaurantMenuId { get; set; }
+    public Guid? IncomeSourceId { get; set; }
 
 
 
     // Navigation Properites
-    public required Restaurant Restaurant { get; set; }
-    public required RestaurantMenu RestaurantMenus { get; set; }
-    public required IncomeSource IncomeSources { get; set; }
+    public Restaurant? Restaurant { get; set; }
+    public RestaurantMenu? RestaurantMenus { get; set; }
+    public IncomeSource? IncomeSources { get; set; }
 
   }
 }

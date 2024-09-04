@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace RestroFlowAPI.Models
+﻿namespace RestroFlowAPI.Models
 {
   public class AlertRecipient
   {
@@ -10,11 +7,12 @@ namespace RestroFlowAPI.Models
 
     // Foreign Keys
     public Guid InventoryAlertId { get; set; }
+
+    // Foreign Key for UserId from RestroFlowAuthDbContext
+    // No navigation property since it belongs to another DbContext
     public required string RecipientId { get; set; }
 
     // Navigation Properties
-    [ForeignKey("RecipientId")]
-    public required IdentityUser User { get; set; } // RecipientId
     public required InventoryAlert InventoryAlert { get; set; }
 
   }

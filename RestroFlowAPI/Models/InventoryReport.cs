@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace RestroFlowAPI.Models
+﻿namespace RestroFlowAPI.Models
 {
   public class InventoryReport
   {
@@ -13,12 +10,14 @@ namespace RestroFlowAPI.Models
 
     // Foreign Keys
     public Guid RestaurantId { get; set; }
+
+    // Foreign Key for UserId from RestroFlowAuthDbContext
+    // No navigation property since it belongs to another DbContext
     public required string UserId { get; set; }
 
     // Navigation Properties
     public Restaurant Restaurant { get; set; }
 
-    [ForeignKey("UserId")]
-    public IdentityUser User { get; set; }
+
   }
 }

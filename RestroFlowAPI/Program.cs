@@ -55,6 +55,7 @@ namespace RestroFlowAPI
 
       // Inject DbContexts
       builder.Services.AddDbContext<RestroFlowAuthDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("RestroFlowAuthConnectionString")));
+      builder.Services.AddDbContext<RestroFlowDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("RestroFlowConnectionString")));
 
       // Add Redis connection
       builder.Services.AddSingleton<IConnectionMultiplexer>(sp => {
