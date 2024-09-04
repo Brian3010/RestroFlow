@@ -1,4 +1,6 @@
-﻿namespace RestroFlowAPI.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RestroFlowAPI.Models
 {
   public class RestaurantItem
   {
@@ -8,6 +10,7 @@
 
     public required string Description { get; set; }
 
+    [Column(TypeName = "decimal(18,2)")]
     public required decimal Price { get; set; }
 
     public required DateTime CreatedAt { get; set; }

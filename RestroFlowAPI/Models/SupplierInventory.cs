@@ -4,7 +4,7 @@
   {
     public required Guid Id { get; set; }
 
-    public required int Quantity { get; set; }
+    public required float Quantity { get; set; }
     public required string Unit { get; set; }
 
     public required DateTime LastUpdated { get; set; }

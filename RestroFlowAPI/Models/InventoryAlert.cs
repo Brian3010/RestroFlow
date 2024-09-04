@@ -7,7 +7,7 @@
   }
   public class InventoryAlert
   {
-    public Guid AlertId { get; set; } // Primary Key
+    public Guid Id { get; set; } // Primary Key
     public AlertTypes AlertType { get; set; }
     public float Threshold { get; set; } // alert if quantity <= threshhold 
     public DateTime CreatedAt { get; set; }

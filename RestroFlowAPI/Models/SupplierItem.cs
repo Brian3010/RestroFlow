@@ -1,4 +1,6 @@
-﻿namespace RestroFlowAPI.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RestroFlowAPI.Models
 {
   public class SupplierItem
   {
@@ -6,6 +8,8 @@
 
     public required string Name { get; set; }
     public required string Description { get; set; }
+
+    [Column(TypeName = "decimal(18,2)")]
     public required decimal Price { get; set; }
     public required DateTime CreateAt { get; set; }
     public required DateTime UpdatedAt { get; set; }

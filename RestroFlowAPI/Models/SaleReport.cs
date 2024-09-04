@@ -1,4 +1,6 @@
-﻿namespace RestroFlowAPI.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RestroFlowAPI.Models
 {
 
   public class SaleReport
@@ -6,12 +8,20 @@
     public required Guid Id { get; set; }
 
     public Guid ReportId { get; set; } // Primary Key
-
-    public decimal TotalSalesRevenue { get; set; }
     public int NumberOfTransactions { get; set; }
+
+    [Column(TypeName = "decimal(18,2)")]
+    public decimal TotalSalesRevenue { get; set; }
+
+    [Column(TypeName = "decimal(18,2)")]
     public decimal AverageOrderValue { get; set; }
+
+    [Column(TypeName = "decimal(18,2)")]
     public decimal GrossProfit { get; set; }
+
+    [Column(TypeName = "decimal(18,2)")]
     public decimal NetProfit { get; set; }
+
     public required string BestSellingItem { get; set; }
     public int BestSellingItemQuantity { get; set; }
     public required string WorstSellingItem { get; set; }

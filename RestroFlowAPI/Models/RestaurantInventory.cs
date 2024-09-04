@@ -9,14 +9,14 @@
     public required DateTime LastUdpated { get; set; }
 
     // Foreign Keys
-    public Guid RestaurantId { get; set; }
-    public Guid RestaurantItemId { get; set; }
-    public Guid SupplierId { get; set; }
+    public Guid? RestaurantId { get; set; }
+    public Guid? RestaurantItemId { get; set; }
+    public Guid? SupplierId { get; set; }
 
     // Navigation properties
-    public required Restaurant Restaurant { get; set; }
-    public required RestaurantItem RestaurantItem { get; set; }
-    public required Supplier Supplier { get; set; }
+    public Restaurant? Restaurant { get; set; }
+    public RestaurantItem? RestaurantItem { get; set; }
+    public Supplier? Supplier { get; set; }
 
   }
 }

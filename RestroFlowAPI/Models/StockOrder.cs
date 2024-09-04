@@ -1,6 +1,6 @@
 ﻿namespace RestroFlowAPI.Models
 {
-  public class StockOrders
+  public class StockOrder
   {
     public required Guid Id { get; set; }
 

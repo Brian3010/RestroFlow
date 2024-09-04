@@ -1,4 +1,6 @@
-﻿namespace RestroFlowAPI.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RestroFlowAPI.Models
 {
   public enum BudgetCategories
   {
@@ -9,7 +11,9 @@
   public class Budget
   {
 
-    public Guid BudgetId { get; set; } // Primary Key
+    public Guid Id { get; set; } // Primary Key
+
+    [Column(TypeName = "decimal(18,2)")]
     public decimal BudgetAmount { get; set; }
     public string? Description { get; set; }
     public required string BudgetTimePeriod { get; set; }
