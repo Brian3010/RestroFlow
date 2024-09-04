@@ -2,7 +2,7 @@
 
 namespace RestroFlowAPI.Models
 {
-  public class InventoryReports
+  public class InventoryReport
   {
     public Guid ReportId { get; set; } // Primary Key
     public string ReportSubject { get; set; }

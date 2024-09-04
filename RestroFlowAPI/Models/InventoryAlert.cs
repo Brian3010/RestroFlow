@@ -5,7 +5,7 @@
     OutOfStock,
     LowStock,
   }
-  public class InventoryAlerts
+  public class InventoryAlert
   {
     public Guid AlertId { get; set; } // Primary Key
     public AlertTypes AlertType { get; set; }
@@ -17,6 +17,6 @@
     public Guid RestaurantItemId { get; set; }
 
     // Navigation Property
-    public required RestaurantItems RestaurantItem { get; set; }
+    public required RestaurantItem RestaurantItem { get; set; }
   }
 }

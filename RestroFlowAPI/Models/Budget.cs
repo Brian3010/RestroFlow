@@ -6,7 +6,7 @@
     SupplierCost,
     OtherCost,
   }
-  public class Budgets
+  public class Budget
   {
 
     public Guid BudgetId { get; set; } // Primary Key

@@ -1,6 +1,6 @@
 ﻿namespace RestroFlowAPI.Models
 {
-  public class ExpenseReports
+  public class ExpenseReport
   {
 
     public Guid ReportId { get; set; } // Primary Key

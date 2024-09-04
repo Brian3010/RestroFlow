@@ -1,7 +1,7 @@
 ﻿namespace RestroFlowAPI.Models
 {
 
-  public class SaleReports
+  public class SaleReport
   {
     public required Guid Id { get; set; }
 

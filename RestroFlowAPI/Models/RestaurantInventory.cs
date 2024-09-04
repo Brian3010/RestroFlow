@@ -15,7 +15,7 @@
 
     // Navigation properties
     public required Restaurant Restaurant { get; set; }
-    public required RestaurantItems RestaurantItem { get; set; }
+    public required RestaurantItem RestaurantItem { get; set; }
     public required Supplier Supplier { get; set; }
 
   }

@@ -1,6 +1,6 @@
 ﻿namespace RestroFlowAPI.Models
 {
-  public class Expenses
+  public class Expense
   {
     public required Guid Id { get; set; }
 

@@ -13,7 +13,7 @@ namespace RestroFlowAPI.Models
 
     // Navigation Properties
     public required IdentityUser User { get; set; } // RecipientId
-    public required InventoryAlerts InventoryAlert { get; set; }
+    public required InventoryAlert InventoryAlert { get; set; }
 
   }
 }

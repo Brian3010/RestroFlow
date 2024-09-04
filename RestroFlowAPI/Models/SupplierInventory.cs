@@ -15,7 +15,7 @@
 
     // Navigation properties
     public required Supplier Supplier { get; set; }
-    public required SupplierItems SupplierItems { get; set; }
+    public required SupplierItem SupplierItems { get; set; }
 
   }
 }

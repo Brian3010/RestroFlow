@@ -1,6 +1,6 @@
 ﻿namespace RestroFlowAPI.Models
 {
-  public class Sales
+  public class Sale
   {
     public required Guid Id { get; set; }
 
@@ -19,8 +19,8 @@
 
     // Navigation Properites
     public required Restaurant Restaurant { get; set; }
-    public required RestaurantMenus RestaurantMenus { get; set; }
-    public required IncomeSources IncomeSources { get; set; }
+    public required RestaurantMenu RestaurantMenus { get; set; }
+    public required IncomeSource IncomeSources { get; set; }
 
   }
 }

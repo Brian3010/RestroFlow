@@ -8,7 +8,7 @@
     Others
   }
 
-  public class Reviews
+  public class Review
   {
 
     public required Guid Id { get; set; }
