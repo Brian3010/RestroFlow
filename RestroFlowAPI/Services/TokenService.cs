@@ -16,7 +16,8 @@ namespace RestroFlowAPI.Services
       _configuration = configuration;
     }
 
-    public string GenerateJwtToken(IdentityUser user, List<string> roles) {
+
+    public string GenerateJwtToken(IdentityUser user, List<string> roles, int TTLInMinute) {
       // Create claims
       var claims = new List<Claim>();
 
@@ -36,7 +37,7 @@ namespace RestroFlowAPI.Services
 
       // Create the JWT token with issuer, audience, claims, expiration time, and signing credentials
       var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims,
-        expires: DateTime.Now.AddMinutes(15),
+        expires: DateTime.Now.AddMinutes(TTLInMinute),
         signingCredentials: credentials
         );
 

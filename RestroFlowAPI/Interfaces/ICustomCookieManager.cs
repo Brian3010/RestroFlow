@@ -20,5 +20,9 @@
     /// <returns>True if the cookie exists, otherwise false.</returns>
     bool CookieExists(HttpContext httpContext, string key);
 
+    void DeleteCookiesByName(HttpContext httpContext, List<string> cookieNames);
+
+    void DeactivateCookiesByName(HttpContext httpContext, List<string> cookieNames);
+
   }
 }

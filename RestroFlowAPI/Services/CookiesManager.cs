@@ -9,8 +9,27 @@ namespace RestroFlowAPI.Services
       return httpContext.Request.Cookies.ContainsKey(key);
     }
 
+    public void DeactivateCookiesByName(HttpContext httpContext, List<string> cookieNames) {
+      CookieOptions option = new CookieOptions();
+      option.Expires = DateTime.Now.AddDays(-1);
+
+      foreach (var name in cookieNames) {
+        if (GetCookie(httpContext, name) != null) {
+          // set cookie response expire to past day
+          httpContext.Response.Cookies.Append(name, "", option);
+        }
+      }
+
+    }
+
     public void DeleteCookie(HttpContext httpContext, string key) {
       httpContext.Response.Cookies.Delete(key);
+    }
+
+    public void DeleteCookiesByName(HttpContext httpContext, List<string> cookieNames) {
+      foreach (var name in cookieNames) {
+        DeleteCookie(httpContext, name);
+      }
     }
 
     public string? GetCookie(HttpContext httpContext, string key) {

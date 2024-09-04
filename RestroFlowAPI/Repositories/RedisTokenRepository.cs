@@ -3,7 +3,8 @@ using StackExchange.Redis;
 
 
 /* redis table using hashes
- * 
+ * userId:deviceId return [RFTokenValue]
+ * userId:deviceId2 return [RFTokenValue]
  */
 namespace RestroFlowAPI.Repositories
 {
@@ -19,9 +20,9 @@ namespace RestroFlowAPI.Repositories
 
     private string KEY(string userId, string deviceId) => $"user:{userId}:deviceId:{deviceId}";
 
-    public async Task AddRFToken(string userId, string refreshToken, string deviceId) {
+    public async Task AddRFToken(string userId, string refreshToken, string deviceId, int TTLInDays) {
 
-      int expirationInSeconds = (int)TimeSpan.FromDays(1).TotalSeconds;
+      int expirationInSeconds = (int)TimeSpan.FromDays(TTLInDays).TotalSeconds;
       //int expirationInSeconds = (int)TimeSpan.FromSeconds(10).TotalSeconds;
 
       await _redisDb.StringSetAsync(KEY(userId, deviceId), refreshToken, TimeSpan.FromSeconds(expirationInSeconds));
@@ -66,7 +67,8 @@ namespace RestroFlowAPI.Repositories
       return token != null && token == refreshToken;
     }
 
-    public async Task RemoveAllRefeshToken(string userId) {
+    // this will remove deviceIds as well
+    public async Task RemoveAllRefreshToken(string userId) {
       var keys = GetKeysByUserId(userId);
       foreach (var key in keys) {
         await _redisDb.KeyDeleteAsync(key);

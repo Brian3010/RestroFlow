@@ -5,7 +5,7 @@ namespace RestroFlowAPI.Repositories.Interfaces
   public interface IRedisTokenRepository
   {
     // storing a refresh token associated with a specific userId and deviceId
-    Task AddRFToken(string userId, string refreshToken, string deviceId);
+    Task AddRFToken(string userId, string refreshToken, string deviceId, int TTLInDays);
 
     // retrieves all refresh tokens associated with a specific userId
     Task<RedisValue[]> GetRFTokensByUserId(string userId);
@@ -22,10 +22,11 @@ namespace RestroFlowAPI.Repositories.Interfaces
     Task RemoveRefreshToken(string userId, string deviceId);
 
     // removes all refresh tokens associated with a specific userId
-    Task RemoveAllRefeshToken(string userId);
+    Task RemoveAllRefreshToken(string userId);
 
     // check if user's device already exist in the database
     Task<bool> IsDeviceIdOrUserIdExist(string userId, string deviceId);
+
 
   }
 }
