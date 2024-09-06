@@ -8,6 +8,8 @@
 
     public required string Address { get; set; }
 
+    public required string Suburb { get; set; }
+
     public required string City { get; set; }
 
     public required DateTime CreatedAt { get; set; }
