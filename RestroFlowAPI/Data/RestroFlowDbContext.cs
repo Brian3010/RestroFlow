@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using RestroFlowAPI.Models;
+using RestroFlowAPI.Seeds;
 
 namespace RestroFlowAPI.Data
 {
@@ -32,6 +33,7 @@ namespace RestroFlowAPI.Data
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
+      base.OnModelCreating(modelBuilder);
 
       // Restaurant Inventory
       modelBuilder.Entity<RestaurantInventory>()
@@ -47,11 +49,23 @@ namespace RestroFlowAPI.Data
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
       modelBuilder.Entity<RestaurantInventory>()
-          .HasOne(ri => ri.Supplier)
-          .WithMany()
-          .HasForeignKey(ri => ri.SupplierId)
-          .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
+         .HasOne(ri => ri.Supplier)
+         .WithMany()
+         .HasForeignKey(ri => ri.SupplierId)
+         .OnDelete(DeleteBehavior.NoAction);
 
+      // Restaurant Item
+      modelBuilder.Entity<RestaurantItem>()
+         .HasOne(ri => ri.Supplier)
+         .WithMany()
+         .HasForeignKey(ri => ri.SupplierId)
+         .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
+
+      modelBuilder.Entity<RestaurantItem>()
+       .HasOne(ri => ri.Restaurant)
+       .WithMany()
+       .HasForeignKey(ri => ri.RestaurantId)
+       .OnDelete(DeleteBehavior.NoAction);
 
       // Stock Order
       modelBuilder.Entity<StockOrder>()
@@ -103,6 +117,11 @@ namespace RestroFlowAPI.Data
           .WithMany()
           .HasForeignKey(ri => ri.SupplierItemId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
+
+
+      // Seed data
+      new SeedInitializer(modelBuilder).Seed();
+
 
     }
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestroFlowAPI.Data;
 
@@ -11,9 +12,11 @@ using RestroFlowAPI.Data;
 namespace RestroFlowAPI.Migrations.RestroFlowDb
 {
     [DbContext(typeof(RestroFlowDbContext))]
-    partial class RestroFlowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240908075032_modify table restaurantItem and restaurantInventory")]
+    partial class modifytablerestaurantItemandrestaurantInventory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -348,38 +351,6 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.HasIndex("SupplierId");
 
                     b.ToTable("RestaurantItems");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("f58a9385-8a8b-43e7-a7ca-5a953a980cf4"),
-                            CreatedAt = new DateTime(2024, 9, 8, 17, 51, 37, 436, DateTimeKind.Local).AddTicks(4486),
-                            Name = "Whole chicken",
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            SupplierId = new Guid("0a04327d-3b36-40ea-8759-f3d479e36529"),
-                            Unit = "Portion",
-                            UpdatedAt = new DateTime(2024, 9, 8, 17, 51, 37, 436, DateTimeKind.Local).AddTicks(5229)
-                        },
-                        new
-                        {
-                            Id = new Guid("122f8ddc-47dd-45e9-8bb5-6b1a3bd1949a"),
-                            CreatedAt = new DateTime(2024, 9, 8, 17, 51, 37, 436, DateTimeKind.Local).AddTicks(5606),
-                            Name = "Boneless chicken",
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            SupplierId = new Guid("0a04327d-3b36-40ea-8759-f3d479e36529"),
-                            Unit = "box",
-                            UpdatedAt = new DateTime(2024, 9, 8, 17, 51, 37, 436, DateTimeKind.Local).AddTicks(5613)
-                        },
-                        new
-                        {
-                            Id = new Guid("ea6d6784-afbe-4045-809d-90c3a972f12d"),
-                            CreatedAt = new DateTime(2024, 9, 8, 17, 51, 37, 436, DateTimeKind.Local).AddTicks(5617),
-                            Name = "Chicken powder",
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            SupplierId = new Guid("cf762d80-3731-4d9d-af92-b77f99676005"),
-                            Unit = "bag",
-                            UpdatedAt = new DateTime(2024, 9, 8, 17, 51, 37, 436, DateTimeKind.Local).AddTicks(5618)
-                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.RestaurantMenu", b =>
@@ -411,35 +382,6 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("RestaurantMenus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("9ca19c31-2e04-42e7-8cad-6e61bd177eaf"),
-                            Category = "Fried Chicken (Boneless)",
-                            Description = "Gami's most popular dish is back! Once again served on our signature wooden plate",
-                            DishName = "The Classic Boneless",
-                            Price = 42m,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
-                        },
-                        new
-                        {
-                            Id = new Guid("4d165d8f-fbcf-4144-a318-374e7f08cb57"),
-                            Category = "Fried Chicken (Bone-in)",
-                            Description = "The traditional way to enjoy Korean chicken, a hands-on approach.",
-                            DishName = "Whole-Chicken",
-                            Price = 40m,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
-                        },
-                        new
-                        {
-                            Id = new Guid("1d74b052-3b59-465f-add2-d91f96b8961a"),
-                            Category = "Fried Chicken (boneless)",
-                            Description = "The cornerstone of Gami's authentic Korean taste.",
-                            DishName = "Regular Chicken",
-                            Price = 21m,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
-                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.Review", b =>
@@ -649,34 +591,6 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.HasKey("Id");
 
                     b.ToTable("Suppliers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("0a04327d-3b36-40ea-8759-f3d479e36529"),
-                            Address = "12 Oceanview Drive",
-                            City = "Bondi Beach",
-                            ContactEmail = "jane@befood.com",
-                            ContactName = "Jane Smith",
-                            ContactPhone = "03 9654 3210",
-                            CreatedAt = new DateTime(2024, 1, 1, 14, 30, 0, 0, DateTimeKind.Unspecified),
-                            Name = "B&E Food",
-                            State = "VIC",
-                            UpdatedAt = new DateTime(2024, 1, 1, 14, 30, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("cf762d80-3731-4d9d-af92-b77f99676005"),
-                            Address = "45 Maple Street",
-                            City = "South Yarra",
-                            ContactEmail = "SarahJohnso@CFS.com",
-                            ContactName = "Sarah Johnso",
-                            ContactPhone = "07 3345 6721",
-                            CreatedAt = new DateTime(2024, 1, 1, 14, 30, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Complete Food Services",
-                            State = "VIC",
-                            UpdatedAt = new DateTime(2024, 1, 1, 14, 30, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.SupplierInventory", b =>

@@ -8,19 +8,26 @@ namespace RestroFlowAPI.Models
 
     public required string Name { get; set; }
 
-    public required string Description { get; set; }
+    public required string Unit { get; set; }
 
-    [Column(TypeName = "decimal(18,2)")]
-    public required decimal Price { get; set; }
 
+    public string? Description { get; set; }
+
+    //[Column(TypeName = "decimal(18,2)")]
+
+    [Column(TypeName = "datetime2")]
     public required DateTime CreatedAt { get; set; }
+
+    [Column(TypeName = "datetime2")]
     public required DateTime UpdatedAt { get; set; }
 
     // Foreign Keys
-    public Guid RestaurantId { get; set; }
+    public required Guid RestaurantId { get; set; }
+    public required Guid SupplierId { get; set; }
 
     // Navigation properties
-    public required Restaurant Restaurant { get; set; }
+    public Restaurant Restaurant { get; set; }
+    public Supplier Supplier { get; set; }
 
   }
 }
