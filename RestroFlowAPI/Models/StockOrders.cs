@@ -1,6 +1,6 @@
 ﻿namespace RestroFlowAPI.Models
 {
-  public class StockOrder
+  public class StockOrders
   {
     public required Guid Id { get; set; }
 
@@ -17,9 +17,9 @@
 
 
     // Navigation Properties
-    public Supplier? Supplier { get; set; }
-    public RestaurantItem? RestaurantItem { get; set; }
-    public Restaurant? Restaurant { get; set; }
+    public Suppliers? Supplier { get; set; }
+    public RestaurantItems? RestaurantItem { get; set; }
+    public Restaurants? Restaurant { get; set; }
 
   }
 }

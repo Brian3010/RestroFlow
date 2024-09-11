@@ -8,7 +8,7 @@
     Others
   }
 
-  public class Review
+  public class Reviews
   {
 
     public required Guid Id { get; set; }
@@ -22,7 +22,7 @@
     public required Guid RestaurantId { get; set; }
 
     // Navigation Properties
-    public required Restaurant Restaurant { get; set; }
+    public required Restaurants Restaurant { get; set; }
 
 
 

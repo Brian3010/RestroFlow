@@ -2,7 +2,7 @@
 
 namespace RestroFlowAPI.Models
 {
-  public class SupplierItem
+  public class SupplierItems
   {
     public required Guid Id { get; set; }
 
@@ -18,7 +18,7 @@ namespace RestroFlowAPI.Models
     public required Guid SupplierId { get; set; }
 
     // Navigation properties
-    public required Supplier Supplier { get; set; }
+    public required Suppliers Supplier { get; set; }
 
   }
 }

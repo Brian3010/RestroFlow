@@ -1,7 +1,7 @@
 ﻿namespace RestroFlowAPI.Models
 {
 
-  public class IncomeSource
+  public class IncomeSources
   {
     public required Guid Id { get; set; }
 

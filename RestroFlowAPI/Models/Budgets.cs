@@ -8,7 +8,7 @@ namespace RestroFlowAPI.Models
     SupplierCost,
     OtherCost,
   }
-  public class Budget
+  public class Budgets
   {
 
     public Guid Id { get; set; } // Primary Key
@@ -28,6 +28,6 @@ namespace RestroFlowAPI.Models
     public Guid RestaurantId { get; set; }
 
     // Navigation Property
-    public Restaurant Restaurant { get; set; }
+    public Restaurants Restaurant { get; set; }
   }
 }

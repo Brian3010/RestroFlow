@@ -13,7 +13,7 @@
     public required string RecipientId { get; set; }
 
     // Navigation Properties
-    public required InventoryAlert InventoryAlert { get; set; }
+    public required InventoryAlerts InventoryAlert { get; set; }
 
   }
 }

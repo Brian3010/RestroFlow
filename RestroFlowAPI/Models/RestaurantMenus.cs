@@ -3,7 +3,7 @@
 namespace RestroFlowAPI.Models
 {
 
-  public class RestaurantMenu
+  public class RestaurantMenus
   {
     public required Guid Id { get; set; }
 
@@ -21,7 +21,7 @@ namespace RestroFlowAPI.Models
     public Guid RestaurantId { get; set; }
 
     // navigation properties
-    public Restaurant Restaurant { get; set; }
+    public Restaurants Restaurant { get; set; }
 
 
   }

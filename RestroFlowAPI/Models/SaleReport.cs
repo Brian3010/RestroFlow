@@ -14,9 +14,6 @@ namespace RestroFlowAPI.Models
     public decimal TotalSalesRevenue { get; set; }
 
     [Column(TypeName = "decimal(18,2)")]
-    public decimal AverageOrderValue { get; set; }
-
-    [Column(TypeName = "decimal(18,2)")]
     public decimal GrossProfit { get; set; }
 
     [Column(TypeName = "decimal(18,2)")]
@@ -29,13 +26,13 @@ namespace RestroFlowAPI.Models
     public required string SalesByCategory { get; set; } // JSON or VARCHAR(MAX)
     public required string SalesByPaymentMethod { get; set; } // JSON or VARCHAR(MAX)
 
-    public string SalesByTimePeriod { get; set; } // JSON or VARCHAR(MAX)
+    //public string SalesByTimePeriod { get; set; } // JSON or VARCHAR(MAX)
     public DateTime ReportDate { get; set; }
 
     // Foreign Key to Restaurants
     public Guid RestaurantId { get; set; }
 
     // Navigation properties
-    public Restaurant restaurant { get; set; }
+    public Restaurants restaurant { get; set; }
   }
 }

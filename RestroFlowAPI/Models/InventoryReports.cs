@@ -1,6 +1,6 @@
 ﻿namespace RestroFlowAPI.Models
 {
-  public class InventoryReport
+  public class InventoryReports
   {
     public Guid Id { get; set; } // Primary Key
     public string ReportSubject { get; set; }
@@ -16,7 +16,7 @@
     public required string UserId { get; set; }
 
     // Navigation Properties
-    public Restaurant Restaurant { get; set; }
+    public Restaurants Restaurant { get; set; }
 
 
   }

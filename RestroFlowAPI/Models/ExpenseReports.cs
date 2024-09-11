@@ -2,7 +2,7 @@
 
 namespace RestroFlowAPI.Models
 {
-  public class ExpenseReport
+  public class ExpenseReports
   {
 
     public Guid Id { get; set; } // Primary Key
@@ -29,6 +29,6 @@ namespace RestroFlowAPI.Models
     public Guid RestaurantId { get; set; } // Foreign Key to Restaurants
 
     // Navigation Property to Restaurant
-    public Restaurant Restaurant { get; set; }
+    public Restaurants Restaurant { get; set; }
   }
 }
