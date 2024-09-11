@@ -13,106 +13,106 @@ namespace RestroFlowAPI.Data
 
     // Create tables
     public DbSet<AlertRecipient> AlertRecipients { get; set; }
-    public DbSet<Budget> Budgets { get; set; }
-    public DbSet<Expense> Expenses { get; set; }
-    public DbSet<ExpenseReport> ExpenseReports { get; set; }
-    public DbSet<IncomeSource> IncomeSources { get; set; }
-    public DbSet<InventoryAlert> InventoryAlerts { get; set; }
-    public DbSet<InventoryReport> InventoryReports { get; set; }
-    public DbSet<Restaurant> Restaurants { get; set; }
-    public DbSet<RestaurantInventory> RestaurantInventories { get; set; }
-    public DbSet<RestaurantItem> RestaurantItems { get; set; }
-    public DbSet<RestaurantMenu> RestaurantMenus { get; set; }
-    public DbSet<Review> Reviews { get; set; }
-    public DbSet<Sale> Sales { get; set; }
-    public DbSet<SaleReport> SaleReports { get; set; }
-    public DbSet<StockOrder> StockOrders { get; set; }
-    public DbSet<Supplier> Suppliers { get; set; }
-    public DbSet<SupplierInventory> SupplierInventories { get; set; }
-    public DbSet<SupplierItem> SupplierItems { get; set; }
+    public DbSet<Budgets> Budgets { get; set; }
+    public DbSet<Expenses> Expenses { get; set; }
+    public DbSet<ExpenseReports> ExpenseReports { get; set; }
+    public DbSet<PaymentMethods> PaymentMethods { get; set; }
+    public DbSet<InventoryAlerts> InventoryAlerts { get; set; }
+    public DbSet<InventoryReports> InventoryReports { get; set; }
+    public DbSet<Restaurants> Restaurants { get; set; }
+    public DbSet<RestaurantInventories> RestaurantInventories { get; set; }
+    public DbSet<RestaurantItems> RestaurantItems { get; set; }
+    public DbSet<RestaurantMenus> RestaurantMenus { get; set; }
+    public DbSet<Reviews> Reviews { get; set; }
+    public DbSet<Sales> Sales { get; set; }
+    public DbSet<SaleReports> SaleReports { get; set; }
+    public DbSet<StockOrders> StockOrders { get; set; }
+    public DbSet<Suppliers> Suppliers { get; set; }
+    public DbSet<SupplierInventories> SupplierInventories { get; set; }
+    public DbSet<SupplierItems> SupplierItems { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
       base.OnModelCreating(modelBuilder);
 
       // Restaurant Inventory
-      modelBuilder.Entity<RestaurantInventory>()
+      modelBuilder.Entity<RestaurantInventories>()
           .HasOne(ri => ri.Restaurant)
           .WithMany()
           .HasForeignKey(ri => ri.RestaurantId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
-      modelBuilder.Entity<RestaurantInventory>()
+      modelBuilder.Entity<RestaurantInventories>()
           .HasOne(ri => ri.RestaurantItem)
           .WithMany()
           .HasForeignKey(ri => ri.RestaurantItemId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
-      modelBuilder.Entity<RestaurantInventory>()
+      modelBuilder.Entity<RestaurantInventories>()
          .HasOne(ri => ri.Supplier)
          .WithMany()
          .HasForeignKey(ri => ri.SupplierId)
          .OnDelete(DeleteBehavior.NoAction);
 
       // Restaurant Item
-      modelBuilder.Entity<RestaurantItem>()
+      modelBuilder.Entity<RestaurantItems>()
          .HasOne(ri => ri.Supplier)
          .WithMany()
          .HasForeignKey(ri => ri.SupplierId)
          .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
-      modelBuilder.Entity<RestaurantItem>()
+      modelBuilder.Entity<RestaurantItems>()
        .HasOne(ri => ri.Restaurant)
        .WithMany()
        .HasForeignKey(ri => ri.RestaurantId)
        .OnDelete(DeleteBehavior.NoAction);
 
       // Stock Order
-      modelBuilder.Entity<StockOrder>()
+      modelBuilder.Entity<StockOrders>()
           .HasOne(ri => ri.Supplier)
           .WithMany()
           .HasForeignKey(ri => ri.SupplierId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
-      modelBuilder.Entity<StockOrder>()
+      modelBuilder.Entity<StockOrders>()
           .HasOne(ri => ri.RestaurantItem)
           .WithMany()
           .HasForeignKey(ri => ri.RestaurantItemId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
-      modelBuilder.Entity<StockOrder>()
+      modelBuilder.Entity<StockOrders>()
           .HasOne(ri => ri.Restaurant)
           .WithMany()
           .HasForeignKey(ri => ri.RestaurantId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
       // Sale
-      modelBuilder.Entity<Sale>()
+      modelBuilder.Entity<Sales>()
           .HasOne(ri => ri.RestaurantMenus)
           .WithMany()
           .HasForeignKey(ri => ri.RestaurantMenuId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
-      modelBuilder.Entity<Sale>()
-          .HasOne(ri => ri.IncomeSources)
+      modelBuilder.Entity<Sales>()
+          .HasOne(ri => ri.PaymentMethods)
           .WithMany()
-          .HasForeignKey(ri => ri.IncomeSourceId)
+          .HasForeignKey(ri => ri.PaymentMethodId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
-      modelBuilder.Entity<Sale>()
+      modelBuilder.Entity<Sales>()
           .HasOne(ri => ri.Restaurant)
           .WithMany()
           .HasForeignKey(ri => ri.RestaurantId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
       // Supplier Inventory
-      modelBuilder.Entity<SupplierInventory>()
+      modelBuilder.Entity<SupplierInventories>()
           .HasOne(ri => ri.Supplier)
           .WithMany()
           .HasForeignKey(ri => ri.SupplierId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
-      modelBuilder.Entity<SupplierInventory>()
+      modelBuilder.Entity<SupplierInventories>()
           .HasOne(ri => ri.SupplierItems)
           .WithMany()
           .HasForeignKey(ri => ri.SupplierItemId)

@@ -1,11 +1,11 @@
 ﻿namespace RestroFlowAPI.Models
 {
 
-  public class IncomeSources
+  public class PaymentMethods
   {
     public required Guid Id { get; set; }
 
-    public required string IncomeType { get; set; }
+    public required string PaymentName { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

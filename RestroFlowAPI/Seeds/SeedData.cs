@@ -4,10 +4,10 @@ namespace RestroFlowAPI.Seeds
 {
   public class SeedData
   {
-    public static readonly Restaurant RestaurantSeed = new Restaurant { Id = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"), Name = "Gami Chicken and Beer", Address = "840 Glenferrie Rd, Hawthorn VIC 3122", City = "Mebourne", Suburb = "Hawthorn", CreatedAt = new DateTime(2024, 1, 1, 14, 30, 0), UpdatedAt = new DateTime(2024, 1, 1, 14, 30, 0) };
+    public static readonly Restaurants RestaurantSeed = new Restaurants { Id = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"), Name = "Gami Chicken and Beer", Address = "840 Glenferrie Rd, Hawthorn VIC 3122", City = "Mebourne", Suburb = "Hawthorn", CreatedAt = new DateTime(2024, 1, 1, 14, 30, 0), UpdatedAt = new DateTime(2024, 1, 1, 14, 30, 0) };
 
 
-    public static readonly Dictionary<string, Supplier> SupplierSeed = new() {
+    public static readonly Dictionary<string, Suppliers> SupplierSeed = new() {
       {
         "B&E Food",
         new() {
@@ -39,7 +39,7 @@ namespace RestroFlowAPI.Seeds
     };
 
 
-    public static readonly Dictionary<string, RestaurantMenu> RestaurantMenuSeed = new() {
+    public static readonly Dictionary<string, RestaurantMenus> RestaurantMenuSeed = new() {
       {
         "The Classic Boneless", new (){Id= new Guid("9ca19c31-2e04-42e7-8cad-6e61bd177eaf"), Category="Fried Chicken (Boneless)", Description="Gami's most popular dish is back! Once again served on our signature wooden plate",DishName="The Classic Boneless",
       Price=42, RestaurantId=RestaurantSeed.Id }
@@ -85,11 +85,49 @@ namespace RestroFlowAPI.Seeds
       Price=14.5M, RestaurantId=RestaurantSeed.Id }
       },
 
+      //
+
+      {
+        "Kimchi Fried Rice", new (){Id= new Guid("29585767-ced3-46a6-8f1f-06455c4b1172"), Category="Korean Classics", Description="",DishName="Kimchi Fried Rice",
+      Price=13.5M, RestaurantId=RestaurantSeed.Id }
+      },
+
+
+      {
+        "Kimchi Pancake", new (){Id= new Guid("07a67762-a063-46db-94d1-080237b187a5"), Category="Korean Classics", Description="",DishName="Kimchi Pancake",
+      Price=16, RestaurantId=RestaurantSeed.Id }
+      },
+
+      {
+        "Japchae", new (){Id= new Guid("bab92f8b-1fd6-4fbb-9c66-777c49280d54"), Category="Korean Classics", Description="",DishName="Japchae",
+      Price=15.5M, RestaurantId=RestaurantSeed.Id }
+      },
+
+
+      {
+        "Chicken Skewers ", new (){Id= new Guid("75734df5-e59e-4d9e-a224-ed8e4ae67fdd"), Category="Sides", Description="",DishName="Chicken Skewers ",
+      Price=10, RestaurantId=RestaurantSeed.Id }
+      },
+
+      {
+        "Chicken Skewer plate", new (){Id= new Guid("d02988c8-bd91-400d-8593-403c285c6dfb"), Category="Sides", Description="",DishName="Chicken Skewer plate",
+      Price=28, RestaurantId=RestaurantSeed.Id }
+      },
+
+      {
+        "Potato Heaven", new (){Id= new Guid("f6c1d21b-b9dd-452f-8e14-364f530bf7b8"), Category="Sides", Description="",DishName="Potato Heaven",
+      Price=16.5M, RestaurantId=RestaurantSeed.Id }
+      },
+
+      {
+        "Chicken Burger", new (){Id= new Guid("6e4aaccc-3c0d-4d91-a8e0-10e1a70a24f2"), Category="Sides", Description="",DishName="Chicken Burger",
+      Price=15, RestaurantId=RestaurantSeed.Id }
+      },
 
   };
 
 
-    public static readonly Dictionary<string, RestaurantItem> RestaurantItemSeed = new(){
+    public static readonly Dictionary<string, RestaurantItems> RestaurantItemSeed = new(){
       // B&E
       {"Whole chicken",
         new(){Id = new Guid("f58a9385-8a8b-43e7-a7ca-5a953a980cf4"),Name="Whole chicken",Unit="Portion",SupplierId=SupplierSeed["B&E Food"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id }
@@ -136,24 +174,32 @@ namespace RestroFlowAPI.Seeds
 
     };
 
-    public readonly static Dictionary<string, IncomeSource> IncomeSourceSeed = new() {
-      {"Dine-in",
+    public readonly static Dictionary<string, PaymentMethods> PaymentMethodSeed = new() {
+      {"Uber Eats",
         new() {
-          Id = new Guid("a6995138-8ce2-4adb-9804-84b905125a7f"),IncomeType = "Dine-in", CreatedAt =DateTime.Now, UpdatedAt = DateTime.Now
+          Id = new Guid("a6995138-8ce2-4adb-9804-84b905125a7f"),PaymentName = "Uber Eats", CreatedAt =DateTime.Now, UpdatedAt = DateTime.Now
         }
       },
-      {"Delivery",
+      {"DoorDash",
         new() {
-          Id = new Guid("6eff914c-554b-47f2-b77f-a1b652f63337"),IncomeType = "Delivery", CreatedAt =DateTime.Now, UpdatedAt = DateTime.Now
+          Id = new Guid("6eff914c-554b-47f2-b77f-a1b652f63337"),PaymentName = "DoorDash", CreatedAt =DateTime.Now, UpdatedAt = DateTime.Now
         }
       },
-      {"Take-away",
+      {"EFTPOS",
         new() {
-          Id = new Guid("4fd74864-68d0-44c7-ae4d-548aef790aad"),IncomeType = "Take-away", CreatedAt =DateTime.Now, UpdatedAt = DateTime.Now
+          Id = new Guid("4fd74864-68d0-44c7-ae4d-548aef790aad"),PaymentName = "EFTPOS", CreatedAt =DateTime.Now, UpdatedAt = DateTime.Now
         }
       }
 
     };
+
+    // Seeding Expenses, RestaurantInventory, InventoryAlerts, Budgets, Reviews
+
+    // Sale Table
+    public readonly static List<int> QuantitySeed = [20, 15, 2, 16, 18, 1, 10, 16, 11, 12];
+
+    // Expense Table for 10/11/12/9
+    // need 
 
 
 

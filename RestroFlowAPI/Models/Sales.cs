@@ -3,11 +3,11 @@
 namespace RestroFlowAPI.Models
 {
 
-  public enum PaymentMethods
-  {
-    Cash,
-    CreditCard
-  }
+  //public enum PaymentMethods
+  //{
+  //  Cash,
+  //  CreditCard
+  //}
   public class Sales
   {
     public required Guid Id { get; set; }
@@ -17,21 +17,21 @@ namespace RestroFlowAPI.Models
     [Column(TypeName = "decimal(18,2)")]
     public required decimal TotalAmount { get; set; }
 
-    public required PaymentMethods PaymentMethod { get; set; }
+    //public required PaymentMethods PaymentMethod { get; set; }
 
     public required DateTime SaleDate { get; set; }
 
     // Foreign Keys
     public Guid? RestaurantId { get; set; }
     public Guid? RestaurantMenuId { get; set; }
-    public Guid? IncomeSourceId { get; set; }
+    public Guid? PaymentMethodId { get; set; }
 
 
 
     // Navigation Properites
     public Restaurants? Restaurant { get; set; }
     public RestaurantMenus? RestaurantMenus { get; set; }
-    public IncomeSources? IncomeSources { get; set; }
+    public PaymentMethods? PaymentMethods { get; set; }
 
   }
 }

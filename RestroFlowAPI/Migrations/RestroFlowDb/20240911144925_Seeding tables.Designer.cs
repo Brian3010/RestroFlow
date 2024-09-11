@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestroFlowAPI.Data;
 
@@ -11,9 +12,11 @@ using RestroFlowAPI.Data;
 namespace RestroFlowAPI.Migrations.RestroFlowDb
 {
     [DbContext(typeof(RestroFlowDbContext))]
-    partial class RestroFlowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240911144925_Seeding tables")]
+    partial class Seedingtables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,6 +232,29 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.HasKey("Id");
 
                     b.ToTable("PaymentMethods");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a6995138-8ce2-4adb-9804-84b905125a7f"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(3280),
+                            PaymentName = "Uber Eats",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(3411)
+                        },
+                        new
+                        {
+                            Id = new Guid("6eff914c-554b-47f2-b77f-a1b652f63337"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(3603),
+                            PaymentName = "DoorDash",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(3606)
+                        },
+                        new
+                        {
+                            Id = new Guid("4fd74864-68d0-44c7-ae4d-548aef790aad"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(3609),
+                            PaymentName = "EFTPOS",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(3610)
+                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.RestaurantInventories", b =>
@@ -303,6 +329,108 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.HasIndex("SupplierId");
 
                     b.ToTable("RestaurantItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f58a9385-8a8b-43e7-a7ca-5a953a980cf4"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2302),
+                            Name = "Whole chicken",
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
+                            SupplierId = new Guid("0a04327d-3b36-40ea-8759-f3d479e36529"),
+                            Unit = "Portion",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2436)
+                        },
+                        new
+                        {
+                            Id = new Guid("122f8ddc-47dd-45e9-8bb5-6b1a3bd1949a"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2760),
+                            Name = "Boneless chicken",
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
+                            SupplierId = new Guid("0a04327d-3b36-40ea-8759-f3d479e36529"),
+                            Unit = "box",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2764)
+                        },
+                        new
+                        {
+                            Id = new Guid("116d32b5-4407-4fe4-9c6e-2aa38c8b6712"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2780),
+                            Name = "Chicken wings",
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
+                            SupplierId = new Guid("0a04327d-3b36-40ea-8759-f3d479e36529"),
+                            Unit = "container",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2782)
+                        },
+                        new
+                        {
+                            Id = new Guid("f8472b62-e223-4033-8fb4-59a762cd0f12"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2786),
+                            Name = "Chicken Steak",
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
+                            SupplierId = new Guid("0a04327d-3b36-40ea-8759-f3d479e36529"),
+                            Unit = "container",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2787)
+                        },
+                        new
+                        {
+                            Id = new Guid("973d9cfe-b929-4cf3-ab02-8dfeb1fa9442"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2794),
+                            Name = "Marinated beef",
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
+                            SupplierId = new Guid("0a04327d-3b36-40ea-8759-f3d479e36529"),
+                            Unit = "portion",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2795)
+                        },
+                        new
+                        {
+                            Id = new Guid("ea6d6784-afbe-4045-809d-90c3a972f12d"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2799),
+                            Name = "Chicken powder",
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
+                            SupplierId = new Guid("cf762d80-3731-4d9d-af92-b77f99676005"),
+                            Unit = "bag",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2801)
+                        },
+                        new
+                        {
+                            Id = new Guid("f87c819a-5b3a-4c09-bb42-b387790b70c0"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2804),
+                            Name = "Soy garlic",
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
+                            SupplierId = new Guid("cf762d80-3731-4d9d-af92-b77f99676005"),
+                            Unit = "bag",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2806)
+                        },
+                        new
+                        {
+                            Id = new Guid("51a801ff-89b7-4663-a308-b0b577018e14"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2809),
+                            Name = "Spicy sauce",
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
+                            SupplierId = new Guid("cf762d80-3731-4d9d-af92-b77f99676005"),
+                            Unit = "bag",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2811)
+                        },
+                        new
+                        {
+                            Id = new Guid("7a456054-4b0c-4005-8623-b4a7ecfb4103"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2816),
+                            Name = "Sweet Chiilies",
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
+                            SupplierId = new Guid("cf762d80-3731-4d9d-af92-b77f99676005"),
+                            Unit = "bag",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2817)
+                        },
+                        new
+                        {
+                            Id = new Guid("a50a5bdf-e0bb-41ae-b23d-87d5076265a7"),
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2821),
+                            Name = "Wedges",
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
+                            SupplierId = new Guid("cf762d80-3731-4d9d-af92-b77f99676005"),
+                            Unit = "bag",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 443, DateTimeKind.Local).AddTicks(2822)
+                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.RestaurantMenus", b =>
@@ -334,6 +462,152 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("RestaurantMenus");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9ca19c31-2e04-42e7-8cad-6e61bd177eaf"),
+                            Category = "Fried Chicken (Boneless)",
+                            Description = "Gami's most popular dish is back! Once again served on our signature wooden plate",
+                            DishName = "The Classic Boneless",
+                            Price = 42m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("4d165d8f-fbcf-4144-a318-374e7f08cb57"),
+                            Category = "Fried Chicken (Bone-in)",
+                            Description = "The traditional way to enjoy Korean chicken, a hands-on approach.",
+                            DishName = "Whole-Chicken",
+                            Price = 40m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("1d74b052-3b59-465f-add2-d91f96b8961a"),
+                            Category = "Fried Chicken (boneless)",
+                            Description = "The cornerstone of Gami's authentic Korean taste.",
+                            DishName = "Regular Chicken",
+                            Price = 21m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("45859bd4-b0bd-4491-8b1b-7c33a940df8a"),
+                            Category = "Fried Chicken (boneless)",
+                            Description = "A mix of chicken wingettes and drumettes.",
+                            DishName = "10 Wings",
+                            Price = 17m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("19924c8f-32e0-4c3d-b425-995ed0ddca5a"),
+                            Category = "Korean Classics",
+                            Description = "Tender slices of marinated beef and ve ies stir-fried with sweet potato noodles in a sweet soy sauce, served with rice and a fresh green salad with Tangerine dressing.",
+                            DishName = "Beef Bulgogi",
+                            Price = 18.5m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("d5d66b38-5140-485b-8575-f83d5fae6a5f"),
+                            Category = "Korean Classics",
+                            Description = "A healthy and delicious Korean rice dish showcasing flavourful vegetables, your preferred protein and a choice of sauce. Topped with a fried egg.",
+                            DishName = "Korean Classics",
+                            Price = 16m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("dd636f75-f510-47eb-bfc8-cf2613defdba"),
+                            Category = "Korean Classics",
+                            Description = "TA beloved Korean favourite, featuring stir-fried rice cakes, fish cakes, assorted vegetables, and noodles, all coated in a rich and spicy Korean chilli sauce.",
+                            DishName = "Tteok Bokki",
+                            Price = 14.5m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("6dac4780-fbf3-41f4-8971-b7abdef83a86"),
+                            Category = "Sides",
+                            Description = "Locally grown cut potato strips coated in Gami signature batter.",
+                            DishName = "Gami Chips",
+                            Price = 6.9m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("fc693bcd-807b-4506-a8fd-dc3e31905a81"),
+                            Category = "Sides",
+                            Description = "5 deep-fried premium handmade dumplings, filled with chunky prawn meat wrapped in thin crispy skin.",
+                            DishName = "Prawn Mandu",
+                            Price = 14.5m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("29585767-ced3-46a6-8f1f-06455c4b1172"),
+                            Category = "Korean Classics",
+                            Description = "",
+                            DishName = "Kimchi Fried Rice",
+                            Price = 13.5m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("07a67762-a063-46db-94d1-080237b187a5"),
+                            Category = "Korean Classics",
+                            Description = "",
+                            DishName = "Kimchi Pancake",
+                            Price = 16m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("bab92f8b-1fd6-4fbb-9c66-777c49280d54"),
+                            Category = "Korean Classics",
+                            Description = "",
+                            DishName = "Japchae",
+                            Price = 15.5m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("75734df5-e59e-4d9e-a224-ed8e4ae67fdd"),
+                            Category = "Sides",
+                            Description = "",
+                            DishName = "Chicken Skewers ",
+                            Price = 10m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("d02988c8-bd91-400d-8593-403c285c6dfb"),
+                            Category = "Sides",
+                            Description = "",
+                            DishName = "Chicken Skewer plate",
+                            Price = 28m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("f6c1d21b-b9dd-452f-8e14-364f530bf7b8"),
+                            Category = "Sides",
+                            Description = "",
+                            DishName = "Potato Heaven",
+                            Price = 16.5m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        },
+                        new
+                        {
+                            Id = new Guid("6e4aaccc-3c0d-4d91-a8e0-10e1a70a24f2"),
+                            Category = "Sides",
+                            Description = "",
+                            DishName = "Chicken Burger",
+                            Price = 15m,
+                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1")
+                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.Restaurants", b =>
@@ -367,6 +641,18 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.HasKey("Id");
 
                     b.ToTable("Restaurants");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
+                            Address = "840 Glenferrie Rd, Hawthorn VIC 3122",
+                            City = "Mebourne",
+                            CreatedAt = new DateTime(2024, 1, 1, 14, 30, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gami Chicken and Beer",
+                            Suburb = "Hawthorn",
+                            UpdatedAt = new DateTime(2024, 1, 1, 14, 30, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.Reviews", b =>
@@ -486,168 +772,6 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.HasIndex("RestaurantMenuId");
 
                     b.ToTable("Sales");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("efcc7fdb-fb0a-4d58-aa44-3d5fe5525358"),
-                            PaymentMethodId = new Guid("4fd74864-68d0-44c7-ae4d-548aef790aad"),
-                            Quantity = 10,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("9ca19c31-2e04-42e7-8cad-6e61bd177eaf"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1185),
-                            TotalAmount = 420m
-                        },
-                        new
-                        {
-                            Id = new Guid("2e8aca7b-3aad-427f-be27-940dca1c557e"),
-                            PaymentMethodId = new Guid("a6995138-8ce2-4adb-9804-84b905125a7f"),
-                            Quantity = 18,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("4d165d8f-fbcf-4144-a318-374e7f08cb57"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1236),
-                            TotalAmount = 720m
-                        },
-                        new
-                        {
-                            Id = new Guid("e53735da-a5da-4251-ad3b-419382ed6533"),
-                            PaymentMethodId = new Guid("a6995138-8ce2-4adb-9804-84b905125a7f"),
-                            Quantity = 2,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("1d74b052-3b59-465f-add2-d91f96b8961a"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1243),
-                            TotalAmount = 42m
-                        },
-                        new
-                        {
-                            Id = new Guid("8bdf2091-54be-42c2-8806-4ac1f33e50b6"),
-                            PaymentMethodId = new Guid("4fd74864-68d0-44c7-ae4d-548aef790aad"),
-                            Quantity = 16,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("45859bd4-b0bd-4491-8b1b-7c33a940df8a"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1248),
-                            TotalAmount = 272m
-                        },
-                        new
-                        {
-                            Id = new Guid("a8f70242-8a62-40de-b891-859682124768"),
-                            PaymentMethodId = new Guid("6eff914c-554b-47f2-b77f-a1b652f63337"),
-                            Quantity = 16,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("19924c8f-32e0-4c3d-b425-995ed0ddca5a"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1254),
-                            TotalAmount = 296.0m
-                        },
-                        new
-                        {
-                            Id = new Guid("59fd5cfd-912f-4588-a803-7b28eeb83c8f"),
-                            PaymentMethodId = new Guid("6eff914c-554b-47f2-b77f-a1b652f63337"),
-                            Quantity = 18,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("d5d66b38-5140-485b-8575-f83d5fae6a5f"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1290),
-                            TotalAmount = 288m
-                        },
-                        new
-                        {
-                            Id = new Guid("2cd54c28-dd79-4866-bd16-8d657f6d028d"),
-                            PaymentMethodId = new Guid("6eff914c-554b-47f2-b77f-a1b652f63337"),
-                            Quantity = 15,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("dd636f75-f510-47eb-bfc8-cf2613defdba"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1295),
-                            TotalAmount = 217.5m
-                        },
-                        new
-                        {
-                            Id = new Guid("cb294caf-d5db-4391-8b35-06088d44f337"),
-                            PaymentMethodId = new Guid("4fd74864-68d0-44c7-ae4d-548aef790aad"),
-                            Quantity = 2,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("6dac4780-fbf3-41f4-8971-b7abdef83a86"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1301),
-                            TotalAmount = 13.8m
-                        },
-                        new
-                        {
-                            Id = new Guid("3e375165-0c1c-4b92-af7c-e7e5462c0af5"),
-                            PaymentMethodId = new Guid("a6995138-8ce2-4adb-9804-84b905125a7f"),
-                            Quantity = 10,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("fc693bcd-807b-4506-a8fd-dc3e31905a81"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1305),
-                            TotalAmount = 145.0m
-                        },
-                        new
-                        {
-                            Id = new Guid("9df343b1-af60-49fc-9aae-b7deb602d187"),
-                            PaymentMethodId = new Guid("6eff914c-554b-47f2-b77f-a1b652f63337"),
-                            Quantity = 1,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("29585767-ced3-46a6-8f1f-06455c4b1172"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1312),
-                            TotalAmount = 13.5m
-                        },
-                        new
-                        {
-                            Id = new Guid("0bc64787-63d1-4820-b042-55816b6f3f9a"),
-                            PaymentMethodId = new Guid("a6995138-8ce2-4adb-9804-84b905125a7f"),
-                            Quantity = 12,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("07a67762-a063-46db-94d1-080237b187a5"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1318),
-                            TotalAmount = 192m
-                        },
-                        new
-                        {
-                            Id = new Guid("990bc813-7157-4e28-80b6-ae2911683f6b"),
-                            PaymentMethodId = new Guid("a6995138-8ce2-4adb-9804-84b905125a7f"),
-                            Quantity = 1,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("bab92f8b-1fd6-4fbb-9c66-777c49280d54"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1322),
-                            TotalAmount = 15.5m
-                        },
-                        new
-                        {
-                            Id = new Guid("acbbe837-e943-4c50-90b6-476def8ab77d"),
-                            PaymentMethodId = new Guid("a6995138-8ce2-4adb-9804-84b905125a7f"),
-                            Quantity = 18,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("75734df5-e59e-4d9e-a224-ed8e4ae67fdd"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1328),
-                            TotalAmount = 180m
-                        },
-                        new
-                        {
-                            Id = new Guid("c7c272bf-8dce-4e74-b350-14f1b03aa177"),
-                            PaymentMethodId = new Guid("a6995138-8ce2-4adb-9804-84b905125a7f"),
-                            Quantity = 16,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("d02988c8-bd91-400d-8593-403c285c6dfb"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1333),
-                            TotalAmount = 448m
-                        },
-                        new
-                        {
-                            Id = new Guid("6e172d07-9980-4ba3-b051-2ebb175f49f5"),
-                            PaymentMethodId = new Guid("4fd74864-68d0-44c7-ae4d-548aef790aad"),
-                            Quantity = 16,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("f6c1d21b-b9dd-452f-8e14-364f530bf7b8"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1337),
-                            TotalAmount = 264.0m
-                        },
-                        new
-                        {
-                            Id = new Guid("ce3ff72a-42f3-4f62-b013-02750ed2d57a"),
-                            PaymentMethodId = new Guid("4fd74864-68d0-44c7-ae4d-548aef790aad"),
-                            Quantity = 11,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            RestaurantMenuId = new Guid("6e4aaccc-3c0d-4d91-a8e0-10e1a70a24f2"),
-                            SaleDate = new DateTime(2024, 9, 11, 2, 51, 34, 57, DateTimeKind.Local).AddTicks(1343),
-                            TotalAmount = 165m
-                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.StockOrders", b =>
@@ -795,6 +919,60 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.HasKey("Id");
 
                     b.ToTable("Suppliers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0a04327d-3b36-40ea-8759-f3d479e36529"),
+                            Address = "12 Oceanview Drive",
+                            City = "Bondi Beach",
+                            ContactEmail = "jane@befood.com",
+                            ContactName = "Jane Smith",
+                            ContactPhone = "03 9654 3210",
+                            CreatedAt = new DateTime(2024, 1, 1, 14, 30, 0, 0, DateTimeKind.Unspecified),
+                            Name = "B&E Food",
+                            State = "VIC",
+                            UpdatedAt = new DateTime(2024, 1, 1, 14, 30, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("cf762d80-3731-4d9d-af92-b77f99676005"),
+                            Address = "45 Maple Street",
+                            City = "South Yarra",
+                            ContactEmail = "SarahJohnso@CFS.com",
+                            ContactName = "Sarah Johnso",
+                            ContactPhone = "07 3345 6721",
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 442, DateTimeKind.Local).AddTicks(9273),
+                            Name = "Complete Food Services",
+                            State = "VIC",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 442, DateTimeKind.Local).AddTicks(9821)
+                        },
+                        new
+                        {
+                            Id = new Guid("114288a7-a300-42c6-8578-5f52df5ce147"),
+                            Address = "88 Kangaroo Court",
+                            City = " Brisbane",
+                            ContactEmail = " JamesCooper@FFI.com",
+                            ContactName = "James Cooper",
+                            ContactPhone = "08 9314 7890",
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 442, DateTimeKind.Local).AddTicks(9829),
+                            Name = "Fresh Food Industries",
+                            State = "VIC",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 442, DateTimeKind.Local).AddTicks(9831)
+                        },
+                        new
+                        {
+                            Id = new Guid("72ddd782-e777-41fe-85b2-e88c189a88f5"),
+                            Address = "23 Sunset Avenue",
+                            City = "Fremantle",
+                            ContactEmail = "OliviaMiller@GFIFood.com",
+                            ContactName = "Olivia Miller",
+                            ContactPhone = "03 6234 9087",
+                            CreatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 442, DateTimeKind.Local).AddTicks(9844),
+                            Name = "GFI Foods",
+                            State = "VIC",
+                            UpdatedAt = new DateTime(2024, 9, 12, 0, 49, 24, 442, DateTimeKind.Local).AddTicks(9845)
+                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.AlertRecipient", b =>
