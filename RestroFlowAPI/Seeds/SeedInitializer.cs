@@ -13,62 +13,42 @@ namespace RestroFlowAPI.Seeds
 
     public void Seed() {
       // Restaurant table
-      //_modelBuilder.Entity<Restaurants>().HasData(SeedData.RestaurantSeed);
+      _modelBuilder.Entity<Restaurants>().HasData(SeedData.RestaurantSeed);
 
-      //// RestaurantMenu table
-      //foreach (KeyValuePair<string, RestaurantMenus> item in SeedData.RestaurantMenuSeed) {
-      //  _modelBuilder.Entity<RestaurantMenus>().HasData(item.Value);
-      //}
+      // RestaurantMenu table
+      foreach (KeyValuePair<string, RestaurantMenus> item in SeedData.RestaurantMenuSeed) {
+        _modelBuilder.Entity<RestaurantMenus>().HasData(item.Value);
+      }
 
-      ////var restaurantMenus = SeedData.RestaurantMenus;
-      ////var test = restaurantMenus["Whole-Chicken"].Id;
+      //var restaurantMenus = SeedData.RestaurantMenus;
+      //var test = restaurantMenus["Whole-Chicken"].Id;
 
-      //// Supplier table
-      //foreach (KeyValuePair<string, Suppliers> item in SeedData.SupplierSeed) {
-      //  _modelBuilder.Entity<Suppliers>().HasData(item.Value);
-      //}
+      // Supplier table
+      foreach (KeyValuePair<string, Suppliers> item in SeedData.SupplierSeed) {
+        _modelBuilder.Entity<Suppliers>().HasData(item.Value);
+      }
 
-      //// RestaurantItem table
-      //foreach (KeyValuePair<string, RestaurantItems> item in SeedData.RestaurantItemSeed) {
-      //  _modelBuilder.Entity<RestaurantItems>().HasData(item.Value);
-      //}
+      // RestaurantItem table
+      foreach (KeyValuePair<string, RestaurantItems> item in SeedData.RestaurantItemSeed) {
+        _modelBuilder.Entity<RestaurantItems>().HasData(item.Value);
+      }
 
-      //// IncomeSource table
-      //foreach (KeyValuePair<string, PaymentMethods> item in SeedData.PaymentMethodSeed) {
-      //  _modelBuilder.Entity<PaymentMethods>().HasData(item.Value);
-      //}
+      // IncomeSource table
+      foreach (KeyValuePair<string, PaymentMethods> item in SeedData.PaymentMethodSeed) {
+        _modelBuilder.Entity<PaymentMethods>().HasData(item.Value);
+      }
 
-      // Sales Table 
-      //var SaleData = new List<Sales>();
-      //var paymentMethods = SeedData.PaymentMethodSeed.Values.ToList();
-      //var Dishes = SeedData.RestaurantMenuSeed.Values.ToList();
+      //Sales Table
+      _modelBuilder.Entity<Sales>().HasData(SeedData.SaleSeed());
 
-      //for (int i = 0; i < 16; i++) {
-      //  //Guid id = Guid.NewGuid();
-      //  int paymentMethodsRandIdx = new Random().Next(paymentMethods.Count);
-      //  int QuantityRandIdx = new Random().Next(SeedData.QuantitySeed.Count);
-      //  //Console.WriteLine(id);
-      //  SaleData.Add(new() {
-      //    Id = Guid.NewGuid(),
-      //    RestaurantId = SeedData.RestaurantSeed.Id,
-      //    RestaurantMenuId = Dishes[i].Id,
-      //    PaymentMethodId = paymentMethods[paymentMethodsRandIdx].Id,
-      //    Quantity = SeedData.QuantitySeed[QuantityRandIdx],
-      //    TotalAmount = Dishes[i].Price * SeedData.QuantitySeed[QuantityRandIdx],
-      //    SaleDate = DateTime.Now.AddDays(-1),
-      //  });
-      //}
+      //Expense Table
+      _modelBuilder.Entity<Expenses>().HasData(SeedData.ExpensesSeed());
 
-      //_modelBuilder.Entity<Sales>().HasData(SaleData);
+      //RestaurantInventory table
+      _modelBuilder.Entity<RestaurantInventories>().HasData(SeedData.RestaurantInventoriesSeed());
 
-      // Expense Table
-      //_modelBuilder.Entity<Expenses>().HasData(SeedData.ExpensesSeed());
-
-      // RestaurantInventory table
-      //_modelBuilder.Entity<RestaurantInventories>().HasData(SeedData.RestaurantInventoriesSeed());
-
-      // InventoryAlerts table
-      //_modelBuilder.Entity<InventoryAlerts>().HasData(SeedData.InventoryAlertsSeed());
+      //InventoryAlerts table
+      _modelBuilder.Entity<InventoryAlerts>().HasData(SeedData.InventoryAlertsSeed());
 
 
       // Budgets table 

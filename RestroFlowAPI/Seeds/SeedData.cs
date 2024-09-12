@@ -201,7 +201,35 @@ namespace RestroFlowAPI.Seeds
     // Seeding Expenses, RestaurantInventory, InventoryAlerts, Budgets, Reviews
 
     // Sale Table
-    public readonly static List<int> QuantitySeed = [20, 15, 2, 16, 18, 1, 10, 16, 11, 12];
+    public static List<Sales> SaleSeed() {
+      List<int> QuantitySeed = [20, 15, 2, 16, 18, 1, 10, 16, 11, 12];
+      var SaleData = new List<Sales>();
+      var paymentMethods = PaymentMethodSeed.Values.ToList();
+      var Dishes = RestaurantMenuSeed.Values.ToList();
+
+      int i = 0;
+      int date = 1;
+      while (i < Dishes.Count * 3) {
+        int paymentMethodsRandIdx = new Random().Next(paymentMethods.Count);
+        int QuantityRandIdx = new Random().Next(QuantitySeed.Count);
+        int inboundIdx = i % Dishes.Count;
+
+
+        SaleData.Add(new() {
+          Id = Guid.NewGuid(),
+          RestaurantId = RestaurantSeed.Id,
+          RestaurantMenuId = Dishes[inboundIdx].Id,
+          PaymentMethodId = paymentMethods[paymentMethodsRandIdx].Id,
+          Quantity = QuantitySeed[QuantityRandIdx],
+          TotalAmount = Dishes[inboundIdx].Price * QuantitySeed[QuantityRandIdx],
+          SaleDate = inboundIdx == 0 ? DateTime.Now.AddDays(--date) : DateTime.Now.AddDays(date),
+        });
+
+        i++;
+      }
+
+      return SaleData;
+    }
 
     // Expense Table for 10/11/12/9
     public static List<Expenses> ExpensesSeed() {
