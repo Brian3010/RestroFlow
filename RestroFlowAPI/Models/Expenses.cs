@@ -16,7 +16,7 @@ namespace RestroFlowAPI.Models
     public required Guid RestaurantId { get; set; }
 
     // Navigation properties
-    public required Restaurants Restaurant { get; set; }
+    public Restaurants Restaurant { get; set; }
 
   }
 }

@@ -2,12 +2,7 @@
 
 namespace RestroFlowAPI.Models
 {
-  public enum BudgetCategories
-  {
-    LabourCost,
-    SupplierCost,
-    OtherCost,
-  }
+
   public class Budgets
   {
 
@@ -22,7 +17,7 @@ namespace RestroFlowAPI.Models
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 
-    public BudgetCategories BudgetCategory { get; set; }
+    public required string BudgetCategory { get; set; }
 
     // Foreign Key to Restaurants
     public Guid RestaurantId { get; set; }

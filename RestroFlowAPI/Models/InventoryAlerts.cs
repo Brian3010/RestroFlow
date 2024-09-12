@@ -1,14 +1,15 @@
 ﻿namespace RestroFlowAPI.Models
 {
-  public enum AlertTypes
-  {
-    OutOfStock,
-    LowStock,
-  }
+  //public enum AlertTypes
+  //{
+  //  OutOfStock,
+  //  LowStock,
+  //  SafetyStock
+  //}
   public class InventoryAlerts
   {
     public Guid Id { get; set; } // Primary Key
-    public AlertTypes AlertType { get; set; }
+    public required string AlertType { get; set; }
     public float Threshold { get; set; } // alert if quantity <= threshhold 
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
@@ -17,6 +18,6 @@
     public Guid RestaurantItemId { get; set; }
 
     // Navigation Property
-    public required RestaurantItems RestaurantItem { get; set; }
+    public RestaurantItems RestaurantItem { get; set; }
   }
 }

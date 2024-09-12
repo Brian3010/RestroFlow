@@ -14,9 +14,9 @@
     public required Guid SupplierId { get; set; }
 
     // Navigation properties
-    public required Restaurants Restaurant { get; set; }
-    public required RestaurantItems RestaurantItem { get; set; }
-    public required Suppliers Supplier { get; set; }
+    public Restaurants Restaurant { get; set; }
+    public RestaurantItems RestaurantItem { get; set; }
+    public Suppliers Supplier { get; set; }
 
   }
 }

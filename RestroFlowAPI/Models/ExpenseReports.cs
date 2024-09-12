@@ -24,7 +24,6 @@ namespace RestroFlowAPI.Models
     public decimal MiscellaneousExpenses { get; set; }
     public string HighestExpenseCategory { get; set; }
     public string LowestExpenseCategory { get; set; }
-    public string ExpenseTimePeriod { get; set; }
 
     public Guid RestaurantId { get; set; } // Foreign Key to Restaurants
 

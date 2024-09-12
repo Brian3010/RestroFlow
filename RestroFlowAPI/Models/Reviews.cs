@@ -1,19 +1,19 @@
 ﻿namespace RestroFlowAPI.Models
 {
-  public enum ReviewResource
-  {
-    Google,
-    Facebook,
-    Instagram,
-    Others
-  }
+  //public enum ReviewResource
+  //{
+  //  Google,
+  //  Facebook,
+  //  Instagram,
+  //  Others
+  //}
 
   public class Reviews
   {
 
     public required Guid Id { get; set; }
 
-    public ReviewResource ReviewSource { get; set; } = ReviewResource.Others;
+    public required string ReviewSource { get; set; }
     public string? ReviewContent { get; set; }
     public required DateTime ReviewDate { get; set; }
     public float? Rating { get; set; }
@@ -22,7 +22,7 @@
     public required Guid RestaurantId { get; set; }
 
     // Navigation Properties
-    public required Restaurants Restaurant { get; set; }
+    public Restaurants Restaurant { get; set; }
 
 
 

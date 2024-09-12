@@ -4,6 +4,11 @@ namespace RestroFlowAPI.Seeds
 {
   public class SeedData
   {
+
+    public SeedData() {
+
+    }
+
     public static readonly Restaurants RestaurantSeed = new Restaurants { Id = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"), Name = "Gami Chicken and Beer", Address = "840 Glenferrie Rd, Hawthorn VIC 3122", City = "Mebourne", Suburb = "Hawthorn", CreatedAt = new DateTime(2024, 1, 1, 14, 30, 0), UpdatedAt = new DateTime(2024, 1, 1, 14, 30, 0) };
 
 
@@ -199,7 +204,124 @@ namespace RestroFlowAPI.Seeds
     public readonly static List<int> QuantitySeed = [20, 15, 2, 16, 18, 1, 10, 16, 11, 12];
 
     // Expense Table for 10/11/12/9
-    // need 
+    public static List<Expenses> ExpensesSeed() {
+      decimal expenseRentAmount = 1500;
+      List<decimal> expenseAmounts = [250, 100, 120, 80];
+      string[] expenseTypes = ["Rent", "Supplies", "Labour", "Electrictity", "Internet", "Water"];
+      int date = 1;
+      int i = 0;
+      List<Expenses> ExpenseData = [];
+
+      while (i < expenseTypes.Length * 3) {
+        int inboundIdx = i % expenseTypes.Length;
+        //Console.WriteLine(i);
+        ExpenseData.Add(new() {
+          Id = Guid.NewGuid(),
+          RestaurantId = RestaurantSeed.Id,
+          ExpenseType = expenseTypes[inboundIdx],
+          Amount = expenseTypes[inboundIdx] == "Rent" ? expenseRentAmount : expenseAmounts[new Random().Next(expenseAmounts.Count)],
+          ExpenseDate = inboundIdx == 0 ? DateTime.Now.AddDays(--date) : DateTime.Now.AddDays(date)
+        });
+
+        i++;
+      }
+
+      return ExpenseData;
+    }
+
+    // RestaurantInventory Table
+    public static List<RestaurantInventories> RestaurantInventoriesSeed() {
+      List<RestaurantInventories> restaurantInventoriesData = [];
+      var restaurantItems = RestaurantItemSeed.Values.ToList();
+      var suppliers = SupplierSeed.Values.ToList();
+      List<int> quantities = [1, 4, 5, 6, 10, 22, 3, 9, 11, 12];
+      int i = 0;
+      int date = 1;
+      while (i < restaurantItems.Count * 3) {
+        int inboundIdx1 = i % restaurantItems.Count;
+        int inboundIdx2 = i % suppliers.Count;
+
+        restaurantInventoriesData.Add(new() {
+          Id = Guid.NewGuid(),
+          RestaurantId = RestaurantSeed.Id,
+          RestaurantItemId = restaurantItems[inboundIdx1].Id,
+          SupplierId = suppliers[inboundIdx2].Id,
+          Unit = restaurantItems[inboundIdx1].Unit,
+          Quantity = quantities[new Random().Next(quantities.Count)],
+          LastUdpated = inboundIdx1 == 0 ? DateTime.Now.AddDays(--date) : DateTime.Now.AddDays(date)
+
+        });
+
+        i++;
+      }
+
+      return restaurantInventoriesData;
+    }
+
+    // InventoryAlerts Table
+    public static List<InventoryAlerts> InventoryAlertsSeed() {
+      List<InventoryAlerts> inventoryAlertsData = [];
+      List<int> threshHolds = [10, 8, 20, 9, 5, 3, 25];
+
+      foreach (var item in RestaurantItemSeed) {
+        inventoryAlertsData.Add(new() {
+          Id = Guid.NewGuid(),
+          RestaurantItemId = item.Value.Id,
+          AlertType = "Low Stock",
+          Threshold = threshHolds[new Random().Next(threshHolds.Count)],
+          CreatedAt = DateTime.Now,
+          UpdatedAt = DateTime.Now,
+        });
+      }
+
+
+      return inventoryAlertsData;
+    }
+
+    // Budget Table
+    public static List<Budgets> BudgetSeed() {
+      List<Budgets> budgetData = [];
+      int[] amount = [2000, 1000, 400];
+      string[] budgetCategories = ["Supplies", "Labour", "Others"];
+
+
+      for (int i = 0; i < 3; i++) {
+        budgetData.Add(new() {
+          Id = Guid.NewGuid(),
+          RestaurantId = RestaurantSeed.Id,
+          BudgetAmount = amount[i],
+          BudgetCategory = budgetCategories[i],
+          BudgetStartDate = DateTime.Now.AddDays(-7),
+          BudgetEndDate = DateTime.Now,
+        });
+      }
+
+      return budgetData;
+    }
+
+    // Review Table 
+    public static List<Reviews> ReviewSeed() {
+      List<Reviews> reviewData = [];
+      List<int> ratings = [3, 2, 4, 5];
+      List<string> reviewSources = ["Facebook", "Google", "Instagram", "Others"];
+
+      for (int i = 0; i < 10; i++) {
+        reviewData.Add(new() {
+          Id = Guid.NewGuid(),
+          RestaurantId = RestaurantSeed.Id,
+          ReviewSource = reviewSources[new Random().Next(reviewSources.Count)],
+          ReviewDate = DateTime.Now,
+          Rating = ratings[new Random().Next(ratings.Count)]
+        });
+
+      }
+
+      return reviewData;
+    }
+
+
+
+
 
 
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestroFlowAPI.Data;
 
@@ -11,9 +12,11 @@ using RestroFlowAPI.Data;
 namespace RestroFlowAPI.Migrations.RestroFlowDb
 {
     [DbContext(typeof(RestroFlowDbContext))]
-    partial class RestroFlowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240912101743_Seeding InventoryAlerts")]
+    partial class SeedingInventoryAlerts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,9 +54,8 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.Property<decimal>("BudgetAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("BudgetCategory")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("BudgetCategory")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("BudgetEndDate")
                         .HasColumnType("datetime2");
@@ -78,41 +80,6 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("Budgets");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("7ea6d1bc-df7e-4d9d-be3e-7d9e4d51b0ec"),
-                            BudgetAmount = 2000m,
-                            BudgetCategory = "Supplies",
-                            BudgetEndDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3504),
-                            BudgetStartDate = new DateTime(2024, 9, 6, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3464),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("d01bec5c-8129-47c3-bd70-451c74b79451"),
-                            BudgetAmount = 1000m,
-                            BudgetCategory = "Labour",
-                            BudgetEndDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3510),
-                            BudgetStartDate = new DateTime(2024, 9, 6, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3509),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("42411ba0-467a-4fdd-83cd-d640e1da9721"),
-                            BudgetAmount = 400m,
-                            BudgetCategory = "Others",
-                            BudgetEndDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3514),
-                            BudgetStartDate = new DateTime(2024, 9, 6, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3512),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.ExpenseReports", b =>
@@ -210,6 +177,98 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.HasIndex("RestaurantItemId");
 
                     b.ToTable("InventoryAlerts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("63cd57fa-415e-4eff-b30c-2b0a25db8f92"),
+                            AlertType = "Low Stock",
+                            CreatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8227),
+                            RestaurantItemId = new Guid("f58a9385-8a8b-43e7-a7ca-5a953a980cf4"),
+                            Threshold = 20f,
+                            UpdatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8263)
+                        },
+                        new
+                        {
+                            Id = new Guid("a56c8525-610b-45e0-9826-502a9cf4dea6"),
+                            AlertType = "Low Stock",
+                            CreatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8269),
+                            RestaurantItemId = new Guid("122f8ddc-47dd-45e9-8bb5-6b1a3bd1949a"),
+                            Threshold = 9f,
+                            UpdatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8270)
+                        },
+                        new
+                        {
+                            Id = new Guid("2187d49e-ec70-4246-bbe7-d5881625a245"),
+                            AlertType = "Low Stock",
+                            CreatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8277),
+                            RestaurantItemId = new Guid("116d32b5-4407-4fe4-9c6e-2aa38c8b6712"),
+                            Threshold = 20f,
+                            UpdatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8278)
+                        },
+                        new
+                        {
+                            Id = new Guid("72486e37-1b15-4464-bfb4-187eb7cddefe"),
+                            AlertType = "Low Stock",
+                            CreatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8281),
+                            RestaurantItemId = new Guid("f8472b62-e223-4033-8fb4-59a762cd0f12"),
+                            Threshold = 9f,
+                            UpdatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8283)
+                        },
+                        new
+                        {
+                            Id = new Guid("4a0e1948-2623-4158-8236-a183a13ad350"),
+                            AlertType = "Low Stock",
+                            CreatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8286),
+                            RestaurantItemId = new Guid("973d9cfe-b929-4cf3-ab02-8dfeb1fa9442"),
+                            Threshold = 5f,
+                            UpdatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8288)
+                        },
+                        new
+                        {
+                            Id = new Guid("4014a557-256a-44e4-b2cc-cfd2ddb1da78"),
+                            AlertType = "Low Stock",
+                            CreatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8295),
+                            RestaurantItemId = new Guid("ea6d6784-afbe-4045-809d-90c3a972f12d"),
+                            Threshold = 8f,
+                            UpdatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8296)
+                        },
+                        new
+                        {
+                            Id = new Guid("79612fcd-48fe-4ef5-886d-24e04f5e3787"),
+                            AlertType = "Low Stock",
+                            CreatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8299),
+                            RestaurantItemId = new Guid("f87c819a-5b3a-4c09-bb42-b387790b70c0"),
+                            Threshold = 20f,
+                            UpdatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8301)
+                        },
+                        new
+                        {
+                            Id = new Guid("8a9e281a-b5d6-4ff7-91ec-fe69df7c5d18"),
+                            AlertType = "Low Stock",
+                            CreatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8303),
+                            RestaurantItemId = new Guid("51a801ff-89b7-4663-a308-b0b577018e14"),
+                            Threshold = 3f,
+                            UpdatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8305)
+                        },
+                        new
+                        {
+                            Id = new Guid("bf718cca-b3b4-4343-a3f5-d09ca7edc2d1"),
+                            AlertType = "Low Stock",
+                            CreatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8309),
+                            RestaurantItemId = new Guid("7a456054-4b0c-4005-8623-b4a7ecfb4103"),
+                            Threshold = 25f,
+                            UpdatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8311)
+                        },
+                        new
+                        {
+                            Id = new Guid("5d47ee2f-5b63-411c-8b32-897ad315039d"),
+                            AlertType = "Low Stock",
+                            CreatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8315),
+                            RestaurantItemId = new Guid("a50a5bdf-e0bb-41ae-b23d-87d5076265a7"),
+                            Threshold = 9f,
+                            UpdatedAt = new DateTime(2024, 9, 12, 20, 17, 43, 403, DateTimeKind.Local).AddTicks(8316)
+                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.InventoryReports", b =>
@@ -420,97 +479,14 @@ namespace RestroFlowAPI.Migrations.RestroFlowDb
                     b.Property<DateTime>("ReviewDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ReviewSource")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ReviewSource")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RestaurantId");
 
                     b.ToTable("Reviews");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("e4fa60ad-ff15-4c8a-918a-b935a23c79a3"),
-                            Rating = 2f,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            ReviewDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3583),
-                            ReviewSource = "Instagram"
-                        },
-                        new
-                        {
-                            Id = new Guid("ca2eba6f-1745-4386-bf2a-cd606bce2370"),
-                            Rating = 5f,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            ReviewDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3593),
-                            ReviewSource = "Google"
-                        },
-                        new
-                        {
-                            Id = new Guid("7cfe563f-abea-4cd7-9957-e25946be2e20"),
-                            Rating = 4f,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            ReviewDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3598),
-                            ReviewSource = "Others"
-                        },
-                        new
-                        {
-                            Id = new Guid("ecb559ff-80e1-46e0-b06d-7ad09a179ff4"),
-                            Rating = 3f,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            ReviewDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3603),
-                            ReviewSource = "Facebook"
-                        },
-                        new
-                        {
-                            Id = new Guid("50df28bd-ff5b-42b6-a97f-b0cf0e01ab4e"),
-                            Rating = 3f,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            ReviewDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3608),
-                            ReviewSource = "Instagram"
-                        },
-                        new
-                        {
-                            Id = new Guid("702dfb36-c76c-40e9-8924-250b328ac871"),
-                            Rating = 2f,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            ReviewDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3615),
-                            ReviewSource = "Instagram"
-                        },
-                        new
-                        {
-                            Id = new Guid("a45b386f-4e16-4dd9-97a1-c431da8fc9f4"),
-                            Rating = 2f,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            ReviewDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3620),
-                            ReviewSource = "Others"
-                        },
-                        new
-                        {
-                            Id = new Guid("58ef28f9-d581-4cdc-8414-b036fd5caf24"),
-                            Rating = 5f,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            ReviewDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3626),
-                            ReviewSource = "Instagram"
-                        },
-                        new
-                        {
-                            Id = new Guid("7c579014-fd46-4bd2-a2ac-a72a75149e55"),
-                            Rating = 2f,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            ReviewDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3629),
-                            ReviewSource = "Facebook"
-                        },
-                        new
-                        {
-                            Id = new Guid("d5c0c66e-c9eb-4d56-8355-ab63253d677e"),
-                            Rating = 5f,
-                            RestaurantId = new Guid("cc0db03e-f425-459f-88ca-26496d389dc1"),
-                            ReviewDate = new DateTime(2024, 9, 13, 1, 9, 55, 238, DateTimeKind.Local).AddTicks(3635),
-                            ReviewSource = "Others"
-                        });
                 });
 
             modelBuilder.Entity("RestroFlowAPI.Models.SaleReports", b =>
