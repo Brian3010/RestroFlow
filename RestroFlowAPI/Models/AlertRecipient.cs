@@ -6,7 +6,7 @@
 
 
     // Foreign Keys
-    public Guid InventoryAlertId { get; set; }
+    //public Guid InventoryAlertId { get; set; }
 
     // Foreign Key for UserId from RestroFlowAuthDbContext
     // No navigation property since it belongs to another DbContext

@@ -295,7 +295,7 @@ namespace RestroFlowAPI.Seeds
         inventoryAlertsData.Add(new() {
           Id = Guid.NewGuid(),
           RestaurantItemId = item.Value.Id,
-          AlertType = "Low Stock",
+          //AlertType = "Low Stock",
           Threshold = threshHolds[new Random().Next(threshHolds.Count)],
           CreatedAt = DateTime.Now,
           UpdatedAt = DateTime.Now,
