@@ -30,10 +30,11 @@ namespace RestroFlowAPI.Data
     public DbSet<Suppliers> Suppliers { get; set; }
     public DbSet<SupplierInventories> SupplierInventories { get; set; }
     public DbSet<SupplierItems> SupplierItems { get; set; }
+    public DbSet<ItemLocations> ItemLocations { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
-      base.OnModelCreating(modelBuilder);
+
 
       // Restaurant Inventory
       modelBuilder.Entity<RestaurantInventories>()
@@ -66,6 +67,14 @@ namespace RestroFlowAPI.Data
        .WithMany()
        .HasForeignKey(ri => ri.RestaurantId)
        .OnDelete(DeleteBehavior.NoAction);
+
+      modelBuilder.Entity<RestaurantItems>()
+       .HasOne(ri => ri.ItemLocations)
+       .WithMany()
+       .HasForeignKey(ri => ri.ItemLocationId)
+       .OnDelete(DeleteBehavior.NoAction);
+
+
 
       // Stock Order
       modelBuilder.Entity<StockOrders>()
@@ -122,7 +131,7 @@ namespace RestroFlowAPI.Data
       // Seed data
       new SeedInitializer(modelBuilder).Seed();
 
-
+      base.OnModelCreating(modelBuilder);
     }
 
 

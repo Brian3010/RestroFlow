@@ -58,6 +58,10 @@ namespace RestroFlowAPI.Seeds
       // Reviews Table
       _modelBuilder.Entity<Reviews>().HasData(SeedData.ReviewSeed());
 
+      // ItemLocations Table
+      // AlertRecipient table
+      // StockOrders Table
+      // SupplierItems table 
     }
   }
 }

@@ -10,7 +10,6 @@ namespace RestroFlowAPI.Models
 
     public required string Unit { get; set; }
 
-
     public string? Description { get; set; }
 
     //[Column(TypeName = "decimal(18,2)")]
@@ -24,10 +23,12 @@ namespace RestroFlowAPI.Models
     // Foreign Keys
     public required Guid RestaurantId { get; set; }
     public required Guid SupplierId { get; set; }
+    public required Guid ItemLocationId { get; set; } // back of house or front of house
 
     // Navigation properties
     public Restaurants Restaurant { get; set; }
     public Suppliers Supplier { get; set; }
+    public ItemLocations ItemLocations { get; set; }
 
   }
 }

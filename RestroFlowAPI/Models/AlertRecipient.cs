@@ -10,10 +10,7 @@
 
     // Foreign Key for UserId from RestroFlowAuthDbContext
     // No navigation property since it belongs to another DbContext
-    public required string RecipientId { get; set; }
-
-    // Navigation Properties
-    public required InventoryAlerts InventoryAlert { get; set; }
+    public required Guid RecipientId { get; set; }
 
   }
 }

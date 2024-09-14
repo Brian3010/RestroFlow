@@ -132,48 +132,60 @@ namespace RestroFlowAPI.Seeds
   };
 
 
+    public static readonly List<ItemLocations> ItemLocationsSeed = [
+      new(){
+        Id = Guid.NewGuid(),
+        Name = "Back of House Stock Lists"
+      },
+      new(){
+        Id = Guid.NewGuid(),
+        Name = "Front of House Stock Lists"
+      }
+      ];
+
+
     public static readonly Dictionary<string, RestaurantItems> RestaurantItemSeed = new(){
       // B&E
       {"Whole chicken",
-        new(){Id = new Guid("f58a9385-8a8b-43e7-a7ca-5a953a980cf4"),Name="Whole chicken",Unit="Portion",SupplierId=SupplierSeed["B&E Food"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id }
+        new(){Id = new Guid("f58a9385-8a8b-43e7-a7ca-5a953a980cf4"),Name="Whole chicken",Unit="Portion",SupplierId=SupplierSeed["B&E Food"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id,ItemLocationId = ItemLocationsSeed[0].Id}
       },
 
       {"Boneless chicken",
-        new(){Id = new Guid("122f8ddc-47dd-45e9-8bb5-6b1a3bd1949a"),Name="Boneless chicken",Unit="box",SupplierId= SupplierSeed["B&E Food"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id }
+        new(){Id = new Guid("122f8ddc-47dd-45e9-8bb5-6b1a3bd1949a"),Name="Boneless chicken",Unit="box",SupplierId= SupplierSeed["B&E Food"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id,ItemLocationId = ItemLocationsSeed[0].Id  }
       },
 
       {"Chicken wings",
-        new(){Id = new Guid("116d32b5-4407-4fe4-9c6e-2aa38c8b6712"),Name="Chicken wings",Unit="container",SupplierId=SupplierSeed["B&E Food"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id }
+        new(){Id = new Guid("116d32b5-4407-4fe4-9c6e-2aa38c8b6712"),Name="Chicken wings",Unit="container",SupplierId=SupplierSeed["B&E Food"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id,ItemLocationId = ItemLocationsSeed[0].Id }
       },
 
       {"Chicken steak",
-        new(){Id = new Guid("f8472b62-e223-4033-8fb4-59a762cd0f12"),Name="Chicken Steak",Unit="container",SupplierId=SupplierSeed["B&E Food"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id }
+        new(){Id = new Guid("f8472b62-e223-4033-8fb4-59a762cd0f12"),Name="Chicken Steak",Unit="container",SupplierId=SupplierSeed["B&E Food"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id,ItemLocationId = ItemLocationsSeed[0].Id }
       },
 
       {"Marinated beef",
-        new(){Id = new Guid("973d9cfe-b929-4cf3-ab02-8dfeb1fa9442"),Name="Marinated beef",Unit="portion",SupplierId=SupplierSeed["B&E Food"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id }
+        new(){Id = new Guid("973d9cfe-b929-4cf3-ab02-8dfeb1fa9442"),Name="Marinated beef",Unit="portion",SupplierId=SupplierSeed["B&E Food"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id,ItemLocationId = ItemLocationsSeed[0].Id }
       },
 
       // CFS 
       {"Chicken powder",
-        new(){Id = new Guid("ea6d6784-afbe-4045-809d-90c3a972f12d"),Name="Chicken powder",Unit="bag",SupplierId=SupplierSeed["Complete Food Services"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id }
+        new(){Id = new Guid("ea6d6784-afbe-4045-809d-90c3a972f12d"),Name="Chicken powder",Unit="bag",SupplierId=SupplierSeed["Complete Food Services"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id,ItemLocationId = ItemLocationsSeed[1].Id }
       },
 
       {"Soy garlic",
-        new(){Id = new Guid("f87c819a-5b3a-4c09-bb42-b387790b70c0"),Name="Soy garlic",Unit="bag",SupplierId=SupplierSeed["Complete Food Services"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id }
+        new(){Id = new Guid("f87c819a-5b3a-4c09-bb42-b387790b70c0"),Name="Soy garlic",Unit="bag",SupplierId=SupplierSeed["Complete Food Services"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id,ItemLocationId = ItemLocationsSeed[1].Id  }
       },
 
       {"Spicy sauce",
-        new(){Id = new Guid("51a801ff-89b7-4663-a308-b0b577018e14"),Name="Spicy sauce",Unit="bag",SupplierId=SupplierSeed["Complete Food Services"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id }
+        new(){Id = new Guid("51a801ff-89b7-4663-a308-b0b577018e14"),Name="Spicy sauce",Unit="bag",SupplierId=SupplierSeed["Complete Food Services"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id,ItemLocationId = ItemLocationsSeed[1].Id  }
       },
 
 
       {"Sweet Chiilies",
-        new(){Id = new Guid("7a456054-4b0c-4005-8623-b4a7ecfb4103"),Name="Sweet Chiilies",Unit="bag",SupplierId=SupplierSeed["Complete Food Services"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id }
+        new(){Id = new Guid("7a456054-4b0c-4005-8623-b4a7ecfb4103"),Name="Sweet Chiilies",Unit="bag",SupplierId=SupplierSeed["Complete Food Services"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id,ItemLocationId = ItemLocationsSeed[1].Id }
       },
 
       {"Wedges",
-        new(){Id = new Guid("a50a5bdf-e0bb-41ae-b23d-87d5076265a7"),Name="Wedges",Unit="bag",SupplierId=SupplierSeed["Complete Food Services"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id }
+        new(){Id = new Guid("a50a5bdf-e0bb-41ae-b23d-87d5076265a7"),Name="Wedges",Unit="bag",SupplierId=SupplierSeed["Complete Food Services"].Id,CreatedAt = DateTime.Now, UpdatedAt= DateTime.Now, RestaurantId = RestaurantSeed.Id,ItemLocationId = ItemLocationsSeed[1].Id  }
       },
 
 
@@ -345,6 +357,71 @@ namespace RestroFlowAPI.Seeds
       }
 
       return reviewData;
+    }
+
+    // AlertRecipient table
+    public static List<AlertRecipient> AlertRecipientsSeed => [
+      new() {
+        AlertRecipientId = Guid.NewGuid(),
+        RecipientId = Guid.Parse("4159909e-2ce4-4ab1-8f8b-7057abab54e6"), // admin
+      },
+      new() {
+        AlertRecipientId = Guid.NewGuid(),
+        RecipientId = Guid.Parse("5ccff338-dc6e-4343-b6ab-aba04c47efa8"), // owner
+      },
+      new() {
+        AlertRecipientId = Guid.NewGuid(),
+        RecipientId = Guid.Parse("bad99891-f96c-4375-93e0-5ffabe406849"), // manager
+      },
+      ];
+
+
+    // StockOrders Table
+    public static List<StockOrders> StockOrdersSeed() {
+      List<StockOrders> stockOrdersdata = [];
+      int date = 1;
+      int i = 0;
+      var items = RestaurantItemSeed.Values.ToList();
+
+      while (i < items.Count * 3) {
+        int inboundIdx = i % items.Count;
+        var dateTime = inboundIdx == 0 ? DateTime.Now.AddDays(--date) : DateTime.Now.AddDays(date);
+        stockOrdersdata.Add(
+          new() {
+            Id = Guid.NewGuid(),
+            RestaurantId = RestaurantSeed.Id,
+            RestaurantItemId = items[i].Id,
+            SupplierId = items[i].SupplierId,
+            Quantity = new Random().Next(5),
+            OrderDate = dateTime,
+            CreatedAt = dateTime,
+            UpdatedAt = dateTime,
+          }
+          );
+
+
+        i++;
+      }
+
+      return stockOrdersdata;
+
+
+    }
+
+    // SupplierItems table 
+    public static List<SupplierItems> SupplierItemsSeed() {
+      decimal[] prices = [30.9M, 20.5M, 19.9M, 30.2M, 10, 11, 13.5M, 17.5M, 50, 25, 21, 22, 34];
+      List<SupplierItems> supplierItemsData = [];
+      string[][] BnEFoodItems = [["Whole chicken", "pack"], ["Boneless Chicken", "box"], ["Chicken wings", "container"], ["Chicken steak", "container"], ["Marinated beef", "portion"], ["Drumstick", "container"], ["Skewers", "container"], ["Boiled gochujang", "container"], ["Boxing wings", "portion"], ["Carrot rings", "pack"], ["Eggs", "dozen"],];
+
+      string[][] CFSItems = [["Chicken powder", "bag"], ["Soy garlic", "bag"], ["Spicy sauce", "bag"], ["Sweet chillies", "bag"], ["Wedges", "bag"], ["Chips", "bag"], ["Shoestring chips", "bag"], ["Corn ribs", "pack"], ["Mustard", ""], ["Ketchup", "gallon"], ["Milk", "carton"], ["Mayonnaise", "bucket"], ["Sour cream", "tub"], ["Mozzarella cheese", "bag"], ["Burger bun", "bag"], ["Slider bun", "bag"], ["Red spicy mayo", "bag"], ["Gochujang sauce", "bag"], ["Tteokbokki sauce", "bag"], ["Crushed garlic", "bucket"], ["Salted butter", "pack"], ["Cheese sauce", "bag"], ["Potato flake", ""], ["Whole gain mustard", "tub"], ["Tomato Relish", "bottle"], ["Prawn mandu", "pack"], ["Prawn burger", "pack"], ["Japchae mandu", "pack"], ["Hotteok", "pack"], ["K-donut", "pack"]];
+
+      string[][] FFIItems = [["Coleslaw", "bag"], ["White radish", "container"], ["Mix salad", "box"], ["Corn kernel", "bag"], ["Dried garlic", "container"]];
+
+      string[][] GFIItems = [["Instant noodle", "pack"], ["Rice cake", "bag"], ["Frying mix", "bag"], ["Pancake mix", "bag"], ["Dumpling", "bag"], ["Corn syrup", "gallon"], ["Seasame oil", "can"], ["Beef dashida", "bag"], ["Kimchi", "container"], ["Thai sweet chilli", "gallon"], ["Potato noodle", "box"], ["Fish cake", "bag"], ["Soy sauce", "jerrycan"]];
+
+
+      return supplierItemsData;
     }
 
 
