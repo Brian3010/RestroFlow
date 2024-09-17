@@ -12,8 +12,8 @@ using RestroFlowAPI.Data;
 namespace RestroFlowAPI.Migrations
 {
     [DbContext(typeof(RestroFlowAuthDbContext))]
-    [Migration("20240814180728_Creating RestroFlowAuth Database")]
-    partial class CreatingRestroFlowAuthDatabase
+    [Migration("20240917173616_Initial Seed Auth Commit")]
+    partial class InitialSeedAuthCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,6 +170,92 @@ namespace RestroFlowAPI.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "21804e79-b2bb-4a6e-9418-3cab51e579ac",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ab8f6ded-ca66-4a29-9aea-43f345146679",
+                            Email = "brian-admin@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEBb+4bFsYAHd2tFxrhHrxFlckZRJCYjwdVi9UR9Qg7DJeAnh8DGRkreAig2ePR+jcQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "570a4ade-62b4-41f5-8d45-f7af826a5811",
+                            TwoFactorEnabled = false,
+                            UserName = "brian-admin@example.com"
+                        },
+                        new
+                        {
+                            Id = "f2ba15e2-f1d3-43d1-bb84-6767253ebbe2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "946413b1-eaec-4d9a-b4b0-450f38d6f97e",
+                            Email = "alice-owner@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEL8xao9lIVwPhXMjBFfhasukphsYceBlXRzyxT0lABcfD/LNcXvXhixDYZ+78VmYDA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "896cc988-16a2-4e6c-a8b5-9ac766a45d4f",
+                            TwoFactorEnabled = false,
+                            UserName = "alice-owner@example.com"
+                        },
+                        new
+                        {
+                            Id = "9125374f-e121-40f2-b42f-089529dd5fbd",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9e0c898d-2b9b-47a8-b261-856debb44036",
+                            Email = "bob-manager@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEFHN/ptfcJ985ZE9lODiOJYekzTMPWV+QFHj1LAxta00uItKQA6T74y9SOR9x9a4AA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "fcba049c-a895-4ffb-a631-6497243e540d",
+                            TwoFactorEnabled = false,
+                            UserName = "bob-manager@example.com"
+                        },
+                        new
+                        {
+                            Id = "36c8f410-61d4-49fb-beb0-ff35e319614e",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0acfa94d-84f8-4a95-b324-c82d7f45f05b",
+                            Email = "charlie-manager@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAED3qaHJTYjUqCFpIJa3AXDHZaGDGmUOvySPdM8leOGbhMxFASoXOnLhH8BGiUzc/6A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "38609e82-8ac7-445d-bf03-caa6b781db2f",
+                            TwoFactorEnabled = false,
+                            UserName = "charlie-manager@example.com"
+                        },
+                        new
+                        {
+                            Id = "25a8ee82-6527-4c92-b374-afa6a65cb3b9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b4382725-d704-4495-8624-6e619780b519",
+                            Email = "melissa-staff@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAELuaoxQsMhrQBfusA2/DvrGN1WkNeAZONIYZz9Aan+yLw3HJ0OvB7oNEmwksBEySBg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "7799270d-9da7-419e-a0fe-c7e0e8322813",
+                            TwoFactorEnabled = false,
+                            UserName = "melissa-staff@example.com"
+                        },
+                        new
+                        {
+                            Id = "55bc7fd2-de9a-4a8b-9bb8-5d384b8e8f23",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5351301e-cd39-4f45-b5e7-23442f294e35",
+                            Email = "thomas-staff@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEMiI6X7xT8zfm7YjZ2RLbPIm8g0h2b410y6qfVu8WU44hb5Mgp1Hvyb6Y3pu0s/M4w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "09d4e164-1316-4214-98b0-a274a4ed1869",
+                            TwoFactorEnabled = false,
+                            UserName = "thomas-staff@example.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -232,6 +318,38 @@ namespace RestroFlowAPI.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "21804e79-b2bb-4a6e-9418-3cab51e579ac",
+                            RoleId = "7548f645-d440-4f78-a9f7-5c550018507d"
+                        },
+                        new
+                        {
+                            UserId = "f2ba15e2-f1d3-43d1-bb84-6767253ebbe2",
+                            RoleId = "12a30017-f331-45e6-8944-74f1ee52d686"
+                        },
+                        new
+                        {
+                            UserId = "9125374f-e121-40f2-b42f-089529dd5fbd",
+                            RoleId = "5f47664-7802-49d9-ba29-f9f30f6d31fa"
+                        },
+                        new
+                        {
+                            UserId = "36c8f410-61d4-49fb-beb0-ff35e319614e",
+                            RoleId = "5f47664-7802-49d9-ba29-f9f30f6d31fa"
+                        },
+                        new
+                        {
+                            UserId = "25a8ee82-6527-4c92-b374-afa6a65cb3b9",
+                            RoleId = "aa60f3e2-a997-4bc9-b16f-1617f950bc88"
+                        },
+                        new
+                        {
+                            UserId = "55bc7fd2-de9a-4a8b-9bb8-5d384b8e8f23",
+                            RoleId = "aa60f3e2-a997-4bc9-b16f-1617f950bc88"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

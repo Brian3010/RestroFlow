@@ -6,6 +6,7 @@ namespace RestroFlowAPI.Seeds
   public class SeedInitializer
   {
     private readonly ModelBuilder _modelBuilder;
+
     public SeedInitializer(ModelBuilder modelBuilder) {
       _modelBuilder = modelBuilder;
 
@@ -20,13 +21,13 @@ namespace RestroFlowAPI.Seeds
         _modelBuilder.Entity<RestaurantMenus>().HasData(item.Value);
       }
 
-      //var restaurantMenus = SeedData.RestaurantMenus;
-      //var test = restaurantMenus["Whole-Chicken"].Id;
-
       // Supplier table
       foreach (KeyValuePair<string, Suppliers> item in SeedData.SupplierSeed) {
         _modelBuilder.Entity<Suppliers>().HasData(item.Value);
       }
+
+      // ItemLocations Table
+      _modelBuilder.Entity<ItemLocations>().HasData(SeedData.ItemLocationsSeed);
 
       // RestaurantItem table
       foreach (KeyValuePair<string, RestaurantItems> item in SeedData.RestaurantItemSeed) {
@@ -54,14 +55,21 @@ namespace RestroFlowAPI.Seeds
       // Budgets table 
       _modelBuilder.Entity<Budgets>().HasData(SeedData.BudgetSeed());
 
-
       // Reviews Table
       _modelBuilder.Entity<Reviews>().HasData(SeedData.ReviewSeed());
 
-      // ItemLocations Table
       // AlertRecipient table
+      _modelBuilder.Entity<AlertRecipient>().HasData(SeedData.AlertRecipientsSeed);
+
       // StockOrders Table
-      // SupplierItems table 
+      _modelBuilder.Entity<StockOrders>().HasData(SeedData.StockOrdersSeed());
+
+      //// SupplierItems table
+      _modelBuilder.Entity<SupplierItems>().HasData(SeedData.SupplierItemsSeed());
+
+      // Supplierinventories table  added manually or another way ? 
+
+
     }
   }
 }

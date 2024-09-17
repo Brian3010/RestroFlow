@@ -360,18 +360,22 @@ namespace RestroFlowAPI.Seeds
     }
 
     // AlertRecipient table
-    public static List<AlertRecipient> AlertRecipientsSeed => [
+    public static List<AlertRecipient> AlertRecipientsSeed = [
       new() {
         AlertRecipientId = Guid.NewGuid(),
-        RecipientId = Guid.Parse("4159909e-2ce4-4ab1-8f8b-7057abab54e6"), // admin
+        RecipientId = Guid.Parse("21804e79-b2bb-4a6e-9418-3cab51e579ac"), // admin
       },
       new() {
         AlertRecipientId = Guid.NewGuid(),
-        RecipientId = Guid.Parse("5ccff338-dc6e-4343-b6ab-aba04c47efa8"), // owner
+        RecipientId = Guid.Parse("f2ba15e2-f1d3-43d1-bb84-6767253ebbe2"), // owner
       },
       new() {
         AlertRecipientId = Guid.NewGuid(),
-        RecipientId = Guid.Parse("bad99891-f96c-4375-93e0-5ffabe406849"), // manager
+        RecipientId = Guid.Parse("36c8f410-61d4-49fb-beb0-ff35e319614e"), // manager
+      },
+      new() {
+        AlertRecipientId = Guid.NewGuid(),
+        RecipientId = Guid.Parse("9125374f-e121-40f2-b42f-089529dd5fbd"), // manager
       },
       ];
 
@@ -390,8 +394,8 @@ namespace RestroFlowAPI.Seeds
           new() {
             Id = Guid.NewGuid(),
             RestaurantId = RestaurantSeed.Id,
-            RestaurantItemId = items[i].Id,
-            SupplierId = items[i].SupplierId,
+            RestaurantItemId = items[inboundIdx].Id,
+            SupplierId = items[inboundIdx].SupplierId,
             Quantity = new Random().Next(5),
             OrderDate = dateTime,
             CreatedAt = dateTime,
@@ -399,19 +403,16 @@ namespace RestroFlowAPI.Seeds
           }
           );
 
-
         i++;
       }
 
       return stockOrdersdata;
 
-
     }
+
 
     // SupplierItems table 
     public static List<SupplierItems> SupplierItemsSeed() {
-      decimal[] prices = [30.9M, 20.5M, 19.9M, 30.2M, 10, 11, 13.5M, 17.5M, 50, 25, 21, 22, 34];
-      List<SupplierItems> supplierItemsData = [];
       string[][] BnEFoodItems = [["Whole chicken", "pack"], ["Boneless Chicken", "box"], ["Chicken wings", "container"], ["Chicken steak", "container"], ["Marinated beef", "portion"], ["Drumstick", "container"], ["Skewers", "container"], ["Boiled gochujang", "container"], ["Boxing wings", "portion"], ["Carrot rings", "pack"], ["Eggs", "dozen"],];
 
       string[][] CFSItems = [["Chicken powder", "bag"], ["Soy garlic", "bag"], ["Spicy sauce", "bag"], ["Sweet chillies", "bag"], ["Wedges", "bag"], ["Chips", "bag"], ["Shoestring chips", "bag"], ["Corn ribs", "pack"], ["Mustard", ""], ["Ketchup", "gallon"], ["Milk", "carton"], ["Mayonnaise", "bucket"], ["Sour cream", "tub"], ["Mozzarella cheese", "bag"], ["Burger bun", "bag"], ["Slider bun", "bag"], ["Red spicy mayo", "bag"], ["Gochujang sauce", "bag"], ["Tteokbokki sauce", "bag"], ["Crushed garlic", "bucket"], ["Salted butter", "pack"], ["Cheese sauce", "bag"], ["Potato flake", ""], ["Whole gain mustard", "tub"], ["Tomato Relish", "bottle"], ["Prawn mandu", "pack"], ["Prawn burger", "pack"], ["Japchae mandu", "pack"], ["Hotteok", "pack"], ["K-donut", "pack"]];
@@ -421,32 +422,101 @@ namespace RestroFlowAPI.Seeds
       string[][] GFIItems = [["Instant noodle", "pack"], ["Rice cake", "bag"], ["Frying mix", "bag"], ["Pancake mix", "bag"], ["Dumpling", "bag"], ["Corn syrup", "gallon"], ["Seasame oil", "can"], ["Beef dashida", "bag"], ["Kimchi", "container"], ["Thai sweet chilli", "gallon"], ["Potato noodle", "box"], ["Fish cake", "bag"], ["Soy sauce", "jerrycan"]];
 
 
+      decimal[] prices = [30.9M, 20.5M, 19.9M, 30.2M, 10, 11, 13.5M, 17.5M, 50, 25, 21, 22, 34];
+
+      var supplierItemsData = new List<SupplierItems>();
+      int totalItems = BnEFoodItems.Length + CFSItems.Length + FFIItems.Length + GFIItems.Length;
+
+      // Seed item for B&E supplier
+      /*for (int i = 0; i < BnEFoodItems.Length; i++) {
+
+        supplierItemsData.Add(
+          new() {
+            Id = Guid.NewGuid(),
+            Name = BnEFoodItems[i][0],
+            Unit = BnEFoodItems[i][1],
+            SupplierId = SupplierSeed["B&E Food"].Id,
+            Price = prices[new Random().Next(prices.Length)],
+            CreateAt = DateTime.Now,
+            UpdatedAt = DateTime.Now,
+          }
+          );
+      }*/
+
+      for (int i = 0; i < totalItems; i++) {
+
+        // B&E
+        if (i < BnEFoodItems.Length) {
+          Guid id = Guid.NewGuid();
+
+          supplierItemsData.Add(
+          new() {
+            Id = id,
+            Name = BnEFoodItems[i][0],
+            Unit = BnEFoodItems[i][1],
+            SupplierId = SupplierSeed["B&E Food"].Id,
+            Price = prices[new Random().Next(prices.Length)],
+            CreateAt = DateTime.Now,
+            UpdatedAt = DateTime.Now,
+          }
+          );
+        }
+
+        // CFS
+        if (i < CFSItems.Length) {
+          Guid id = Guid.NewGuid();
+
+          supplierItemsData.Add(
+          new() {
+            Id = id,
+            Name = CFSItems[i][0],
+            Unit = CFSItems[i][1],
+            SupplierId = SupplierSeed["Complete Food Services"].Id,
+            Price = prices[new Random().Next(prices.Length)],
+            CreateAt = DateTime.Now,
+            UpdatedAt = DateTime.Now,
+          }
+          );
+        }
+
+        // FFI
+        if (i < FFIItems.Length) {
+          Guid id = Guid.NewGuid();
+
+          supplierItemsData.Add(
+          new() {
+            Id = id,
+            Name = FFIItems[i][0],
+            Unit = FFIItems[i][1],
+            SupplierId = SupplierSeed["Fresh Food Industries"].Id,
+            Price = prices[new Random().Next(prices.Length)],
+            CreateAt = DateTime.Now,
+            UpdatedAt = DateTime.Now,
+          }
+          );
+        }
+
+        // GFI 
+        if (i < GFIItems.Length) {
+          Guid id = Guid.NewGuid();
+
+          supplierItemsData.Add(
+          new() {
+            Id = id,
+            Name = GFIItems[i][0],
+            Unit = GFIItems[i][1],
+            SupplierId = SupplierSeed["GFI Foods"].Id,
+            Price = prices[new Random().Next(prices.Length)],
+            CreateAt = DateTime.Now,
+            UpdatedAt = DateTime.Now,
+          }
+          );
+
+        }
+      }
+
       return supplierItemsData;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

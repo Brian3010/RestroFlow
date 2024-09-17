@@ -7,7 +7,9 @@ namespace RestroFlowAPI.Models
     public required Guid Id { get; set; }
 
     public required string Name { get; set; }
-    public required string Description { get; set; }
+    public string? Description { get; set; }
+    public required string Unit { get; set; }
+
 
     [Column(TypeName = "decimal(18,2)")]
     public required decimal Price { get; set; }
@@ -18,7 +20,7 @@ namespace RestroFlowAPI.Models
     public required Guid SupplierId { get; set; }
 
     // Navigation properties
-    public required Suppliers Supplier { get; set; }
+    public Suppliers Supplier { get; set; }
 
   }
 }

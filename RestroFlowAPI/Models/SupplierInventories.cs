@@ -10,8 +10,8 @@
     public required DateTime LastUpdated { get; set; }
 
     // Foreign Keys
-    public Guid? SupplierId { get; set; }
-    public Guid? SupplierItemId { get; set; }
+    public required Guid SupplierId { get; set; }
+    public required Guid SupplierItemId { get; set; }
 
     // Navigation properties
     public Suppliers? Supplier { get; set; }
