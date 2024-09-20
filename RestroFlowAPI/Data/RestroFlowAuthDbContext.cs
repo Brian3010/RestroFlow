@@ -6,12 +6,13 @@ namespace RestroFlowAPI.Data
 {
   public class RestroFlowAuthDbContext : IdentityDbContext
   {
+    private readonly UserManager<IdentityUser> _userManager;
 
-
-    public RestroFlowAuthDbContext(DbContextOptions<RestroFlowAuthDbContext> options) : base(options) {
+    public RestroFlowAuthDbContext(DbContextOptions<RestroFlowAuthDbContext> options, UserManager<IdentityUser> userManager) : base(options) {
+      _userManager = userManager;
     }
 
-    private List<IdentityUser> UserSeed() {
+    private async List<IdentityUser> UserSeed() {
       string[] userIds = ["21804e79-b2bb-4a6e-9418-3cab51e579ac", "f2ba15e2-f1d3-43d1-bb84-6767253ebbe2", "9125374f-e121-40f2-b42f-089529dd5fbd", "36c8f410-61d4-49fb-beb0-ff35e319614e", "25a8ee82-6527-4c92-b374-afa6a65cb3b9", "55bc7fd2-de9a-4a8b-9bb8-5d384b8e8f23"];
       string[] userName = ["brian-admin@example.com", "alice-owner@example.com", "bob-manager@example.com", "charlie-manager@example.com", "melissa-staff@example.com", "thomas-staff@example.com"];
 
@@ -29,9 +30,11 @@ namespace RestroFlowAPI.Data
 
       // Create user with password
       foreach (var user in users) {
-        PasswordHasher<IdentityUser> hasher = new PasswordHasher<IdentityUser>();
-        user.PasswordHash = hasher.HashPassword(user, "Abc123!");
+        await _userManager.CreateAsync(user, "Abc123!");
       }
+      // seed again
+
+
       // find users and add role to it
 
       return users;
