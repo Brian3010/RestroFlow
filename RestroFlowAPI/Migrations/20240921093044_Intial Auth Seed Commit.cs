@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RestroFlowAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialSeedAuthCommit : Migration
+    public partial class IntialAuthSeedCommit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -174,12 +174,12 @@ namespace RestroFlowAPI.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "21804e79-b2bb-4a6e-9418-3cab51e579ac", 0, "ab8f6ded-ca66-4a29-9aea-43f345146679", "brian-admin@example.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEBb+4bFsYAHd2tFxrhHrxFlckZRJCYjwdVi9UR9Qg7DJeAnh8DGRkreAig2ePR+jcQ==", null, false, "570a4ade-62b4-41f5-8d45-f7af826a5811", false, "brian-admin@example.com" },
-                    { "25a8ee82-6527-4c92-b374-afa6a65cb3b9", 0, "b4382725-d704-4495-8624-6e619780b519", "melissa-staff@example.com", false, false, null, null, null, "AQAAAAIAAYagAAAAELuaoxQsMhrQBfusA2/DvrGN1WkNeAZONIYZz9Aan+yLw3HJ0OvB7oNEmwksBEySBg==", null, false, "7799270d-9da7-419e-a0fe-c7e0e8322813", false, "melissa-staff@example.com" },
-                    { "36c8f410-61d4-49fb-beb0-ff35e319614e", 0, "0acfa94d-84f8-4a95-b324-c82d7f45f05b", "charlie-manager@example.com", false, false, null, null, null, "AQAAAAIAAYagAAAAED3qaHJTYjUqCFpIJa3AXDHZaGDGmUOvySPdM8leOGbhMxFASoXOnLhH8BGiUzc/6A==", null, false, "38609e82-8ac7-445d-bf03-caa6b781db2f", false, "charlie-manager@example.com" },
-                    { "55bc7fd2-de9a-4a8b-9bb8-5d384b8e8f23", 0, "5351301e-cd39-4f45-b5e7-23442f294e35", "thomas-staff@example.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEMiI6X7xT8zfm7YjZ2RLbPIm8g0h2b410y6qfVu8WU44hb5Mgp1Hvyb6Y3pu0s/M4w==", null, false, "09d4e164-1316-4214-98b0-a274a4ed1869", false, "thomas-staff@example.com" },
-                    { "9125374f-e121-40f2-b42f-089529dd5fbd", 0, "9e0c898d-2b9b-47a8-b261-856debb44036", "bob-manager@example.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEFHN/ptfcJ985ZE9lODiOJYekzTMPWV+QFHj1LAxta00uItKQA6T74y9SOR9x9a4AA==", null, false, "fcba049c-a895-4ffb-a631-6497243e540d", false, "bob-manager@example.com" },
-                    { "f2ba15e2-f1d3-43d1-bb84-6767253ebbe2", 0, "946413b1-eaec-4d9a-b4b0-450f38d6f97e", "alice-owner@example.com", false, false, null, null, null, "AQAAAAIAAYagAAAAEL8xao9lIVwPhXMjBFfhasukphsYceBlXRzyxT0lABcfD/LNcXvXhixDYZ+78VmYDA==", null, false, "896cc988-16a2-4e6c-a8b5-9ac766a45d4f", false, "alice-owner@example.com" }
+                    { "21804e79-b2bb-4a6e-9418-3cab51e579ac", 0, "56394699-76b1-471f-ac50-3be45a875ef2", "brian-admin@example.com", false, false, null, "BRIAN-ADMIN@EXAMPLE.COM", "BRIAN-ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEOtwM1Dm/6g5F8nwG46auYP8MY5Y4a0YE8LH5GA+0iKPtYIYcJyjX1TaqvN4bmyLNA==", null, false, "8e9c8212-9f02-406c-81a3-b96afaf11621", false, "brian-admin@example.com" },
+                    { "25a8ee82-6527-4c92-b374-afa6a65cb3b9", 0, "4659f876-b1cd-4c4f-891c-f3affc6bb37f", "melissa-staff@example.com", false, false, null, "MELISSA-STAFF@EXAMPLE.COM", "MELISSA-STAFF@EXAMPLE.COM", "AQAAAAIAAYagAAAAECbeNcIn/ry3dCm0mNqR7TxsFERLbiup4IYN0RilGIYtjYFUmnoAv8nvJnMJMAS3xg==", null, false, "adf29cc5-3e1b-4a8b-9c3a-fc5a3f96d9c3", false, "melissa-staff@example.com" },
+                    { "36c8f410-61d4-49fb-beb0-ff35e319614e", 0, "059bed4a-661e-4435-9a09-8d1d33ed4d9a", "charlie-manager@example.com", false, false, null, "CHARLIE-MANAGER@EXAMPLE.COM", "CHARLIE-MANAGER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEOScjU/1q7Xjq1ySdJ9IJ0VRW59GpgxLxUzMe5K664eYZtmHaJoC9HjW+L0YCydbcQ==", null, false, "f4761c29-5625-4d1f-9e57-2fae3cf09b4c", false, "charlie-manager@example.com" },
+                    { "55bc7fd2-de9a-4a8b-9bb8-5d384b8e8f23", 0, "53c97e20-cc61-4553-bef6-83ba76c56ebc", "thomas-staff@example.com", false, false, null, "THOMAS-STAFF@EXAMPLE.COM", "THOMAS-STAFF@EXAMPLE.COM", "AQAAAAIAAYagAAAAEMLHdu3nJnOmEpvBjuH6dLN2ErTwJVZaUrIveAoCKl2ueFq1DcH9tuFqSzaDiFkiwg==", null, false, "f0a755db-fd24-472c-b122-fdff97ae44a8", false, "thomas-staff@example.com" },
+                    { "9125374f-e121-40f2-b42f-089529dd5fbd", 0, "44cfcb50-c5e0-44fc-9543-edb948e8c3ba", "bob-manager@example.com", false, false, null, "BOB-MANAGER@EXAMPLE.COM", "BOB-MANAGER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEL/oTknuh1ylPpV2SPg6NxjAmJ+Tbgt84XKOlPTnk6LjcZbQRIbF6UsQCUmUCse3cg==", null, false, "3b25ad51-b0f8-4194-bcd9-c5e03097e3ed", false, "bob-manager@example.com" },
+                    { "f2ba15e2-f1d3-43d1-bb84-6767253ebbe2", 0, "7eba8b5f-75ec-4f00-9e23-ccd561468108", "alice-owner@example.com", false, false, null, "ALICE-OWNER@EXAMPLE.COM", "ALICE-OWNER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEDsKyCUgYH2vrw5rpO6IJfoCOamTgfEaqstEin4K9GVwzCTSycHQAySnG7o+c23gIw==", null, false, "2a0148c7-65a4-40bf-b016-973af7c30a14", false, "alice-owner@example.com" }
                 });
 
             migrationBuilder.InsertData(
