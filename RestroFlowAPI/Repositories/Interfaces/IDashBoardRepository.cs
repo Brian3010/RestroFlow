@@ -1,24 +1,40 @@
 ﻿using RestroFlowAPI.DTOs.DashBoardDTOs;
-using RestroFlowAPI.Models;
 
 namespace RestroFlowAPI.Repositories.Interfaces
 {
-  public enum TimePeriod
+  public enum ShortPeriod
   {
     Daily,
     Weekly,
+  }
+
+  public enum LongPeriod
+  {
     Monthly,
-    yearly
+    Yearly
   }
   public interface IDashBoardRepository
   {
-    // Total Revenue and Sales Summary
-    Task<SalesSummaryDto> GetSalesSummaryByPeriod(TimePeriod period);
+    /// <summary>
+    /// Using "Sales" table to calculate sales summary
+    /// </summary>
+    /// <param name="period">the daily and weekly period</param>
+    /// <returns>The sale summary defined by <see cref="SalesSummaryDto"/></returns>
+    Task<SalesSummaryDto> GetSalesSummaryByShortPeriod(ShortPeriod period);
 
-    // Top-Selling Products
-    Task<Sales> GetTopSeliingProductByPeriod(TimePeriod period);
+    /// <summary>
+    /// Using "ReportSales" table to calculate sales summary. Calculated from "Sales" table
+    /// </summary>
+    /// <param name="period">the Monthly and yearly period</param>
+    /// <returns>The sale summary defined by <see cref="SalesSummaryDto"/></returns>
+    Task<SalesSummaryDto> GetSalesSummaryByLongPeriod(LongPeriod period);
 
-    // customer Satisfaction (Reviews)
+    /// <summary>
+    /// Using "Reviews" table to calculate reviews weekly and yearly
+    /// </summary>
+    /// <param name="period">Weekly and yearly</param>
+    /// <returns>a list of overall reviews <see cref="OverallReviewsDto"/> from different review sources</returns>
+    Task<List<OverallReviewsDto>> GetOverallReviews(LongPeriod period);
 
     // Expenses Summary
 
