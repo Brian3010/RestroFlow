@@ -1,4 +1,5 @@
-﻿using RestroFlowAPI.DTOs.DashBoardDTOs;
+﻿using RestroFlowAPI.DTOs.DashBoadDTOs;
+using RestroFlowAPI.DTOs.DashBoardDTOs;
 
 namespace RestroFlowAPI.Repositories.Interfaces
 {
@@ -15,6 +16,7 @@ namespace RestroFlowAPI.Repositories.Interfaces
   }
   public interface IDashBoardRepository
   {
+
     /// <summary>
     /// Using "Sales" table to calculate sales summary
     /// </summary>
@@ -23,7 +25,7 @@ namespace RestroFlowAPI.Repositories.Interfaces
     Task<SalesSummaryDto> GetSalesSummaryByShortPeriod(ShortPeriod period);
 
     /// <summary>
-    /// Using "ReportSales" table to calculate sales summary. Calculated from "Sales" table
+    /// Using "ReportSales" table to display sales summary. Calculated from "Sales" table
     /// </summary>
     /// <param name="period">the Monthly and yearly period</param>
     /// <returns>The sale summary defined by <see cref="SalesSummaryDto"/></returns>
@@ -36,10 +38,26 @@ namespace RestroFlowAPI.Repositories.Interfaces
     /// <returns>a list of overall reviews <see cref="OverallReviewsDto"/> from different review sources</returns>
     Task<List<OverallReviewsDto>> GetOverallReviews(LongPeriod period);
 
-    // Expenses Summary
+    /// <summary>
+    /// Using "Expenses" table to calulate expense summary
+    /// </summary>
+    /// <param name="period">daily and weekly period</param>
+    /// <returns><see cref="ExpensesSummaryDto"/> </returns>
+    Task<ExpensesSummaryDto> GetExpenseSummarybyShortPeriod(ShortPeriod period);
+
+    /// <summary>
+    /// Using "ExpenseReports" table for displaying summary. Calculated from "Expenses" table
+    /// </summary>
+    /// <param name="period">Monthly and yearly</param>
+    /// <returns><see cref="ExpensesSummaryDto"/> </returns>
+    Task<ExpensesSummaryDto> GetExpenseSummarybyLongPeriod(LongPeriod period);
 
     // Inventory Alerts (Low Stock)
 
-    // Budget vs. Actual Spending
+    /// <summary>
+    /// Using "Budget" and "Expenses" tables
+    /// </summary>
+    /// <returns><see cref="BudgetAndSpendingDto"/></returns>
+    Task<BudgetAndSpendingDto> GetBudgetAndSpendingWeekly();
   }
 }
