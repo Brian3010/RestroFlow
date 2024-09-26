@@ -13,31 +13,31 @@ namespace RestroFlowAPI.Seeds
     }
 
     public void Seed() {
-      // Restaurant table
-      _modelBuilder.Entity<Restaurants>().HasData(SeedData.RestaurantSeed);
+      //// Restaurant table
+      //_modelBuilder.Entity<Restaurants>().HasData(SeedData.RestaurantSeed);
 
-      // RestaurantMenu table
-      foreach (KeyValuePair<string, RestaurantMenus> item in SeedData.RestaurantMenuSeed) {
-        _modelBuilder.Entity<RestaurantMenus>().HasData(item.Value);
-      }
+      //// RestaurantMenu table
+      //foreach (KeyValuePair<string, RestaurantMenus> item in SeedData.RestaurantMenuSeed) {
+      //  _modelBuilder.Entity<RestaurantMenus>().HasData(item.Value);
+      //}
 
-      // Supplier table
-      foreach (KeyValuePair<string, Suppliers> item in SeedData.SupplierSeed) {
-        _modelBuilder.Entity<Suppliers>().HasData(item.Value);
-      }
+      //// Supplier table
+      //foreach (KeyValuePair<string, Suppliers> item in SeedData.SupplierSeed) {
+      //  _modelBuilder.Entity<Suppliers>().HasData(item.Value);
+      //}
 
-      // ItemLocations Table
-      _modelBuilder.Entity<ItemLocations>().HasData(SeedData.ItemLocationsSeed);
+      //// ItemLocations Table
+      //_modelBuilder.Entity<ItemLocations>().HasData(SeedData.ItemLocationsSeed);
 
-      // RestaurantItem table
-      foreach (KeyValuePair<string, RestaurantItems> item in SeedData.RestaurantItemSeed) {
-        _modelBuilder.Entity<RestaurantItems>().HasData(item.Value);
-      }
+      //// RestaurantItem table
+      //foreach (KeyValuePair<string, RestaurantItems> item in SeedData.RestaurantItemSeed) {
+      //  _modelBuilder.Entity<RestaurantItems>().HasData(item.Value);
+      //}
 
-      // IncomeSource table
-      foreach (KeyValuePair<string, PaymentMethods> item in SeedData.PaymentMethodSeed) {
-        _modelBuilder.Entity<PaymentMethods>().HasData(item.Value);
-      }
+      //// IncomeSource table
+      //foreach (KeyValuePair<string, PaymentMethods> item in SeedData.PaymentMethodSeed) {
+      //  _modelBuilder.Entity<PaymentMethods>().HasData(item.Value);
+      //}
 
       //Sales Table
       _modelBuilder.Entity<Sales>().HasData(SeedData.SaleSeed());
@@ -48,24 +48,24 @@ namespace RestroFlowAPI.Seeds
       //RestaurantInventory table
       _modelBuilder.Entity<RestaurantInventories>().HasData(SeedData.RestaurantInventoriesSeed());
 
-      //InventoryAlerts table
-      _modelBuilder.Entity<InventoryAlerts>().HasData(SeedData.InventoryAlertsSeed());
+      ////InventoryAlerts table
+      //_modelBuilder.Entity<InventoryAlerts>().HasData(SeedData.InventoryAlertsSeed());
 
 
-      // Budgets table 
-      _modelBuilder.Entity<Budgets>().HasData(SeedData.BudgetSeed());
+      //// Budgets table 
+      //_modelBuilder.Entity<Budgets>().HasData(SeedData.BudgetSeed());
 
-      // Reviews Table
-      _modelBuilder.Entity<Reviews>().HasData(SeedData.ReviewSeed());
+      //// Reviews Table
+      //_modelBuilder.Entity<Reviews>().HasData(SeedData.ReviewSeed());
 
-      // AlertRecipient table
-      _modelBuilder.Entity<AlertRecipient>().HasData(SeedData.AlertRecipientsSeed);
+      //// AlertRecipient table
+      //_modelBuilder.Entity<AlertRecipient>().HasData(SeedData.AlertRecipientsSeed);
 
       // StockOrders Table
       _modelBuilder.Entity<StockOrders>().HasData(SeedData.StockOrdersSeed());
 
       //// SupplierItems table
-      _modelBuilder.Entity<SupplierItems>().HasData(SeedData.SupplierItemsSeed());
+      //_modelBuilder.Entity<SupplierItems>().HasData(SeedData.SupplierItemsSeed());
 
       // Supplierinventories table  added manually or another way ? 
 

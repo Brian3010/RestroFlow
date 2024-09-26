@@ -4,7 +4,7 @@ namespace RestroFlowAPI.Seeds
 {
   public class SeedData
   {
-
+    private static int NUMBER_OF_DATASET = 8;
     public SeedData() {
 
     }
@@ -221,7 +221,9 @@ namespace RestroFlowAPI.Seeds
 
       int i = 0;
       int date = 1;
-      while (i < Dishes.Count * 3) {
+
+
+      while (i < Dishes.Count * NUMBER_OF_DATASET) {
         int paymentMethodsRandIdx = new Random().Next(paymentMethods.Count);
         int QuantityRandIdx = new Random().Next(QuantitySeed.Count);
         int inboundIdx = i % Dishes.Count;
@@ -252,7 +254,7 @@ namespace RestroFlowAPI.Seeds
       int i = 0;
       List<Expenses> ExpenseData = [];
 
-      while (i < expenseTypes.Length * 3) {
+      while (i < expenseTypes.Length * NUMBER_OF_DATASET) {
         int inboundIdx = i % expenseTypes.Length;
         //Console.WriteLine(i);
         ExpenseData.Add(new() {
@@ -277,7 +279,7 @@ namespace RestroFlowAPI.Seeds
       List<int> quantities = [1, 4, 5, 6, 10, 22, 3, 9, 11, 12];
       int i = 0;
       int date = 1;
-      while (i < restaurantItems.Count * 3) {
+      while (i < restaurantItems.Count * NUMBER_OF_DATASET) {
         int inboundIdx1 = i % restaurantItems.Count;
         int inboundIdx2 = i % suppliers.Count;
 
@@ -387,7 +389,7 @@ namespace RestroFlowAPI.Seeds
       int i = 0;
       var items = RestaurantItemSeed.Values.ToList();
 
-      while (i < items.Count * 3) {
+      while (i < items.Count * NUMBER_OF_DATASET) {
         int inboundIdx = i % items.Count;
         var dateTime = inboundIdx == 0 ? DateTime.Now.AddDays(--date) : DateTime.Now.AddDays(date);
         stockOrdersdata.Add(

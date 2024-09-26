@@ -3,6 +3,8 @@ using RestroFlowAPI.DTOs.DashBoardDTOs;
 
 namespace RestroFlowAPI.Repositories.Interfaces
 {
+
+
   public enum ShortPeriod
   {
     Daily,
@@ -52,12 +54,13 @@ namespace RestroFlowAPI.Repositories.Interfaces
     /// <returns><see cref="ExpensesSummaryDto"/> </returns>
     Task<ExpensesSummaryDto> GetExpenseSummarybyLongPeriod(LongPeriod period);
 
-    // Inventory Alerts (Low Stock)
 
     /// <summary>
     /// Using "Budget" and "Expenses" tables
     /// </summary>
     /// <returns><see cref="BudgetAndSpendingDto"/></returns>
     Task<BudgetAndSpendingDto> GetBudgetAndSpendingWeekly();
+
+    // Note: Can use Sales table to get specific week and month sale
   }
 }
