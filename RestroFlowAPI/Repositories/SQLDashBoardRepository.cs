@@ -27,6 +27,7 @@ namespace RestroFlowAPI.Repositories
     }
 
     public Task<ExpensesSummaryDto> GetExpenseSummarybyShortPeriod(ShortPeriod period) {
+      // TODO: Impelement this
       throw new NotImplementedException();
     }
 
@@ -47,67 +48,89 @@ namespace RestroFlowAPI.Repositories
       // Example: Dummy expenses, replace with actual expense calculation logic
       return period == ShortPeriod.Daily ? 380.00m : 1200.00m;
     }
-    public async Task<SalesSummaryDto> GetSalesSummaryByShortPeriod(ShortPeriod period = ShortPeriod.Daily) {
+    public async Task<SalesSummaryDto?> GetSalesSummaryByShortPeriod(ShortPeriod period = ShortPeriod.Daily) {
       _logger.LogInformation("period = {period}", period);
 
-      //DateTime testStartDate = new DateTime(2024, 9, 16);
-      //DateTime testEndDate = new DateTime(2024, 9, 18);
-      //var SalesData = await _dbContext.Sales.Where(s => s.SaleDate >= testStartDate && s.SaleDate <= testEndDate).ToListAsync();
+      //DateTime testStartDate = new DateTime(2024, 9, 26);
+      //DateTime testEndDate = new DateTime(2024, 9, 26);
+      //var SalesData = await _dbContext.Sales.Where(s => s.SaleDate.Date >= testStartDate && s.SaleDate.Date <= testEndDate).ToListAsync();
 
       var (startDate, endDate) = TimePeriodHelper.GetShortPeriodRange(period);
       _logger.LogInformation("startDate = {startDate}\n endData = {endDate}", startDate, endDate);
 
       var SalesData = await _dbContext.Sales.Where(s => s.SaleDate.Date >= startDate && s.SaleDate.Date <= endDate).OrderBy(s => s.SaleDate).ToListAsync();
 
+      if (SalesData.Count == 0) return null;
+
       _logger.LogInformation("salesData = {@SalesData}", SalesData);
 
-      // TODO: Calculate transactions by day and week
+      // Calculate transactions by day and week
       int numberOfTransactions = SalesData.Count;
 
-      // TODO: Calculate TotalSalesRevenue 
+      // Calculate TotalSalesRevenue 
       decimal totalSalesRevenue = SalesData.Sum(s => s.TotalAmount);
 
-      // TODO: Calculate GrossProfit
+      // Calculate GrossProfit
       decimal grossProfit = CalculateGrossProfit(SalesData);
 
-      // TODO: Calculate NetProfit
+      // Calculate NetProfit
       decimal expenses = CalculateExpenses(SalesData, period);
       decimal netProfit = grossProfit - expenses;
 
-      // Best Selling Item (grouping by RestaurantMenuId to find the item with the highest quantity sold)
+      // Calculate BestSellingItem and BestSellingItemQuantity
       var bestSellingItemData = SalesData
        .GroupBy(s => s.RestaurantMenuId)
        .Select(g => new {
          RestaurantMenuId = g.Key,
          QuantitySold = g.Sum(s => s.Quantity),
-         TotalRevenue = g.Sum(s => s.TotalAmount),
+       }).OrderByDescending(s => s.QuantitySold).FirstOrDefault();
 
-       })
-       .OrderByDescending(g => g.QuantitySold) // Sort by quantity sold to find the best seller
-       .FirstOrDefault(); // Get the top-selling item
+      //_logger.LogInformation("{bestSellingItemData}", bestSellingItemData);
 
       // Fetch item details from RestaurantMenus if needed
       string bestSellingItemName = "";
-
+      int bestSellingItemNameQuantity = 0;
       if (bestSellingItemData != null) {
         var bestSellingItem = await _dbContext.RestaurantMenus
             .Where(m => m.Id == bestSellingItemData.RestaurantMenuId)
             .FirstOrDefaultAsync();
 
         bestSellingItemName = bestSellingItem?.DishName ?? "Unknown";
-
+        bestSellingItemNameQuantity = bestSellingItemData.QuantitySold;
       }
-      // TODO: Calculate BestSellingItemQuantity
-      var bestSellingItemQuantity = SalesData.OrderByDescending(s => s.Quantity).FirstOrDefault();
 
 
-      // TODO: Calculate WorstSellingItem
-      // TODO: Calculate WorstSellingItemQuantity
+      // Calculate WorstSellingItem and WorstSellingItemQuantity
+      var worstSellingItemData = SalesData
+       .GroupBy(s => s.RestaurantMenuId)
+       .Select(g => new {
+         RestaurantMenuId = g.Key,
+         QuantitySold = g.Sum(s => s.Quantity),
+       }).OrderBy(s => s.QuantitySold).FirstOrDefault();
+
+      string worstSellingItemName = "";
+      int worstSellingItemNameQuantity = 0;
+      if (worstSellingItemData != null) {
+        var worstSellingItem = await _dbContext.RestaurantMenus
+            .Where(m => m.Id == worstSellingItemData.RestaurantMenuId)
+            .FirstOrDefaultAsync();
+
+        worstSellingItemName = worstSellingItem?.DishName ?? "Unknown";
+        worstSellingItemNameQuantity = worstSellingItemData.QuantitySold;
+      }
 
 
+      return new SalesSummaryDto {
+        NumberOfTransactions = numberOfTransactions,
+        BestSellingItem = bestSellingItemName,
+        BestSellingItemQuantity = bestSellingItemNameQuantity,
+        WorstSellingItem = worstSellingItemName,
+        WorstSellingItemQuantity = worstSellingItemNameQuantity,
+        GrossProfit = grossProfit,
+        NetProfit = netProfit,
+        TotalSalesRevenue = totalSalesRevenue,
+      };
 
-
-      throw new NotImplementedException();
     }
   }
 }

@@ -24,7 +24,7 @@ namespace RestroFlowAPI.Repositories.Interfaces
     /// </summary>
     /// <param name="period">the daily and weekly period</param>
     /// <returns>The sale summary defined by <see cref="SalesSummaryDto"/></returns>
-    Task<SalesSummaryDto> GetSalesSummaryByShortPeriod(ShortPeriod period);
+    Task<SalesSummaryDto?> GetSalesSummaryByShortPeriod(ShortPeriod period);
 
     /// <summary>
     /// Using "ReportSales" table to display sales summary. Calculated from "Sales" table

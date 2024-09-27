@@ -16,16 +16,29 @@ namespace RestroFlowAPI.Controllers
       _logger = logger;
     }
 
-    // GET: api/dashboard/SaleSummary?ShortPeriod
-    [HttpGet("SaleSummary")]
+    // GET: api/dashboard/SaleSummarybyShortPeriod
+    [HttpGet("SaleSummarybyShortPeriod")]
     [Authorize]
-    public async Task<IActionResult> GetSaleSummaryByShortPeriod([FromQuery] ShortPeriod period) {
-      var summary = await _dashBoardRepository.GetSalesSummaryByShortPeriod(period);
-      // TODO: Fix this shit
+    public async Task<IActionResult> GetSaleSummaryByShortPeriod([FromQuery] ShortPeriod ShortPeriod) {
 
-      return Ok();
+      var saleSummary = await _dashBoardRepository.GetSalesSummaryByShortPeriod(ShortPeriod);
+
+      if (saleSummary == null) return NotFound();
+
+      return Ok(saleSummary);
     }
 
+    // GET: api/dashboard/ExpenseSummarybyShortPeriod
+    [HttpGet("ExpenseSummarybyShortPeriod")]
+    [Authorize]
+    public async Task<IActionResult> GetExpenseSummaryByShortPeriod([FromQuery] ShortPeriod ShortPeriod) {
+
+      var expenseSummary = await _dashBoardRepository.GetExpenseSummarybyShortPeriod(ShortPeriod);
+
+      if (expenseSummary == null) return NotFound();
+
+      return Ok(expenseSummary);
+    }
 
   }
 }
