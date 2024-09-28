@@ -26,8 +26,33 @@ namespace RestroFlowAPI.Repositories
       throw new NotImplementedException();
     }
 
-    public Task<ExpensesSummaryDto> GetExpenseSummarybyShortPeriod(ShortPeriod period) {
-      // TODO: Impelement this
+
+    // TODO: Impelement this
+    public async Task<ExpensesSummaryDto> GetExpenseSummarybyShortPeriod(ShortPeriod period) {
+      _logger.LogInformation("period = {period}", period);
+
+
+      var (startDate, endDate) = TimePeriodHelper.GetShortPeriodRange(period);
+      _logger.LogInformation("startDate = {startDate}\n endData = {endDate}", startDate, endDate);
+
+      var expenseData = await _dbContext.Expenses.Where(e => e.ExpenseDate.Date >= startDate && e.ExpenseDate.Date <= endDate).OrderBy(e => e.ExpenseDate).ToListAsync();
+      _logger.LogInformation("ExpenseData = {@ExpenseData}", expenseData);
+
+      // Calculate TotalExpense
+      var totalExpense = expenseData.Sum(e => e.Amount);
+
+      // TODO: Calculate LaborCosts
+
+      // TODO: Calculate Utilities
+      // TODO: Calculate Rent
+      // TODO: Calculate MiscellaneousExpenses
+      // TODO: Calculate HighestExpenseCategory
+      // TODO: Calculate LowestExpenseCategory
+      // TODO: Calculate MiscellaneousExpenses
+      // TODO: Calculate MiscellaneousExpenses
+
+
+
       throw new NotImplementedException();
     }
 

@@ -2,7 +2,7 @@
 {
   public class SalesSummaryDto
   {
-    public Guid? Id { get; set; }
+    //public Guid? Id { get; set; }
     public required int NumberOfTransactions { get; set; }
 
     public required decimal TotalSalesRevenue { get; set; }
