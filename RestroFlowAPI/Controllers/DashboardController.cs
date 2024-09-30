@@ -25,7 +25,7 @@ namespace RestroFlowAPI.Controllers
 
       if (saleSummary == null) return NotFound();
 
-      return Ok(new { SaleSummary = saleSummary, Period = ShortPeriod.Weekly == 0 ? "Weekly" : "Monthly" });
+      return Ok(new { SaleSummary = saleSummary, Period = ShortPeriod == 0 ? "Daily" : "Weekly" });
     }
 
     // GET: api/dashboard/ExpenseSummarybyShortPeriod
@@ -37,7 +37,7 @@ namespace RestroFlowAPI.Controllers
 
       if (expenseSummary == null) return NotFound();
 
-      return Ok(new { ExpenseSummary = expenseSummary, Period = ShortPeriod.Weekly == 0 ? "Weekly" : "Monthly" });
+      return Ok(new { ExpenseSummary = expenseSummary, Period = ShortPeriod == 0 ? "Daily" : "Weekly" });
 
     }
 
