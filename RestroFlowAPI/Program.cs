@@ -22,7 +22,14 @@ namespace RestroFlowAPI
       // Add services to the container.
 
       // Add Serilog
-      var logger = new LoggerConfiguration().WriteTo.Console().MinimumLevel.Information().CreateLogger();
+      var logger = new LoggerConfiguration().WriteTo
+        .Console(outputTemplate:
+        "{NewLine}[{Timestamp:HH:mm}] {Message:lj}{NewLine}{Exception}")
+        .MinimumLevel.Information()
+        .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning) // Suppress Microsoft logs below Warning
+        .MinimumLevel.Override("System", Serilog.Events.LogEventLevel.Warning) // Suppress System logs below Warning
+        .CreateLogger();
+
       builder.Logging.ClearProviders();
       builder.Logging.AddSerilog(logger);
       logger.Information("Serilog starting");

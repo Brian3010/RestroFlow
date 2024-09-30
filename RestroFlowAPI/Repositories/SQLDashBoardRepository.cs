@@ -27,8 +27,7 @@ namespace RestroFlowAPI.Repositories
     }
 
 
-    // TODO: Impelement this
-    public async Task<ExpensesSummaryDto> GetExpenseSummarybyShortPeriod(ShortPeriod period) {
+    public async Task<ExpensesSummaryDto?> GetExpenseSummarybyShortPeriod(ShortPeriod period) {
       _logger.LogInformation("period = {period}", period);
 
 
@@ -38,22 +37,58 @@ namespace RestroFlowAPI.Repositories
       var expenseData = await _dbContext.Expenses.Where(e => e.ExpenseDate.Date >= startDate && e.ExpenseDate.Date <= endDate).OrderBy(e => e.ExpenseDate).ToListAsync();
       _logger.LogInformation("ExpenseData = {@ExpenseData}", expenseData);
 
+      if (expenseData.Count == 0) return null;
+
       // Calculate TotalExpense
       var totalExpense = expenseData.Sum(e => e.Amount);
 
-      // TODO: Calculate LaborCosts
+      // Calculate LaborCosts
+      var laborCosts = expenseData.Where(e => e.ExpenseType == "Labour").Sum(e => e.Amount);
 
-      // TODO: Calculate Utilities
-      // TODO: Calculate Rent
+      // Calculate Utilities (Electricity, Internet and Water)
+      var utilityTypes = new[] { "Electricity", "Internet", "Water" };
+      var unilityCost = expenseData.Where(e => utilityTypes.Contains(e.ExpenseType))
+        .Sum(e => e.Amount);
+
+      // Calculate Rent
+      var rentCost = expenseData
+        .Where(e => e.ExpenseType == "Rent")
+        .Sum(e => e.Amount);
+
       // TODO: Calculate MiscellaneousExpenses
-      // TODO: Calculate HighestExpenseCategory
-      // TODO: Calculate LowestExpenseCategory
-      // TODO: Calculate MiscellaneousExpenses
-      // TODO: Calculate MiscellaneousExpenses
+
+      // Calculate HighestExpenseCategory except Rent and Labour
+      var highestExpenseCategory = expenseData
+        .Where(e => utilityTypes.Contains(e.ExpenseType))
+        .OrderByDescending(e => e.Amount).FirstOrDefault();
+
+      // TODO: trying to return an object that contain {Category and cost}
+      var expenseUtilities = new List<Expenses>();
+      foreach (var u in utilityTypes) {
+
+      }
+
+
+      _logger.LogInformation("testExpenseCosts = {@test}", expenses);
 
 
 
-      throw new NotImplementedException();
+      // Calculate LowestExpenseCategory
+      var lowestExpenseCategory = expenseData
+        .Where(e => utilityTypes.Contains(e.ExpenseType))
+        .OrderBy(e => e.Amount).FirstOrDefault();
+
+
+      return new ExpensesSummaryDto {
+        TotalExpenses = totalExpense,
+        LaborCosts = laborCosts,
+        Rent = rentCost,
+        Utilities = unilityCost,
+        HighestExpenseCategory = highestExpenseCategory!.ExpenseType,
+        HighestExpenseCategoryCost = highestExpenseCategory!.Amount,
+        LowestExpenseCategory = lowestExpenseCategory!.ExpenseType,
+        LowestExpenseCategoryCost = lowestExpenseCategory!.Amount,
+      };
     }
 
     public Task<List<OverallReviewsDto>> GetOverallReviews(LongPeriod period) {

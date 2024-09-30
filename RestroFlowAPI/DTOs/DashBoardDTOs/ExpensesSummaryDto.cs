@@ -3,7 +3,7 @@
   public class ExpensesSummaryDto
   {
     //public Guid? Id { get; set; } // Primary Key
-    public DateTime ReportDate { get; set; }
+    //public DateTime ReportDate { get; set; }
 
     public required decimal TotalExpenses { get; set; }
 
@@ -15,8 +15,10 @@
 
     public decimal? MiscellaneousExpenses { get; set; }
     public required string HighestExpenseCategory { get; set; }
+    public required decimal HighestExpenseCategoryCost { get; set; }
     public required string LowestExpenseCategory { get; set; }
+    public required decimal LowestExpenseCategoryCost { get; set; }
 
-    public RestaurantDto Restaurant { get; set; }
+    //public RestaurantDto Restaurant { get; set; }
   }
 }

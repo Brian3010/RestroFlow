@@ -45,7 +45,7 @@ namespace RestroFlowAPI.Repositories.Interfaces
     /// </summary>
     /// <param name="period">daily and weekly period</param>
     /// <returns><see cref="ExpensesSummaryDto"/> </returns>
-    Task<ExpensesSummaryDto> GetExpenseSummarybyShortPeriod(ShortPeriod period);
+    Task<ExpensesSummaryDto?> GetExpenseSummarybyShortPeriod(ShortPeriod period);
 
     /// <summary>
     /// Using "ExpenseReports" table for displaying summary. Calculated from "Expenses" table
