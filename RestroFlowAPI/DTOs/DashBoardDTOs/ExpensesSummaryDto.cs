@@ -2,23 +2,14 @@
 {
   public class ExpensesSummaryDto
   {
-    //public Guid? Id { get; set; } // Primary Key
-    //public DateTime ReportDate { get; set; }
-
-    public required decimal TotalExpenses { get; set; }
-
-    public required decimal LaborCosts { get; set; }
-
-    public decimal Utilities { get; set; }
-
-    public decimal? Rent { get; set; }
-
+    public decimal TotalExpenses { get; set; }
+    public required Dictionary<string, decimal> ExpenseByCategory { get; set; }
     public decimal? MiscellaneousExpenses { get; set; }
     public required string HighestExpenseCategory { get; set; }
     public required decimal HighestExpenseCategoryCost { get; set; }
     public required string LowestExpenseCategory { get; set; }
     public required decimal LowestExpenseCategoryCost { get; set; }
-
-    //public RestaurantDto Restaurant { get; set; }
+    public DateTime? ReportDate { get; set; }
+    public Guid RestaurantId { get; set; }
   }
 }

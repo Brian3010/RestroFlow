@@ -6,6 +6,6 @@
     public required string OverallReviewContent { get; set; }
     public float OverallRating { get; set; }
 
-
+    public DateTime? ReviewDate { get; set; }
   }
 }
