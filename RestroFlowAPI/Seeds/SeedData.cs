@@ -43,95 +43,6 @@ namespace RestroFlowAPI.Seeds
 
     };
 
-
-    public static readonly Dictionary<string, RestaurantMenus> RestaurantMenuSeed = new() {
-      {
-        "The Classic Boneless", new (){Id= new Guid("9ca19c31-2e04-42e7-8cad-6e61bd177eaf"), Category="Fried Chicken (Boneless)", Description="Gami's most popular dish is back! Once again served on our signature wooden plate",DishName="The Classic Boneless",
-      Price=42, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "Whole-Chicken", new (){Id= new Guid("4d165d8f-fbcf-4144-a318-374e7f08cb57"), Category="Fried Chicken (Bone-in)", Description="The traditional way to enjoy Korean chicken, a hands-on approach.",DishName="Whole-Chicken",
-      Price=40, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "Regular Chicken", new (){Id= new Guid("1d74b052-3b59-465f-add2-d91f96b8961a"), Category="Fried Chicken (boneless)", Description="The cornerstone of Gami's authentic Korean taste.",DishName="Regular Chicken",
-      Price=21, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "10 Wings", new (){Id= new Guid("45859bd4-b0bd-4491-8b1b-7c33a940df8a"), Category="Fried Chicken (boneless)", Description="A mix of chicken wingettes and drumettes.",DishName="10 Wings",
-      Price=17, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "Beef Bulgogi", new (){Id= new Guid("19924c8f-32e0-4c3d-b425-995ed0ddca5a"), Category="Korean Classics", Description="Tender slices of marinated beef and ve ies stir-fried with sweet potato noodles in a sweet soy sauce, served with rice and a fresh green salad with Tangerine dressing.",DishName="Beef Bulgogi",
-      Price=18.5M, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "Bibimbap", new (){Id= new Guid("d5d66b38-5140-485b-8575-f83d5fae6a5f"), Category="Korean Classics", Description="A healthy and delicious Korean rice dish showcasing flavourful vegetables, your preferred protein and a choice of sauce. Topped with a fried egg.",DishName="Korean Classics",
-      Price=16, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "Tteok Bokki", new (){Id= new Guid("dd636f75-f510-47eb-bfc8-cf2613defdba"), Category="Korean Classics", Description="TA beloved Korean favourite, featuring stir-fried rice cakes, fish cakes, assorted vegetables, and noodles, all coated in a rich and spicy Korean chilli sauce.",DishName="Tteok Bokki",
-      Price=14.5M, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "Gami Chips", new (){Id= new Guid("6dac4780-fbf3-41f4-8971-b7abdef83a86"), Category="Sides", Description="Locally grown cut potato strips coated in Gami signature batter.",DishName="Gami Chips",
-      Price=6.9M, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "Prawn Mandu", new (){Id= new Guid("fc693bcd-807b-4506-a8fd-dc3e31905a81"), Category="Sides", Description="5 deep-fried premium handmade dumplings, filled with chunky prawn meat wrapped in thin crispy skin.",DishName="Prawn Mandu",
-      Price=14.5M, RestaurantId=RestaurantSeed.Id }
-      },
-
-      //
-
-      {
-        "Kimchi Fried Rice", new (){Id= new Guid("29585767-ced3-46a6-8f1f-06455c4b1172"), Category="Korean Classics", Description="",DishName="Kimchi Fried Rice",
-      Price=13.5M, RestaurantId=RestaurantSeed.Id }
-      },
-
-
-      {
-        "Kimchi Pancake", new (){Id= new Guid("07a67762-a063-46db-94d1-080237b187a5"), Category="Korean Classics", Description="",DishName="Kimchi Pancake",
-      Price=16, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "Japchae", new (){Id= new Guid("bab92f8b-1fd6-4fbb-9c66-777c49280d54"), Category="Korean Classics", Description="",DishName="Japchae",
-      Price=15.5M, RestaurantId=RestaurantSeed.Id }
-      },
-
-
-      {
-        "Chicken Skewers ", new (){Id= new Guid("75734df5-e59e-4d9e-a224-ed8e4ae67fdd"), Category="Sides", Description="",DishName="Chicken Skewers ",
-      Price=10, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "Chicken Skewer plate", new (){Id= new Guid("d02988c8-bd91-400d-8593-403c285c6dfb"), Category="Sides", Description="",DishName="Chicken Skewer plate",
-      Price=28, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "Potato Heaven", new (){Id= new Guid("f6c1d21b-b9dd-452f-8e14-364f530bf7b8"), Category="Sides", Description="",DishName="Potato Heaven",
-      Price=16.5M, RestaurantId=RestaurantSeed.Id }
-      },
-
-      {
-        "Chicken Burger", new (){Id= new Guid("6e4aaccc-3c0d-4d91-a8e0-10e1a70a24f2"), Category="Sides", Description="",DishName="Chicken Burger",
-      Price=15, RestaurantId=RestaurantSeed.Id }
-      },
-
-  };
-
-
     public static readonly List<ItemLocations> ItemLocationsSeed = [
       new(){
         Id = Guid.NewGuid(),
@@ -141,6 +52,20 @@ namespace RestroFlowAPI.Seeds
         Id = Guid.NewGuid(),
         Name = "Front of House Stock Lists"
       }
+      ];
+
+    public static readonly List<BudgetExpenses> BudgetExpensesSeed = [
+      new (){
+        Id =  Guid.Parse("d9b33212-dc51-4174-8e9d-299858f0ea88"),
+        Name = "Labor",
+        RestaurantId = Guid.Parse("cc0db03e-f425-459f-88ca-26496d389dc1")
+        },
+      new (){
+        Id =  Guid.Parse("a57b3ede-7810-44d9-9f73-04dfa330a971"),
+        Name = "Supplies",
+        RestaurantId = Guid.Parse("cc0db03e-f425-459f-88ca-26496d389dc1")
+        },
+
       ];
 
 
@@ -191,65 +116,16 @@ namespace RestroFlowAPI.Seeds
 
     };
 
-    public readonly static Dictionary<string, PaymentMethods> PaymentMethodSeed = new() {
-      {"Uber Eats",
-        new() {
-          Id = new Guid("a6995138-8ce2-4adb-9804-84b905125a7f"),PaymentName = "Uber Eats", CreatedAt =DateTime.Now, UpdatedAt = DateTime.Now
-        }
-      },
-      {"DoorDash",
-        new() {
-          Id = new Guid("6eff914c-554b-47f2-b77f-a1b652f63337"),PaymentName = "DoorDash", CreatedAt =DateTime.Now, UpdatedAt = DateTime.Now
-        }
-      },
-      {"EFTPOS",
-        new() {
-          Id = new Guid("4fd74864-68d0-44c7-ae4d-548aef790aad"),PaymentName = "EFTPOS", CreatedAt =DateTime.Now, UpdatedAt = DateTime.Now
-        }
-      }
 
-    };
 
     // Seeding Expenses, RestaurantInventory, InventoryAlerts, Budgets, Reviews
 
-    // Sale Table
-    public static List<Sales> SaleSeed() {
-      List<int> QuantitySeed = [20, 15, 2, 16, 18, 1, 10, 16, 11, 12];
-      var SaleData = new List<Sales>();
-      var paymentMethods = PaymentMethodSeed.Values.ToList();
-      var Dishes = RestaurantMenuSeed.Values.ToList();
-
-      int i = 0;
-      int date = 1;
-
-
-      while (i < Dishes.Count * NUMBER_OF_DATASET) {
-        int paymentMethodsRandIdx = new Random().Next(paymentMethods.Count);
-        int QuantityRandIdx = new Random().Next(QuantitySeed.Count);
-        int inboundIdx = i % Dishes.Count;
-
-
-        SaleData.Add(new() {
-          Id = Guid.NewGuid(),
-          RestaurantId = RestaurantSeed.Id,
-          RestaurantMenuId = Dishes[inboundIdx].Id,
-          PaymentMethodId = paymentMethods[paymentMethodsRandIdx].Id,
-          Quantity = QuantitySeed[QuantityRandIdx],
-          TotalAmount = Dishes[inboundIdx].Price * QuantitySeed[QuantityRandIdx],
-          SaleDate = inboundIdx == 0 ? DateTime.Now.AddDays(--date) : DateTime.Now.AddDays(date),
-        });
-
-        i++;
-      }
-
-      return SaleData;
-    }
 
     // Expense Table for 10/11/12/9
     public static List<Expenses> ExpensesSeed() {
       decimal expenseRentAmount = 1500;
       List<decimal> expenseAmounts = [250, 100, 120, 80];
-      string[] expenseTypes = ["Rent", "Supplies", "Labour", "Electrictity", "Internet", "Water"];
+      string[] expenseTypes = ["a57b3ede-7810-44d9-9f73-04dfa330a971", "d9b33212-dc51-4174-8e9d-299858f0ea88"];
       int date = 1;
       int i = 0;
       List<Expenses> ExpenseData = [];
@@ -260,7 +136,7 @@ namespace RestroFlowAPI.Seeds
         ExpenseData.Add(new() {
           Id = Guid.NewGuid(),
           RestaurantId = RestaurantSeed.Id,
-          ExpenseType = expenseTypes[inboundIdx],
+          ExpenseTypeId = Guid.Parse(expenseTypes[inboundIdx]),
           Amount = expenseTypes[inboundIdx] == "Rent" ? expenseRentAmount : expenseAmounts[new Random().Next(expenseAmounts.Count)],
           ExpenseDate = inboundIdx == 0 ? DateTime.Now.AddDays(--date) : DateTime.Now.AddDays(date)
         });
@@ -324,15 +200,15 @@ namespace RestroFlowAPI.Seeds
     public static List<Budgets> BudgetSeed() {
       List<Budgets> budgetData = [];
       int[] amount = [2000, 1000, 400];
-      string[] budgetCategories = ["Supplies", "Labour", "Others"];
+      string[] budgetCategories = ["a57b3ede-7810-44d9-9f73-04dfa330a971", "d9b33212-dc51-4174-8e9d-299858f0ea88"];
 
 
-      for (int i = 0; i < 3; i++) {
+      for (int i = 0; i < 2; i++) {
         budgetData.Add(new() {
           Id = Guid.NewGuid(),
           RestaurantId = RestaurantSeed.Id,
           BudgetAmount = amount[i],
-          BudgetCategory = budgetCategories[i],
+          BudgetCategoryId = Guid.Parse(budgetCategories[i]),
           BudgetStartDate = DateTime.Now.AddDays(-7),
           BudgetEndDate = DateTime.Now,
         });

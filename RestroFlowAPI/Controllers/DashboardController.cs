@@ -16,18 +16,6 @@ namespace RestroFlowAPI.Controllers
       _logger = logger;
     }
 
-    // GET: api/dashboard/sale-summary/short?period= 
-    [HttpGet("sale-summary/short")]
-    [Authorize]
-    public async Task<IActionResult> GetSaleSummaryByShortPeriod([FromQuery] ShortPeriod period) {
-
-      var saleSummary = await _dashBoardRepository.GetSalesSummaryByShortPeriod(period);
-
-      if (saleSummary == null) return NotFound();
-
-      return Ok(new { SaleSummary = saleSummary, Period = period == 0 ? "Daily" : "Weekly" });
-    }
-
     // GET: api/dashboard/expense-summary/short?period=
     [HttpGet("expense-summary/short")]
     [Authorize]

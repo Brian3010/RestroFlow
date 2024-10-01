@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestroFlowAPI.Data;
 
@@ -11,9 +12,11 @@ using RestroFlowAPI.Data;
 namespace RestroFlowAPI.Migrations.RestroFlowDb
 {
     [DbContext(typeof(RestroFlowDbContext))]
-    partial class RestroFlowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241001102300_Initial Commit")]
+    partial class InitialCommit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

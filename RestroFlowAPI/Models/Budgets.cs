@@ -17,12 +17,13 @@ namespace RestroFlowAPI.Models
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 
-    public required string BudgetCategory { get; set; }
 
     // Foreign Key to Restaurants
+    public required Guid BudgetCategoryId { get; set; }
     public Guid RestaurantId { get; set; }
 
     // Navigation Property
     public Restaurants Restaurant { get; set; }
+    public BudgetExpenses BudgetExpenses { get; set; }
   }
 }

@@ -16,21 +16,18 @@ namespace RestroFlowAPI.Data
     public DbSet<Budgets> Budgets { get; set; }
     public DbSet<Expenses> Expenses { get; set; }
     public DbSet<ExpenseReports> ExpenseReports { get; set; }
-    public DbSet<PaymentMethods> PaymentMethods { get; set; }
     public DbSet<InventoryAlerts> InventoryAlerts { get; set; }
     public DbSet<InventoryReports> InventoryReports { get; set; }
     public DbSet<Restaurants> Restaurants { get; set; }
     public DbSet<RestaurantInventories> RestaurantInventories { get; set; }
     public DbSet<RestaurantItems> RestaurantItems { get; set; }
-    public DbSet<RestaurantMenus> RestaurantMenus { get; set; }
     public DbSet<Reviews> Reviews { get; set; }
-    public DbSet<Sales> Sales { get; set; }
-    public DbSet<SaleReports> SaleReports { get; set; }
     public DbSet<StockOrders> StockOrders { get; set; }
     public DbSet<Suppliers> Suppliers { get; set; }
     public DbSet<SupplierInventories> SupplierInventories { get; set; }
     public DbSet<SupplierItems> SupplierItems { get; set; }
     public DbSet<ItemLocations> ItemLocations { get; set; }
+    public DbSet<BudgetExpenses> BudgetExpenses { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
@@ -95,24 +92,6 @@ namespace RestroFlowAPI.Data
           .HasForeignKey(ri => ri.RestaurantId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
-      // Sale
-      modelBuilder.Entity<Sales>()
-          .HasOne(ri => ri.RestaurantMenus)
-          .WithMany()
-          .HasForeignKey(ri => ri.RestaurantMenuId)
-          .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
-
-      modelBuilder.Entity<Sales>()
-          .HasOne(ri => ri.PaymentMethods)
-          .WithMany()
-          .HasForeignKey(ri => ri.PaymentMethodId)
-          .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
-
-      modelBuilder.Entity<Sales>()
-          .HasOne(ri => ri.Restaurant)
-          .WithMany()
-          .HasForeignKey(ri => ri.RestaurantId)
-          .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
 
       // Supplier Inventory
       modelBuilder.Entity<SupplierInventories>()
@@ -126,6 +105,34 @@ namespace RestroFlowAPI.Data
           .WithMany()
           .HasForeignKey(ri => ri.SupplierItemId)
           .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
+
+      // Budget
+      modelBuilder.Entity<Budgets>()
+          .HasOne(ri => ri.BudgetExpenses)
+          .WithMany()
+          .HasForeignKey(ri => ri.BudgetCategoryId)
+          .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
+
+      modelBuilder.Entity<Budgets>()
+         .HasOne(ri => ri.Restaurant)
+         .WithMany()
+         .HasForeignKey(ri => ri.RestaurantId)
+         .OnDelete(DeleteBehavior.NoAction);
+
+      // Expenses
+      modelBuilder.Entity<Expenses>()
+         .HasOne(ri => ri.BudgetExpenses)
+         .WithMany()
+         .HasForeignKey(ri => ri.ExpenseTypeId)
+         .OnDelete(DeleteBehavior.NoAction);  // Set to null on delete
+
+      modelBuilder.Entity<Expenses>()
+         .HasOne(ri => ri.Restaurant)
+         .WithMany()
+         .HasForeignKey(ri => ri.RestaurantId)
+         .OnDelete(DeleteBehavior.NoAction);
+
+
 
 
       // Seed data
