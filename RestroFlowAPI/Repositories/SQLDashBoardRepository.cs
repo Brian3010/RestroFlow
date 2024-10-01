@@ -46,8 +46,12 @@ public class SQLDashBoardRepository : IDashBoardRepository
 
     // Calculate Utilities (Electricity, Internet and Water)
     var utilityTypes = new[] { "Electricity", "Internet", "Water" };
-    var unilityCost = expenseData.Where(e => utilityTypes.Contains(e.ExpenseType))
-      .Sum(e => e.Amount);
+    var utilityExpenses = expenseData.Where(e => utilityTypes.Contains(e.ExpenseType));
+
+    var unilityCost = utilityExpenses.Sum(expense => expense.Amount);
+
+    //var unilityCost = expenseData.Where(e => utilityTypes.Contains(e.ExpenseType))
+    //  .Sum(e => e.Amount);
 
     // Calculate Rent
     var rentCost = expenseData
@@ -57,27 +61,39 @@ public class SQLDashBoardRepository : IDashBoardRepository
     // TODO: Calculate MiscellaneousExpenses
 
     // Calculate Utitlties Expenses
-    var expenseUtilities = new List<UtilExpenseObj?>();
-    foreach (var type in utilityTypes) {
-      var util = expenseData
-      .Where(g => g.ExpenseType == type) // Filter the data by type
-      .GroupBy(g => g.ExpenseType) // Group by ExpenseType
-      .Select(g => new UtilExpenseObj {
+    var GroupUtilExpenses = utilityExpenses
+      .GroupBy(e => e.ExpenseType)
+      .Select(g => new {
         Category = g.Key,
-        TotalExpense = g.Sum(x => x.Amount)
-      }).FirstOrDefault(); // Assuming you want a single result for each type
+        TotalExpense = g.Sum(e => e.Amount)
+      });
 
-      expenseUtilities.Add(util);
-    }
-    _logger.LogInformation("testExpenseCosts = {@expenseUtilities}", expenseUtilities);
+    var highestExpense = GroupUtilExpenses.OrderByDescending(e => e.TotalExpense).FirstOrDefault();
 
-    // Calculate HighestExpenseCategory
-    var highestExpense = expenseUtilities.OrderByDescending(e => e.TotalExpense).FirstOrDefault();
+    var lowestExpense = GroupUtilExpenses.OrderBy(e => e.TotalExpense).FirstOrDefault();
 
 
+    //var expenseUtilities = new List<UtilExpenseObj>();
+    //foreach (var type in utilityTypes) {
+    //  var util = expenseData
+    //  .Where(g => g.ExpenseType == type) // Filter the data by type
+    //  .GroupBy(g => g.ExpenseType) // Group by ExpenseType
+    //  .Select(g => new UtilExpenseObj {
+    //    Category = g.Key,
+    //    TotalExpense = g.Sum(x => x.Amount)
+    //  }).FirstOrDefault(); // Assuming you want a single result for each type
 
-    // Calculate LowestExpenseCategory
-    var lowestExpense = expenseUtilities.OrderBy(e => e.TotalExpense).FirstOrDefault();
+    //  expenseUtilities.Add(util);
+    //}
+    //_logger.LogInformation("testExpenseCosts = {@expenseUtilities}", expenseUtilities);
+
+    //// Calculate HighestExpenseCategory
+    //var highestExpense = expenseUtilities.OrderByDescending(e => e?.TotalExpense ?? null).FirstOrDefault();
+
+
+
+    //// Calculate LowestExpenseCategory
+    //var lowestExpense = expenseUtilities.OrderBy(e => e?.TotalExpense ?? null).FirstOrDefault();
 
 
     return new ExpensesSummaryDto {

@@ -4,7 +4,7 @@ using RestroFlowAPI.Repositories.Interfaces;
 
 namespace RestroFlowAPI.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/dashboard")]
   [ApiController]
   public class DashboardController : ControllerBase
   {
@@ -16,28 +16,28 @@ namespace RestroFlowAPI.Controllers
       _logger = logger;
     }
 
-    // GET: api/dashboard/SaleSummarybyShortPeriod
-    [HttpGet("SaleSummarybyShortPeriod")]
+    // GET: api/dashboard/sale-summary/short?period= 
+    [HttpGet("sale-summary/short")]
     [Authorize]
-    public async Task<IActionResult> GetSaleSummaryByShortPeriod([FromQuery] ShortPeriod ShortPeriod) {
+    public async Task<IActionResult> GetSaleSummaryByShortPeriod([FromQuery] ShortPeriod period) {
 
-      var saleSummary = await _dashBoardRepository.GetSalesSummaryByShortPeriod(ShortPeriod);
+      var saleSummary = await _dashBoardRepository.GetSalesSummaryByShortPeriod(period);
 
       if (saleSummary == null) return NotFound();
 
-      return Ok(new { SaleSummary = saleSummary, Period = ShortPeriod == 0 ? "Daily" : "Weekly" });
+      return Ok(new { SaleSummary = saleSummary, Period = period == 0 ? "Daily" : "Weekly" });
     }
 
-    // GET: api/dashboard/ExpenseSummarybyShortPeriod
-    [HttpGet("ExpenseSummarybyShortPeriod")]
+    // GET: api/dashboard/expense-summary/short?period=
+    [HttpGet("expense-summary/short")]
     [Authorize]
-    public async Task<IActionResult> GetExpenseSummaryByShortPeriod([FromQuery] ShortPeriod ShortPeriod) {
+    public async Task<IActionResult> GetExpenseSummaryByShortPeriod([FromQuery] ShortPeriod period) {
 
-      var expenseSummary = await _dashBoardRepository.GetExpenseSummarybyShortPeriod(ShortPeriod);
+      var expenseSummary = await _dashBoardRepository.GetExpenseSummarybyShortPeriod(period);
 
       if (expenseSummary == null) return NotFound();
 
-      return Ok(new { ExpenseSummary = expenseSummary, Period = ShortPeriod == 0 ? "Daily" : "Weekly" });
+      return Ok(new { ExpenseSummary = expenseSummary, Period = period == 0 ? "Daily" : "Weekly" });
 
     }
 
