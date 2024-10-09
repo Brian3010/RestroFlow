@@ -14,7 +14,7 @@ public class SQLDashBoardRepository : IDashBoardRepository
   }
 
   // TODO: implement this
-  public Task<BudgetAndSpendingDto> GetBudgetAndSpendingWeekly() {
+  public Task<BudgetAndSpendingDto> GetBudgetAndSpending() {
     //var weeklyPeriod = ShortPeriod.Weekly;
     //var (startDate, endDate) = TimePeriodHelper.GetShortPeriodRange(weeklyPeriod); //
     //_logger.LogInformation("startDate = {startDate}\n endData = {endDate}", startDate, endDate);
@@ -27,7 +27,7 @@ public class SQLDashBoardRepository : IDashBoardRepository
     throw new NotImplementedException();
   }
 
-  public Task<ExpensesSummaryDto> GetExpenseSummarybyLongPeriod(LongPeriod period) {
+  public Task<ExpensesSummaryDto?> GetExpenseSummarybyLongPeriod(LongPeriod period) {
     throw new NotImplementedException();
   }
 
@@ -88,10 +88,8 @@ public class SQLDashBoardRepository : IDashBoardRepository
     throw new NotImplementedException();
   }
 
-  public Task<List<OverallReviewsDto>> GetOverallReviews(LongPeriod period) {
+  public Task<OverallReviewsDto?> GetOverallReviewsInMonth() {
     throw new NotImplementedException();
   }
-
-
 
 }
