@@ -43,6 +43,8 @@ public class SQLDashBoardRepository : IDashBoardRepository
     var expenseData = await _dbContext.Expenses.Where(e => e.ExpenseDate.Date >= startDate && e.ExpenseDate.Date <= endDate).OrderBy(e => e.ExpenseDate).ToListAsync();
     _logger.LogInformation("ExpenseData = {@ExpenseData}", expenseData);
 
+    if (expenseData == null || expenseData.Count == 0) return null;
+
     // Calculate Total Expenses
     decimal totalExpenses = expenseData.Sum(e => e.Amount); // ?? Check this by runing this 
 
@@ -58,7 +60,7 @@ public class SQLDashBoardRepository : IDashBoardRepository
       ExpenseName = group.Key,
       TotalAmount = group.Sum(exp => exp.Amount)
     }).OrderBy(e => e.TotalAmount);
-    //_logger.LogInformation("categoryExpenses = {@categoryExpenses}", categoryExpenses);
+    _logger.LogInformation("categoryExpenses = {@categoryExpenses}", categoryExpenses);
 
     var expenseByCategory = categoryExpenses.ToDictionary(
       categoryExpense => categoryExpense.ExpenseName,
@@ -66,18 +68,12 @@ public class SQLDashBoardRepository : IDashBoardRepository
       );
 
 
-    // Calculate HighestExpenseCategory
-    var highestExpenseCategory = categoryExpenses.FirstOrDefault(); // run to test this 
+    return new ExpensesSummaryDto() {
+      TotalExpenses = totalExpenses,
+      ExpenseByCategory = expenseByCategory,
+    };
 
-    // HighestExpenseCategoryCost
-
-    // LowestExpenseCategory
-    var lowestExpenseCategory = categoryExpenses.LastOrDefault(); // run to test this
-
-    // LowestExpenseCategoryCost
-
-
-
+    //throw new NotImplementedException();
 
     /*
     var (startDate, endDate) = TimePeriodHelper.GetShortPeriodRange(period);
@@ -129,7 +125,6 @@ public class SQLDashBoardRepository : IDashBoardRepository
       LowestExpenseCategory = lowestExpense.Category,
       LowestExpenseCategoryCost = lowestExpense.TotalExpense,
     };*/
-    throw new NotImplementedException();
   }
 
   public Task<OverallReviewsDto?> GetOverallReviewsInMonth() {
