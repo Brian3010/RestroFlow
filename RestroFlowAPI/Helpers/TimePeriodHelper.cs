@@ -11,8 +11,8 @@ namespace RestroFlowAPI.Helpers
     /// <param name="period">The time period to calculate for</param>
     /// <returns>A tuple containing the start and end dates</returns>
     public static (DateTime StartDate, DateTime EndDate) GetShortPeriodRange(ShortPeriod period) {
-      DateTime today = DateTime.Now.Date; // Get the current date without time
-      //DateTime today = new DateTime(2024, 9, 26); // Get the current date without time
+      //DateTime today = DateTime.Now.Date; // Get the current date without time
+      DateTime today = new DateTime(2024, 9, 26); // Get the current date without time
       DateTime startDate;
       DateTime endDate = today;
 
