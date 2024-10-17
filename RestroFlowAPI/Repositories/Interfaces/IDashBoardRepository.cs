@@ -4,17 +4,19 @@ namespace RestroFlowAPI.Repositories.Interfaces
 {
 
 
-  public enum ShortPeriod
+  public enum Periods
   {
     Daily,
     Weekly,
-  }
-
-  public enum LongPeriod
-  {
     Monthly,
     Yearly
   }
+
+  //public enum LongPeriod
+  //{
+  //  Monthly,
+  //  Yearly
+  //}
   public interface IDashBoardRepository
   {
     // TODO: Review this again
@@ -29,16 +31,10 @@ namespace RestroFlowAPI.Repositories.Interfaces
     /// <summary>
     /// Using "Expenses" table to calulate expense summary
     /// </summary>
-    /// <param name="period">daily and weekly period</param>
+    /// <param name="period">daily and weekly, Monthly and yearly period</param>
     /// <returns><see cref="ExpensesSummaryDto"/> </returns>
-    Task<ExpensesSummaryDto?> GetExpenseSummarybyShortPeriod(ShortPeriod period);
+    Task<ExpensesSummaryDto?> GetExpenseSummarybyPeriods(Periods period);
 
-    /// <summary>
-    /// Using "ExpenseReports" table for displaying summary. Calculated from "Expenses" table
-    /// </summary>
-    /// <param name="period">Monthly and yearly</param>
-    /// <returns><see cref="ExpensesSummaryDto"/> </returns>
-    Task<ExpensesSummaryDto?> GetExpenseSummarybyLongPeriod(LongPeriod period);
 
 
     /// <summary>

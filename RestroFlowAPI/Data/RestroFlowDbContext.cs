@@ -15,7 +15,7 @@ namespace RestroFlowAPI.Data
     public DbSet<AlertRecipient> AlertRecipients { get; set; }
     public DbSet<Budgets> Budgets { get; set; }
     public DbSet<Expenses> Expenses { get; set; }
-    public DbSet<ExpenseReports> ExpenseReports { get; set; }
+    //public DbSet<ExpenseReports> ExpenseReports { get; set; }
     public DbSet<InventoryAlerts> InventoryAlerts { get; set; }
     public DbSet<InventoryReports> InventoryReports { get; set; }
     public DbSet<Restaurants> Restaurants { get; set; }

@@ -17,17 +17,39 @@ namespace RestroFlowAPI.Controllers
     }
 
     // GET: api/dashboard/expense-summary/short?period=
-    [HttpGet("expense-summary/short")]
+    [HttpGet("expense-summary")]
     [Authorize]
-    public async Task<IActionResult> GetExpenseSummaryByShortPeriod([FromQuery] ShortPeriod period) {
+    public async Task<IActionResult> GetExpenseSummaryByShortPeriod([FromQuery] Periods period) {
+      string requestedPeriod;
+      switch (period) {
+        case Periods.Daily:
+          requestedPeriod = "Daily";
+          break;
+        case Periods.Monthly:
+          requestedPeriod = "Monthly";
+          break;
 
-      var expenseSummary = await _dashBoardRepository.GetExpenseSummarybyShortPeriod(period);
+        case Periods.Weekly:
+          requestedPeriod = "Weekly";
+          break;
+
+        case Periods.Yearly:
+          requestedPeriod = "Yearly";
+          break;
+
+        default:
+          throw new ArgumentException("Invalid time period specified.");
+      }
+
+      var expenseSummary = await _dashBoardRepository.GetExpenseSummarybyPeriods(period);
 
       if (expenseSummary == null) return NotFound();
 
-      return Ok(new { ExpenseSummary = expenseSummary, Period = period == 0 ? "Daily" : "Weekly" });
+      return Ok(new { ExpenseSummary = expenseSummary, Period = requestedPeriod });
 
     }
+
+
 
   }
 }
