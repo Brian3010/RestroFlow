@@ -1,5 +1,7 @@
-﻿using RestroFlowAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using RestroFlowAPI.Data;
 using RestroFlowAPI.DTOs.DashBoardDTOs;
+using RestroFlowAPI.Helpers;
 using RestroFlowAPI.Repositories.Interfaces;
 
 
@@ -14,7 +16,7 @@ public class SQLDashBoardRepository : IDashBoardRepository
   }
 
   // TODO: implement this
-  public Task<BudgetAndSpendingDto> GetBudgetAndSpendingWeekly() {
+  public Task<BudgetAndSpendingDto> GetBudgetAndSpending() {
     //var weeklyPeriod = ShortPeriod.Weekly;
     //var (startDate, endDate) = TimePeriodHelper.GetShortPeriodRange(weeklyPeriod); //
     //_logger.LogInformation("startDate = {startDate}\n endData = {endDate}", startDate, endDate);
@@ -27,71 +29,52 @@ public class SQLDashBoardRepository : IDashBoardRepository
     throw new NotImplementedException();
   }
 
-  public Task<ExpensesSummaryDto> GetExpenseSummarybyLongPeriod(LongPeriod period) {
-    throw new NotImplementedException();
-  }
-
-
-  public async Task<ExpensesSummaryDto?> GetExpenseSummarybyShortPeriod(ShortPeriod period) {
+  public async Task<ExpensesSummaryDto?> GetExpenseSummarybyPeriods(Periods period) {
     _logger.LogInformation("period = {period}", period);
 
-    /*
-    var (startDate, endDate) = TimePeriodHelper.GetShortPeriodRange(period);
+    var (startDate, endDate) = TimePeriodHelper.GetPeriodRange(period);
     _logger.LogInformation("startDate = {startDate}\n endData = {endDate}", startDate, endDate);
 
     var expenseData = await _dbContext.Expenses.Where(e => e.ExpenseDate.Date >= startDate && e.ExpenseDate.Date <= endDate).OrderBy(e => e.ExpenseDate).ToListAsync();
     _logger.LogInformation("ExpenseData = {@ExpenseData}", expenseData);
 
-    if (expenseData.Count == 0) return null;
+    if (expenseData == null || expenseData.Count == 0) return null;
 
-    // Calculate TotalExpense
-    var totalExpense = expenseData.Sum(e => e.Amount);
+    // Calculate Total Expenses
+    decimal totalExpenses = expenseData.Sum(e => e.Amount); // ?? Check this by runing this 
 
-    // Calculate LaborCosts
-    var laborCosts = expenseData.Where(e => e.ExpenseType == "Labour").Sum(e => e.Amount);
+    // Calculate Expense by Category (Dictionary)
+    var expenseTypes = await _dbContext.BudgetExpenses.ToListAsync();
 
-    // Calculate Rent
-    var rentCost = expenseData
-      .Where(e => e.ExpenseType == "Rent")
-      .Sum(e => e.Amount);
+    var categoryExpenses = expenseData.Join(expenseTypes, // joint table
+          expenseData => expenseData.ExpenseTypeId, // foreign key from expenseData
+          expenseTypes => expenseTypes.Id, // primary key from expenseTypes
+          (expenseData, expenseTypes) => new { expenseData.Amount, expenseTypes.Name }) // Join result
+    .GroupBy(exp => exp.Name) // Group by ExpenseName
+    .Select(group => new {
+      ExpenseName = group.Key,
+      TotalAmount = group.Sum(exp => exp.Amount)
+    }).OrderBy(e => e.TotalAmount);
+    _logger.LogInformation("categoryExpenses = {@categoryExpenses}", categoryExpenses);
 
-    // TODO: Calculate MiscellaneousExpenses
+    var expenseByCategory = categoryExpenses.ToDictionary(
+      categoryExpense => categoryExpense.ExpenseName,
+      categoryExpense => categoryExpense.TotalAmount
+      );
 
-    // Calculate Utilities (Electricity, Internet and Water)
-    var utilityTypes = new[] { "Electricity", "Internet", "Water" };
-    var utilityExpenses = expenseData.Where(e => utilityTypes.Contains(e.ExpenseType));
 
-    var unilityCost = utilityExpenses.Sum(expense => expense.Amount);
+    return new ExpensesSummaryDto() {
+      TotalExpenses = totalExpenses,
+      ExpenseByCategory = expenseByCategory,
+    };
 
-    // Calculate Utitlties Expenses
-    var GroupUtilExpenses = utilityExpenses
-      .GroupBy(e => e.ExpenseType)
-      .Select(g => new {
-        Category = g.Key,
-        TotalExpense = g.Sum(e => e.Amount)
-      });
+    //throw new NotImplementedException();
 
-    var highestExpense = GroupUtilExpenses.OrderByDescending(e => e.TotalExpense).FirstOrDefault();
 
-    var lowestExpense = GroupUtilExpenses.OrderBy(e => e.TotalExpense).FirstOrDefault();
-
-    return new ExpensesSummaryDto {
-      TotalExpenses = totalExpense,
-      LaborCosts = laborCosts,
-      Rent = rentCost,
-      Utilities = unilityCost,
-      HighestExpenseCategory = highestExpense.Category,
-      HighestExpenseCategoryCost = highestExpense.TotalExpense,
-      LowestExpenseCategory = lowestExpense.Category,
-      LowestExpenseCategoryCost = lowestExpense.TotalExpense,
-    };*/
-    throw new NotImplementedException();
   }
 
-  public Task<List<OverallReviewsDto>> GetOverallReviews(LongPeriod period) {
+  public Task<OverallReviewsDto?> GetOverallReviewsInMonth() {
     throw new NotImplementedException();
   }
-
-
 
 }
